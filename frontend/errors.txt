@@ -1,0 +1,20 @@
+src/components/Footer.tsx(2,10): error TS2305: Module '"lucide-react"' has no exported member 'Facebook'.
+src/components/Footer.tsx(2,20): error TS2305: Module '"lucide-react"' has no exported member 'Instagram'.
+src/components/Footer.tsx(2,52): error TS6133: 'Mail' is declared but its value is never read.
+src/pages/AboutUs.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/pages/AdminDashboard.tsx(1,38): error TS6133: 'useRef' is declared but its value is never read.
+src/pages/AdminDashboard.tsx(2,76): error TS6133: 'Settings' is declared but its value is never read.
+src/pages/AdminDashboard.tsx(2,86): error TS6133: 'LogOut' is declared but its value is never read.
+src/pages/AdminDashboard.tsx(2,102): error TS6133: 'ShieldAlert' is declared but its value is never read.
+src/pages/AdminDashboard.tsx(2,115): error TS6133: 'ShieldCheck' is declared but its value is never read.
+src/pages/AdminDashboard.tsx(23,12): error TS6133: 'loading' is declared but its value is never read.
+src/pages/AdminDashboard.tsx(41,11): error TS6133: 'logout' is declared but its value is never read.
+src/pages/AdminDashboard.tsx(42,11): error TS6133: 'navigate' is declared but its value is never read.
+src/pages/AuthPage.tsx(8,10): error TS6133: 'useGoogleLogin' is declared but its value is never read.
+src/pages/AuthPage.tsx(38,23): error TS6133: 'data' is declared but its value is never read.
+src/pages/DanceClasses.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/pages/HomePage.tsx(2,42): error TS6133: 'Star' is declared but its value is never read.
+src/pages/InstructorDashboard.tsx(1,8): error TS6133: 'React' is declared but its value is never read.
+src/pages/InstructorDashboard.tsx(2,50): error TS6133: 'LayoutDashboard' is declared but its value is never read.
+src/pages/StudentDashboard.tsx(3,97): error TS6133: 'Download' is declared but its value is never read.
+src/pages/StudentDashboard.tsx(18,12): error TS6133: 'user' is declared but its value is never read.
