@@ -130,7 +130,7 @@ const StudentDashboard = () => {
        return <div className="min-h-screen pt-40 flex items-center justify-center font-bold text-xl text-slate-500 animate-pulse">Syncing Encrypted Student Profile...</div>
    }
 
-   const profileImageUrl = studentData.profileImage ? `http://localhost:5000${studentData.profileImage}` : null;
+   const profileImageUrl = studentData.profileImage ? `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${studentData.profileImage}` : null;
    const watchedVideoSet = new Set(studentData.watchedVideoIds || []);
 
    // Setup structural data safely 
@@ -372,7 +372,7 @@ const StudentDashboard = () => {
                                      <h3 className="text-xl font-black text-slate-800 dark:text-white mb-2 z-10">{cert.title}</h3>
                                      <p className="text-sm font-medium text-slate-500 mb-8 z-10">Issued: {new Date(cert.issuedAt).toLocaleDateString()}</p>
                                      
-                                     <a href={`http://localhost:5000${cert.fileUrl}`} target="_blank" rel="noreferrer" className="mt-auto w-full py-3 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold rounded-xl flex items-center justify-center gap-2 z-10 transition-colors border border-indigo-200">
+                                     <a href={`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${cert.fileUrl}`} target="_blank" rel="noreferrer" className="mt-auto w-full py-3 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold rounded-xl flex items-center justify-center gap-2 z-10 transition-colors border border-indigo-200">
                                         <ExternalLink className="w-5 h-5" /> View Certificate
                                      </a>
                                 </div>

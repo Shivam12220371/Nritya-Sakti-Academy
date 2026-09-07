@@ -124,7 +124,7 @@ const InstructorDashboard = () => {
                 <div className="mb-8 flex flex-col items-center">
                     <div className="relative group w-24 h-24 mb-4">
                         <img 
-                            src={user?.profileImage ? `http://localhost:5000${user.profileImage}` : `https://ui-avatars.com/api/?name=${user?.name || 'Instructor'}&background=random`} 
+                            src={user?.profileImage ? `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${user.profileImage}` : `https://ui-avatars.com/api/?name=${user?.name || 'Instructor'}&background=random`} 
                             alt="Profile" 
                             className="w-full h-full object-cover rounded-full border-4 border-slate-800"
                         />
