@@ -192,6 +192,17 @@ const AdminDashboard = () => {
             fetchDashboardData();
         } catch { toast.error('Failed to create class'); }
     };
+
+    const handleDeleteClass = async (id: string) => {
+        if (window.confirm("PERMANENTLY delete this class and all student enrollments?")) {
+            try {
+                await axios.delete(`/api/admin/classes/${id}`);
+                toast.success("Class deleted successfully");
+                setClasses(classes.filter(c => c._id !== id));
+                fetchDashboardData(); // Reload stats
+            } catch { toast.error('Deletion failed'); }
+        }
+    };
     
     // Video Logic
     const handleCreateVideo = async (e: React.FormEvent) => {
@@ -524,8 +535,13 @@ const AdminDashboard = () => {
                             <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
                                 {classes.length === 0 && <p className="text-slate-500">No classes scheduled yet.</p>}
                                 {classes.map(c => (
-                                    <div key={c._id} className="border border-slate-200 rounded-xl p-4 shadow-sm">
-                                        <h4 className="font-bold text-lg mb-1">{c.title}</h4>
+                                    <div key={c._id} className="border border-slate-200 rounded-xl p-4 shadow-sm relative group">
+                                        <div className="flex justify-between items-start mb-1">
+                                            <h4 className="font-bold text-lg">{c.title}</h4>
+                                            <button onClick={() => handleDeleteClass(c._id)} className="text-red-500 hover:bg-red-50 p-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">
+                                                <Trash2 className="w-4 h-4" />
+                                            </button>
+                                        </div>
                                         <p className="text-sm text-slate-500 mb-3">Instructor: {c.instructor?.name}</p>
                                         <div className="flex justify-between items-center text-sm">
                                             <span className="bg-indigo-50 text-indigo-700 px-2 py-1 rounded font-medium">{c.style}</span>

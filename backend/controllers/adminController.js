@@ -236,6 +236,9 @@ const deleteClass = async (req, res) => {
     const danceClass = await Class.findById(req.params.id);
     if (!danceClass) return res.status(404).json({ message: 'Class not found' });
     
+    // Also delete any existing enrollments for this class so it deletes from student dashboards
+    await Enrollment.deleteMany({ class: req.params.id });
+    
     await Class.findByIdAndDelete(req.params.id);
     res.status(200).json({ message: 'Class permanently deleted' });
   } catch (error) {
