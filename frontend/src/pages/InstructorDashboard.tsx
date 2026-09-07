@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { BookOpen, Users, ClipboardCheck, Video, LogOut, Calendar, Clock, CheckCircle2, User, X, Plus, UploadCloud, Camera } from 'lucide-react';
+import { BookOpen, Users, ClipboardCheck, Video, LogOut, Calendar, Clock, UploadCloud, Camera } from 'lucide-react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';

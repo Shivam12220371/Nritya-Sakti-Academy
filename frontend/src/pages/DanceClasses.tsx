@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Clock, Info, CheckCircle2, ShieldCheck, Sparkle } from 'lucide-react';
-import React from 'react';
+
 
 const DanceClasses = () => {
   return (
