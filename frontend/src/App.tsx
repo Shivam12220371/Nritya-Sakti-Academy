@@ -18,8 +18,15 @@ import AdminDashboard from './pages/AdminDashboard';
 import InstructorDashboard from './pages/InstructorDashboard';
 import AuthPage from './pages/AuthPage';
 import { Toaster } from 'react-hot-toast';
+import { useAuth } from './context/AuthContext';
 
 function App() {
+  const { loading } = useAuth();
+
+  if (loading) {
+    return <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center font-bold text-slate-500">Loading App...</div>;
+  }
+
   return (
     <Router>
       <Toaster position="top-center" />
