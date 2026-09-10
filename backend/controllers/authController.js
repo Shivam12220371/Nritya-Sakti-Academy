@@ -4,7 +4,7 @@ const sendEmail = require('../utils/sendEmail');
 const crypto = require('crypto');
 const { OAuth2Client } = require('google-auth-library');
 
-const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID || 'YOUR_GOOGLE_CLIENT_ID');
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID || '669212026813-r2bk1lh0k1474kole9t35183ndjr4di0.apps.googleusercontent.com');
 
 // @desc    Register a new user
 // @route   POST /api/auth/register
@@ -184,7 +184,7 @@ const googleLogin = async (req, res) => {
   try {
     const ticket = await client.verifyIdToken({
       idToken: credential,
-      audience: process.env.GOOGLE_CLIENT_ID || 'YOUR_GOOGLE_CLIENT_ID',
+      audience: process.env.GOOGLE_CLIENT_ID || '669212026813-r2bk1lh0k1474kole9t35183ndjr4di0.apps.googleusercontent.com',
     });
     
     // Extract info from google token payload
