@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://nritya-sakti-academy-6816.vercel.app/sitemap.xml

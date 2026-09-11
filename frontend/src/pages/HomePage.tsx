@@ -27,7 +27,7 @@ const HomePage = () => {
               ✨ Authentic Indian Classical Training
             </div>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
-              Honoring Tradition. <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">Inspiring Grace.</span>
+              Nritya Shakti Academy <br/><span className="text-4xl md:text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">Honoring Tradition. Inspiring Grace.</span>
             </h1>
             <p className="text-lg md:text-xl text-slate-300 mb-10 max-w-lg mx-auto md:mx-0">
               Immerse yourself in the profound art of Indian classical dance. Learn the perfect postures, express deep emotions, and master intricate rhythms with our esteemed gurus.
