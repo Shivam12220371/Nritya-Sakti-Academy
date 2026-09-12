@@ -23,9 +23,9 @@ const AboutUs = () => {
             
           {/* Image Side */}
           <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2 }}>
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-[6px] border-white dark:border-slate-800 xl:h-[500px]">
-                <img src="/dance1.jpg" alt="Ayushi Dubey - Founder" className="w-full h-full object-cover" />
-                <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/80 to-transparent">
+            <div className="relative group rounded-3xl overflow-hidden shadow-2xl shadow-indigo-500/10 border-[6px] border-white dark:border-slate-800 xl:h-[550px] transition-transform duration-500 hover:scale-[1.02]">
+                <img src="/ayushi.jpg" alt="Ayushi Dubey - Founder" className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent">
                     <p className="text-amber-400 font-bold tracking-widest uppercase text-sm mb-1">Founder & Lead Instructor</p>
                     <h3 className="text-3xl font-bold text-white mb-2">Ayushi Dubey</h3>
                 </div>
