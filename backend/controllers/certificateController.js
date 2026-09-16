@@ -75,8 +75,9 @@ const generateCertificate = async (req, res) => {
     doc.fontSize(12)
       .text(`Certificate ID: ${certificateId}`, 50, 520, { align: 'left' });
 
-    // Generate QR code and add to PDF (pointing directly to the certificate PDF hosted by the backend)
-    const verificationUrl = `${req.protocol}://${req.get('host')}/uploads/certificates/${pdfFilename}`;
+    // Generate QR code and add to PDF (pointing to the frontend verification page)
+    const frontendHost = process.env.FRONTEND_URL || 'http://localhost:5173';
+    const verificationUrl = `${frontendHost}/verify/${certificateId}`;
     let qrDataUrl = await QRCode.toDataURL(verificationUrl);
     // Convert base64 to buffer
     const base64Data = qrDataUrl.replace(/^data:image\/png;base64,/, "");

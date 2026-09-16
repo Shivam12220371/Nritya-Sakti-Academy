@@ -89,6 +89,15 @@ const VerificationPage = () => {
               </div>
 
               <div className="pt-4 border-t border-slate-100 dark:border-slate-700">
+                <div className="mb-4 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-inner bg-slate-100 dark:bg-slate-900 aspect-[1.414]">
+                  <iframe 
+                    src={`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${certData.pdfUrl}#toolbar=0&navpanes=0&scrollbar=0`}
+                    className="w-full h-full"
+                    width="100%"
+                    height="100%"
+                    title="Official Certificate Document"
+                  />
+                </div>
                 <a 
                   href={`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${certData.pdfUrl}`}
                   target="_blank" rel="noreferrer"
