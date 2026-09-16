@@ -158,6 +158,16 @@ const AdminDashboard = () => {
         }
     };
 
+    const handleDeleteCertificate = async (enrollmentId: string) => {
+        if (!window.confirm("Delete the generated certificate? This will allow you to generate a new one.")) return;
+        try {
+            await axios.delete(`/api/certificates/${enrollmentId}`);
+            toast.success(`Certificate deleted. You can generate it again.`);
+        } catch (error: any) {
+            toast.error(error.response?.data?.message || 'Failed to delete certificate');
+        }
+    };
+
     const handleUpdateStudentFee = async (monthlyFee: number, feeStatus: string) => {
         try {
             const { data } = await axios.put(`/api/admin/users/${selectedStudent._id}/fee`, { monthlyFee, feeStatus });
@@ -414,10 +424,15 @@ const AdminDashboard = () => {
                                                 <div className="text-xs text-slate-500">{e.class.schedule[0].day}, {e.class.schedule[0].startTime} - {e.class.schedule[0].endTime}</div>
                                             )}
                                         </div>
-                                        <div className="flex gap-2">
+                                        <div className="flex flex-wrap gap-2">
                                             <button type="button" onClick={()=>handleGenerateCertificate(e._id)} className="text-xs font-bold bg-indigo-100 text-indigo-700 hover:bg-indigo-200 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1">
                                                 <Award className="w-3 h-3" /> Auto-Generate Cert
                                             </button>
+                                            {e.status === 'Completed' && (
+                                                <button type="button" onClick={()=>handleDeleteCertificate(e._id)} className="text-xs font-bold bg-orange-100 text-orange-700 hover:bg-orange-200 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1">
+                                                    Delete Cert
+                                                </button>
+                                            )}
                                             <button type="button" onClick={()=>handleUnenrollStudent(e.class?._id)} className="text-red-500 hover:text-red-700 hover:bg-red-50 p-1.5 rounded-lg transition-colors"><X className="w-4 h-4"/></button>
                                         </div>
                                     </div>

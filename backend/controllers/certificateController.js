@@ -14,7 +14,7 @@ const path = require('path');
 const generateCertificate = async (req, res) => {
   try {
     const { enrollmentId } = req.params;
-    
+
     // Check if enrollment exists
     const enrollment = await Enrollment.findById(enrollmentId).populate('student').populate('class');
     if (!enrollment) {
@@ -44,52 +44,36 @@ const generateCertificate = async (req, res) => {
     const doc = new PDFDocument({
       layout: 'landscape',
       size: 'A4',
+      margins: { top: 0, bottom: 0, left: 0, right: 0 }
     });
 
     const pdfFilename = `certificate-${certificateId}.pdf`;
     const pdfPath = path.join(__dirname, '..', 'uploads', 'certificates', pdfFilename);
     const writeStream = fs.createWriteStream(pdfPath);
-    
+
     doc.pipe(writeStream);
 
-    // simple design
-    doc.rect(0, 0, doc.page.width, doc.page.height).fill('#f8f9fa');
-    
-    // Add inner border
-    doc.rect(20, 20, doc.page.width - 40, doc.page.height - 40).stroke('#2c3e50');
-    
-    doc.fillColor('#e74c3c')
-       .fontSize(45)
-       .text('NRITYA SHAKTI ACADEMY', 0, 70, { align: 'center' });
+    // Apply background template
+    const templatePath = path.join(__dirname, '..', 'assets', 'certificate-template.jpg');
+    doc.image(templatePath, 0, 0, { width: doc.page.width, height: doc.page.height });
 
-    doc.fillColor('#2c3e50')
-       .fontSize(25)
-       .text('CERTIFICATE OF COMPLETION', 0, 130, { align: 'center' });
-       
-    doc.fontSize(16)
-       .text('This certificate is proudly presented to', 0, 180, { align: 'center' });
-
+    // Add student name on the underline 
+    // Estimation for A4: 841.89 x 595.28 points
     doc.fontSize(35)
-       .fillColor('#e74c3c')
-       .text(enrollment.student.name, 0, 220, { align: 'center' });
+      .fillColor('#000000')
+      .text(enrollment.student.name, 0, 315, { align: 'center' });
 
+    // Add Course / Style
     doc.fontSize(16)
-       .fillColor('#2c3e50')
-       .text('for successfully completing the course', 0, 270, { align: 'center' });
-
-    doc.fontSize(25)
-       .fillColor('#34495e')
-       .text(enrollment.class.title, 0, 310, { align: 'center' });
-
-    doc.fontSize(14)
-       .fillColor('#2c3e50')
-       .text(`Dance Style: ${enrollment.class.style}`, 0, 360, { align: 'center' });
+      .fillColor('#333333')
+      .text(`Batch: ${enrollment.class.title} | Style: ${enrollment.class.style}`, 0, 375, { align: 'center' });
 
     const completionDate = new Date().toLocaleDateString();
-    doc.text(`Date of Completion: ${completionDate}`, 0, 385, { align: 'center' });
-
     doc.fontSize(14)
-       .text(`Certificate ID: ${certificateId}`, 50, 480, { align: 'left' });
+      .text(`Date: ${completionDate}`, 0, 405, { align: 'center' });
+
+    doc.fontSize(12)
+      .text(`Certificate ID: ${certificateId}`, 50, 520, { align: 'left' });
 
     // Generate QR code and add to PDF (pointing directly to the certificate PDF hosted by the backend)
     const verificationUrl = `${req.protocol}://${req.get('host')}/uploads/certificates/${pdfFilename}`;
@@ -97,9 +81,9 @@ const generateCertificate = async (req, res) => {
     // Convert base64 to buffer
     const base64Data = qrDataUrl.replace(/^data:image\/png;base64,/, "");
     const imgBuffer = Buffer.from(base64Data, 'base64');
-    
-    doc.image(imgBuffer, 650, 430, { fit: [100, 100], align: 'center', valign: 'center' });
-    
+
+    doc.image(imgBuffer, 660, 430, { fit: [100, 100], align: 'center', valign: 'center' });
+
     doc.end();
 
     writeStream.on('finish', async () => {
@@ -155,7 +139,7 @@ const verifyCertificate = async (req, res) => {
   try {
     const { certificateId } = req.params;
     const cert = await Certificate.findOne({ certificateId }).populate('student').populate('class');
-    
+
     if (!cert) {
       return res.status(404).json({ message: 'Certificate not found' });
     }
@@ -182,8 +166,45 @@ const getStudentCertificates = async (req, res) => {
   }
 };
 
+// @desc    Delete Certificate
+// @route   DELETE /api/certificates/:enrollmentId
+// @access  Private/Admin
+const deleteCertificate = async (req, res) => {
+  try {
+    const { enrollmentId } = req.params;
+    const enrollment = await Enrollment.findById(enrollmentId);
+
+    if (!enrollment) {
+      return res.status(404).json({ message: 'Enrollment not found' });
+    }
+
+    const cert = await Certificate.findOne({ student: enrollment.student, class: enrollment.class });
+    if (!cert) {
+      return res.status(404).json({ message: 'Certificate not found for this enrollment' });
+    }
+
+    // Delete the PDF file if exists
+    if (cert.pdfUrl) {
+      const filename = cert.pdfUrl.split('/').pop();
+      const pdfPath = path.join(__dirname, '..', 'uploads', 'certificates', filename);
+      if (fs.existsSync(pdfPath)) {
+        fs.unlinkSync(pdfPath);
+      }
+    }
+
+    await Certificate.findByIdAndDelete(cert._id);
+
+    // Optionally reset enrollment status if needed, but keeping it Completed allows regenerating
+    res.json({ message: 'Certificate deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
 module.exports = {
   generateCertificate,
   verifyCertificate,
-  getStudentCertificates
+  getStudentCertificates,
+  deleteCertificate
 };
