@@ -148,6 +148,16 @@ const AdminDashboard = () => {
         }
     };
 
+    const handleGenerateCertificate = async (enrollmentId: string) => {
+        try {
+            const { data } = await axios.post(`/api/certificates/generate/${enrollmentId}`);
+            toast.success(`Generated Auth Certificate (${data.certificateId})! It is now in their dashboard.`);
+            setStudentEnrollments(studentEnrollments.map(e => e._id === enrollmentId ? {...e, status: 'Completed'} : e));
+        } catch (error: any) {
+            toast.error(error.response?.data?.message || 'Failed to auto-generate certificate');
+        }
+    };
+
     const handleUpdateStudentFee = async (monthlyFee: number, feeStatus: string) => {
         try {
             const { data } = await axios.put(`/api/admin/users/${selectedStudent._id}/fee`, { monthlyFee, feeStatus });
@@ -394,14 +404,22 @@ const AdminDashboard = () => {
                             <div className="space-y-2">
                                 {studentEnrollments.length === 0 && <p className="text-sm text-slate-500 italic">No assigned classes.</p>}
                                 {studentEnrollments.map((e) => (
-                                    <div key={e._id} className="flex justify-between items-center bg-white dark:bg-slate-900 p-3 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm">
+                                    <div key={e._id} className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white dark:bg-slate-900 p-3 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm gap-2">
                                         <div>
-                                            <div className="text-sm font-bold text-slate-800 dark:text-slate-100">{e.class?.title}</div>
+                                            <div className="text-sm font-bold text-slate-800 dark:text-slate-100">
+                                                {e.class?.title}
+                                                {e.status === 'Completed' && <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-bold">Completed</span>}
+                                            </div>
                                             {e.class?.schedule?.length > 0 && (
                                                 <div className="text-xs text-slate-500">{e.class.schedule[0].day}, {e.class.schedule[0].startTime} - {e.class.schedule[0].endTime}</div>
                                             )}
                                         </div>
-                                        <button type="button" onClick={()=>handleUnenrollStudent(e.class?._id)} className="text-red-500 hover:text-red-700 hover:bg-red-50 p-2 rounded-lg transition-colors"><X className="w-4 h-4"/></button>
+                                        <div className="flex gap-2">
+                                            <button type="button" onClick={()=>handleGenerateCertificate(e._id)} className="text-xs font-bold bg-indigo-100 text-indigo-700 hover:bg-indigo-200 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1">
+                                                <Award className="w-3 h-3" /> Auto-Generate Cert
+                                            </button>
+                                            <button type="button" onClick={()=>handleUnenrollStudent(e.class?._id)} className="text-red-500 hover:text-red-700 hover:bg-red-50 p-1.5 rounded-lg transition-colors"><X className="w-4 h-4"/></button>
+                                        </div>
                                     </div>
                                 ))}
                             </div>

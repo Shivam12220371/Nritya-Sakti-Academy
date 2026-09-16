@@ -20,6 +20,7 @@ const StudentDashboard = () => {
    const [studentData, setStudentData] = useState<any>(null);
    const [classes, setClasses] = useState<any[]>([]);
    const [videos, setVideos] = useState<any[]>([]);
+   const [myCertificates, setMyCertificates] = useState<any[]>([]);
    
    const [uploading, setUploading] = useState(false);
    const [transactionId, setTransactionId] = useState('');
@@ -44,6 +45,13 @@ const StudentDashboard = () => {
 
          const { data: videoData } = await axios.get('/api/users/videos');
          setVideos(videoData);
+
+         try {
+           const { data: certData } = await axios.get('/api/certificates/my-certificates');
+           setMyCertificates(certData);
+         } catch(e) {
+           console.error("Error fetching certificates", e);
+         }
 
       } catch (error: any) {
          if (error.response?.status !== 401) {
@@ -353,26 +361,26 @@ const StudentDashboard = () => {
                     <p className="text-slate-500 mb-8 font-medium">Download digital copies of your certified accomplishments.</p>
                     
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {(!studentData.certificateFiles || studentData.certificateFiles.length === 0) && (
+                        {myCertificates.length === 0 && (
                             <div className="col-span-full py-20 border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-3xl flex flex-col items-center justify-center">
                                 <Award className="w-16 h-16 text-slate-300 mb-4" />
                                 <h3 className="text-xl font-bold text-slate-400">No Certificates Yet</h3>
                                 <p className="text-slate-500 mt-2">Complete courses and masterclasses to earn official certificates.</p>
                             </div>
                         )}
-                        {studentData.certificateFiles?.map((cert: any, i: number) => (
+                        {myCertificates.map((cert: any, i: number) => (
                             <div key={i} className="bg-gradient-to-br from-indigo-900 to-slate-900 p-1 rounded-2xl shadow-xl">
                                 <div className="bg-white dark:bg-slate-950 rounded-xl p-8 h-full flex flex-col items-center text-center relative overflow-hidden">
-                                     {/* Background Graphic */}
                                      <Award className="absolute -right-6 -bottom-6 w-32 h-32 text-slate-100 dark:text-slate-900 z-0" />
                                      
                                      <div className="w-16 h-16 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mb-6 z-10 shadow-inner ring-4 ring-amber-50">
                                          <Award className="w-8 h-8" />
                                      </div>
-                                     <h3 className="text-xl font-black text-slate-800 dark:text-white mb-2 z-10">{cert.title}</h3>
-                                     <p className="text-sm font-medium text-slate-500 mb-8 z-10">Issued: {new Date(cert.issuedAt).toLocaleDateString()}</p>
+                                     <h3 className="text-xl font-black text-slate-800 dark:text-white mb-2 z-10">{cert.class?.title || "Dance Course"}</h3>
+                                     <p className="text-sm font-medium text-slate-500 mb-2 z-10">Issued: {new Date(cert.dateIssued).toLocaleDateString()}</p>
+                                     <p className="text-xs font-mono text-slate-500 mb-8 z-10 font-bold bg-slate-100 px-2 py-1 rounded">{cert.certificateId}</p>
                                      
-                                     <a href={`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${cert.fileUrl}`} target="_blank" rel="noreferrer" className="mt-auto w-full py-3 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold rounded-xl flex items-center justify-center gap-2 z-10 transition-colors border border-indigo-200">
+                                     <a href={`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${cert.pdfUrl}`} target="_blank" rel="noreferrer" className="mt-auto w-full py-3 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold rounded-xl flex items-center justify-center gap-2 z-10 transition-colors border border-indigo-200">
                                         <ExternalLink className="w-5 h-5" /> View Certificate
                                      </a>
                                 </div>

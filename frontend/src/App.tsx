@@ -17,6 +17,7 @@ import StudentDashboard from './pages/StudentDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import InstructorDashboard from './pages/InstructorDashboard';
 import AuthPage from './pages/AuthPage';
+import VerificationPage from './pages/VerificationPage';
 import { Toaster } from 'react-hot-toast';
 import { useAuth } from './context/AuthContext';
 
@@ -40,6 +41,7 @@ function App() {
           <Route path="/classes" element={<DanceClasses />} />
           <Route path="/login" element={<AuthPage />} />
           <Route path="/register" element={<AuthPage />} />
+          <Route path="/verify/:certificateId" element={<VerificationPage />} />
 
           {/* Protected Routes (Dashboard) */}
           <Route path="/student/*" element={<StudentDashboard />} />
