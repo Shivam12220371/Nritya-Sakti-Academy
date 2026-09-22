@@ -3,6 +3,7 @@ const Video = require('../models/Video');
 const path = require('path');
 const fs = require('fs');
 const Enrollment = require('../models/Enrollment');
+const Attendance = require('../models/Attendance');
 const sendEmail = require('../utils/sendEmail');
 
 // @desc    Upload & Set user profile image
@@ -133,10 +134,23 @@ const processFeePayment = async (req, res) => {
   }
 };
 
+const getStudentAttendance = async (req, res) => {
+  try {
+    const attendance = await Attendance.find({ student: req.user._id })
+      .populate('class', 'title schedule')
+      .sort({ date: -1 });
+
+    res.status(200).json(attendance);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   uploadProfileImage,
   markVideoWatched,
   getStudentVideos,
   getStudentClasses,
-  processFeePayment
+  processFeePayment,
+  getStudentAttendance
 };

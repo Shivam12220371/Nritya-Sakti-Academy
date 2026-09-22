@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { User, Calendar, Video, Award, LogOut, CheckCircle2, Camera, Clock, PlayCircle, ExternalLink, IndianRupee, QrCode } from 'lucide-react';
+import { User, Calendar, Video, Award, LogOut, CheckCircle2, Camera, Clock, PlayCircle, ExternalLink, IndianRupee, QrCode, X } from 'lucide-react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
@@ -21,6 +21,9 @@ const StudentDashboard = () => {
    const [classes, setClasses] = useState<any[]>([]);
    const [videos, setVideos] = useState<any[]>([]);
    const [myCertificates, setMyCertificates] = useState<any[]>([]);
+   
+   const [attendanceHistory, setAttendanceHistory] = useState<any[]>([]);
+   const [showAttendanceModal, setShowAttendanceModal] = useState(false);
    
    const [uploading, setUploading] = useState(false);
    const [transactionId, setTransactionId] = useState('');
@@ -134,6 +137,16 @@ const StudentDashboard = () => {
        }
    };
 
+   const handleViewAttendance = async () => {
+       try {
+           const { data } = await axios.get('/api/users/attendance');
+           setAttendanceHistory(data);
+           setShowAttendanceModal(true);
+       } catch (error: any) {
+           toast.error(error.response?.data?.message || "Failed to load detailed logs");
+       }
+   };
+
    if (!studentData) {
        return <div className="min-h-screen pt-40 flex items-center justify-center font-bold text-xl text-slate-500 animate-pulse">Syncing Encrypted Student Profile...</div>
    }
@@ -229,15 +242,27 @@ const StudentDashboard = () => {
                         { label: 'Classes Completed', value: studentData.classesCompleted || 0, icon: CheckCircle2 },
                         { label: 'Videos Watched', value: studentData.videosWatched || 0, icon: Video },
                         { label: 'Certificates', value: studentData.certificates || 0, icon: Award },
-                     ].map((stat, i) => (
-                        <div key={i} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)]">
-                           <div className="flex items-center gap-3 mb-3 text-slate-400">
-                               <stat.icon className="w-5 h-5" />
+                     ].map((stat, i) => {
+                        const isAttendance = stat.label === 'Attendance';
+                        return (
+                        <div 
+                            key={i} 
+                            onClick={isAttendance ? handleViewAttendance : undefined}
+                            className={`bg-white dark:bg-slate-900 border p-6 rounded-2xl shadow-[0_2px_10px_-3px_rgba(6,81,237,0.1)] transition-all ${isAttendance ? 'cursor-pointer hover:border-indigo-500 hover:shadow-lg border-indigo-100 dark:border-indigo-900/50 group relative overflow-hidden' : 'border-slate-200 dark:border-slate-800'}`}
+                        >
+                           <div className="flex items-center gap-3 mb-3 text-slate-400 relative z-10">
+                               <stat.icon className={`w-5 h-5 ${isAttendance ? 'text-indigo-500' : ''}`} />
                                <p className="text-xs font-bold uppercase tracking-wider">{stat.label}</p>
                            </div>
-                           <p className="text-4xl font-black text-slate-800 dark:text-slate-100">{stat.value}</p>
+                           <p className="text-4xl font-black text-slate-800 dark:text-slate-100 relative z-10">{stat.value}</p>
+                           
+                           {isAttendance && (
+                               <div className="absolute inset-0 bg-indigo-50/50 dark:bg-indigo-900/10 opacity-0 group-hover:opacity-100 transition-opacity z-0 flex items-end justify-end p-4">
+                                   <span className="text-xs font-bold text-indigo-600 bg-white/80 dark:bg-slate-800 px-2 py-1 rounded">View History</span>
+                               </div>
+                           )}
                         </div>
-                     ))}
+                     )})}
                   </div>
 
                   {/* Progress Section */}
@@ -490,6 +515,61 @@ const StudentDashboard = () => {
                 </motion.div>
             )}
          </main>
+         
+         {showAttendanceModal && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+                <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl border border-slate-200 dark:border-slate-800 max-h-[85vh] flex flex-col">
+                    <div className="flex justify-between items-center mb-6 pb-4 border-b border-slate-100 dark:border-slate-800 shrink-0">
+                        <div>
+                            <h2 className="text-2xl font-black flex items-center gap-2"><Calendar className="text-indigo-600" /> Detailed Attendance Log</h2>
+                            <p className="text-sm font-medium text-slate-500 mt-1">Certified records signed by instructors.</p>
+                        </div>
+                        <button onClick={() => setShowAttendanceModal(false)} className="text-slate-400 hover:text-red-500 bg-slate-50 hover:bg-red-50 p-2 rounded-full transition-colors"><X className="w-6 h-6" /></button>
+                    </div>
+                    
+                    <div className="flex-1 overflow-y-auto space-y-3 pr-2 custom-scrollbar">
+                        {attendanceHistory.length === 0 ? (
+                            <div className="text-center py-10">
+                                <Calendar className="w-12 h-12 text-slate-300 mx-auto mb-3" />
+                                <p className="text-slate-500 font-medium">No recorded attendance logs found yet.</p>
+                            </div>
+                        ) : (
+                            attendanceHistory.map((record) => {
+                                const recordDate = new Date(record.date);
+                                const dayStr = recordDate.toLocaleDateString('en-US', { weekday: 'long' });
+                                const dateStr = recordDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                                
+                                // Attempt to find matching slot in class schedule based on day
+                                const slot = record.class?.schedule?.find((s: any) => s.day === dayStr);
+                                
+                                return (
+                                    <div key={record._id} className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                        <div>
+                                            <div className="flex items-center gap-2 mb-1">
+                                                <span className="text-sm font-black text-slate-800 dark:text-slate-200">{dateStr}</span>
+                                                <span className="text-xs bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded font-bold">{dayStr}</span>
+                                            </div>
+                                            <p className="text-sm font-bold text-indigo-600 dark:text-indigo-400">{record.class?.title || 'Unknown Class'}</p>
+                                        </div>
+                                        <div className="flex items-center justify-between sm:justify-end flex-1 gap-4">
+                                            {slot && (
+                                                <div className="text-right text-xs font-bold text-slate-500 flex flex-col items-end">
+                                                    <span className="uppercase tracking-widest text-[10px]">Slot</span>
+                                                    <span className="flex items-center gap-1"><Clock className="w-3 h-3"/> {slot.startTime} - {slot.endTime}</span>
+                                                </div>
+                                            )}
+                                            <span className={`px-3 py-1 rounded-lg text-xs font-bold w-20 text-center ${record.status === 'Present' ? 'bg-green-100 text-green-700 border border-green-200' : record.status === 'Absent' ? 'bg-red-100 text-red-700 border border-red-200' : 'bg-amber-100 text-amber-700 border border-amber-200'}`}>
+                                                {record.status}
+                                            </span>
+                                        </div>
+                                    </div>
+                                );
+                            })
+                        )}
+                    </div>
+                </div>
+            </div>
+         )}
       </div>
    );
 };

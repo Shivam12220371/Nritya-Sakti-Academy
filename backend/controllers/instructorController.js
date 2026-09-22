@@ -21,8 +21,12 @@ const getInstructorClasses = async (req, res) => {
 // @access  Private/Instructor
 const getInstructorStudents = async (req, res) => {
   try {
-    // 1. Get all classes for this instructor
-    const classes = await Class.find({ instructor: req.user._id }).select('_id title');
+    // 1. Get classes
+    let classQuery = {};
+    if (req.user.role === 'instructor') {
+        classQuery.instructor = req.user._id;
+    }
+    const classes = await Class.find(classQuery).select('_id title');
     const classIds = classes.map(c => c._id);
     
     // 2. Find enrollments for these classes
@@ -58,8 +62,11 @@ const markAttendance = async (req, res) => {
     const { classId, date, studentsData } = req.body;
     // studentsData should be: [{ student: id, status: 'Present'|'Absent' }]
     
-    // Make sure instructor teaches this class
-    const danceClass = await Class.findOne({ _id: classId, instructor: req.user._id });
+    let classQuery = { _id: classId };
+    if (req.user.role === 'instructor') {
+        classQuery.instructor = req.user._id;
+    }
+    const danceClass = await Class.findOne(classQuery);
     if (!danceClass) return res.status(403).json({ message: 'Not authorized for this class' });
 
     for (const record of studentsData) {

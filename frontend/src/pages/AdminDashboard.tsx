@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Users, GraduationCap, CalendarDays, IndianRupee, LayoutDashboard, Trash2, Plus, X, Edit, Video as VideoIcon, Award, FileUp, Camera } from 'lucide-react';
+import { Users, GraduationCap, CalendarDays, IndianRupee, LayoutDashboard, Trash2, Plus, X, Edit, Video as VideoIcon, Award, FileUp, Camera, ClipboardCheck } from 'lucide-react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
@@ -52,6 +52,12 @@ const AdminDashboard = () => {
     const [studentEnrollments, setStudentEnrollments] = useState<any[]>([]);
     const [selectedEnrollClass, setSelectedEnrollClass] = useState('');
 
+    // Attendance States
+    const [attendanceMap, setAttendanceMap] = useState<any[]>([]);
+    const [attendanceDate, setAttendanceDate] = useState(new Date().toISOString().split('T')[0]);
+    const [selectedAttendanceClass, setSelectedAttendanceClass] = useState('');
+    const [attendanceRecord, setAttendanceRecord] = useState<{ [key: string]: 'Present' | 'Absent' }>({});
+
     const fetchDashboardData = useCallback(async () => {
         setLoading(true);
         try {
@@ -59,11 +65,16 @@ const AdminDashboard = () => {
                 const { data } = await axios.get('/api/admin/stats');
                 setStats(data);
             }
-            if (['overview', 'students', 'instructors', 'classes'].includes(activeTab)) {
+            if (['overview', 'students', 'instructors', 'classes', 'attendance'].includes(activeTab)) {
                 const { data: usersData } = await axios.get('/api/admin/users');
                 setUsers(usersData);
                 const { data: classData } = await axios.get('/api/admin/classes');
                 setClasses(classData);
+                if (classData.length > 0 && !selectedAttendanceClass) setSelectedAttendanceClass(classData[0]._id);
+            }
+            if (activeTab === 'attendance') {
+                const { data: studentsMap } = await axios.get('/api/instructor/students');
+                setAttendanceMap(studentsMap);
             }
             if (activeTab === 'videos') {
                 const { data: vids } = await axios.get('/api/admin/videos');
@@ -231,6 +242,26 @@ const AdminDashboard = () => {
         }
     };
     
+    // Attendance Logic
+    const submitAttendance = async () => {
+        if (!selectedAttendanceClass) return toast.error("Select a class");
+        if (Object.keys(attendanceRecord).length === 0) return toast.error("No attendance marked");
+
+        try {
+            const studentsData = Object.entries(attendanceRecord).map(([studentId, status]) => ({
+                student: studentId, status
+            }));
+            await axios.post('/api/instructor/attendance', {
+                classId: selectedAttendanceClass,
+                date: attendanceDate,
+                studentsData
+            });
+            toast.success("Attendance successfully recorded!");
+        } catch (error: any) {
+            toast.error(error.response?.data?.message || "Failed to mark attendance");
+        }
+    };
+
     // Video Logic
     const handleCreateVideo = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -535,6 +566,7 @@ const AdminDashboard = () => {
                         { id: 'students', icon: Users, label: 'Student Users' },
                         { id: 'instructors', icon: GraduationCap, label: 'Instructors' },
                         { id: 'classes', icon: CalendarDays, label: 'Class Scheduler' },
+                        { id: 'attendance', icon: ClipboardCheck, label: 'Mark Attendance' },
                         { id: 'videos', icon: VideoIcon, label: 'Academy Media' },
                     ].map((item) => (
                         <button key={item.id} onClick={() => setActiveTab(item.id)} className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl ${activeTab === item.id ? 'bg-indigo-600 text-white' : 'hover:bg-slate-800'}`}>
@@ -587,6 +619,50 @@ const AdminDashboard = () => {
                                         </div>
                                     </div>
                                 ))}
+                            </div>
+                        </div>
+                    )}
+                    
+                    {activeTab === 'attendance' && (
+                        <div>
+                            <h3 className="text-2xl font-bold mb-6">Omni Attendance Tracker</h3>
+                            <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 border shadow-sm">
+                                <div className="flex flex-col md:flex-row gap-4 mb-8 pb-8 border-b">
+                                    <div className="flex-1">
+                                        <label className="block text-sm font-bold text-slate-500 mb-2">Select Class Register</label>
+                                        <select value={selectedAttendanceClass} onChange={e => setSelectedAttendanceClass(e.target.value)} className="w-full p-3 border rounded-xl bg-slate-50 outline-none font-medium">
+                                            {classes.map(c => <option key={c._id} value={c._id}>{c.title} (Inst: {c.instructor?.name?.split(' ')[0]})</option>)}
+                                        </select>
+                                    </div>
+                                    <div className="flex-1">
+                                        <label className="block text-sm font-bold text-slate-500 mb-2">Record Date</label>
+                                        <input type="date" value={attendanceDate} onChange={e => setAttendanceDate(e.target.value)} className="w-full p-3 border rounded-xl bg-slate-50 outline-none font-medium" />
+                                    </div>
+                                </div>
+
+                                <div className="space-y-3">
+                                    {attendanceMap.filter(s => s.enrolledIn.some((c:any) => c._id === selectedAttendanceClass)).length === 0 && (
+                                        <div className="py-8 text-center text-slate-500 border-2 border-dashed rounded-xl">No students enrolled in this class yet.</div>
+                                    )}
+                                    {attendanceMap.filter(s => s.enrolledIn.some((c:any) => c._id === selectedAttendanceClass)).map(student => (
+                                        <div key={student._id} className="flex justify-between items-center p-4 border rounded-xl hover:bg-slate-50 transition-colors">
+                                            <span className="font-bold flex items-center gap-2"><div className="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm">{student.name.charAt(0)}</div> {student.name}</span>
+                                            <div className="flex gap-2">
+                                                <button 
+                                                    onClick={() => setAttendanceRecord({...attendanceRecord, [student._id]: 'Present'})}
+                                                    className={`px-4 py-2 rounded-lg font-bold text-sm transition-colors ${attendanceRecord[student._id] === 'Present' ? 'bg-green-500 text-white shadow-md' : 'bg-slate-100 text-slate-500 hover:bg-green-100'}`}
+                                                >Present</button>
+                                                <button 
+                                                    onClick={() => setAttendanceRecord({...attendanceRecord, [student._id]: 'Absent'})}
+                                                    className={`px-4 py-2 rounded-lg font-bold text-sm transition-colors ${attendanceRecord[student._id] === 'Absent' ? 'bg-red-500 text-white shadow-md' : 'bg-slate-100 text-slate-500 hover:bg-red-100'}`}
+                                                >Absent</button>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                                <button onClick={submitAttendance} className="mt-8 w-full bg-slate-900 border border-slate-700 hover:bg-slate-800 text-white font-bold py-4 rounded-xl shadow-lg transition-colors">
+                                    Lock Internal Attendance Record
+                                </button>
                             </div>
                         </div>
                     )}
