@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Play, CheckCircle2, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import DanceProgramsCarousel from '../components/DanceProgramsCarousel';
+import PrideStudents from '../components/PrideStudents';
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -179,6 +180,9 @@ const HomePage = () => {
             </div>
          </div>
       </section>
+
+      {/* Pride Students */}
+      <PrideStudents />
 
       {/* Founder Section */}
       <section className="py-24 bg-slate-50 dark:bg-slate-950">
