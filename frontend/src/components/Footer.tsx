@@ -73,7 +73,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-slate-800 text-center text-sm font-medium flex flex-col md:flex-row justify-between items-center text-slate-500">
           <p>&copy; {new Date().getFullYear()} Nritya Shakti Academy. All Rights Reserved.</p>
-          <p className="mt-2 md:mt-0">Designed by Shivam Bhardwaj</p>
+          <p className="mt-2 md:mt-0">Designed by Er.Shivam Bhardwaj</p>
         </div>
       </div>
     </footer>

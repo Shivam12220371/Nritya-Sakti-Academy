@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Play, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, Play, CheckCircle2, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const fadeIn = {
@@ -32,13 +32,21 @@ const HomePage = () => {
             <p className="text-lg md:text-xl text-slate-300 mb-10 max-w-lg mx-auto md:mx-0">
               Immerse yourself in the profound art of Indian classical dance. Learn the perfect postures, express deep emotions, and master intricate rhythms with our esteemed gurus.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start flex-wrap">
               <Link to="/login" className="bg-amber-500 hover:bg-amber-400 text-slate-900 px-8 py-4 rounded-full font-bold text-lg transition-all shadow-[0_0_20px_rgba(245,158,11,0.4)] flex items-center justify-center gap-2">
                 Join the Academy <ArrowRight className="w-5 h-5" />
               </Link>
               <Link to="/classes" className="bg-white/10 hover:bg-white/20 border border-white/20 text-white px-8 py-4 rounded-full font-bold text-lg transition-all flex items-center justify-center gap-2">
                 Explore Classes
               </Link>
+              <a 
+                href="https://wa.me/916203053876" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="bg-green-600 hover:bg-green-500 text-white px-8 py-4 rounded-full font-bold text-lg transition-all shadow-[0_0_20px_rgba(22,163,74,0.4)] flex items-center justify-center gap-2"
+              >
+                <MessageCircle className="w-5 h-5" /> Talk to our Team
+              </a>
             </div>
           </motion.div>
 
