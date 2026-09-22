@@ -38,7 +38,7 @@ const AdminDashboard = () => {
     // Form States
     const [newClass, setNewClass] = useState({
         title: '', instructor: '', style: 'Bollywood', level: 'Beginner', capacity: 20,
-        scheduleDay: 'Monday', scheduleStart: '18:00', scheduleEnd: '19:00'
+        scheduleStart: '18:00', scheduleEnd: '19:00'
     });
     const [newVideo, setNewVideo] = useState({
         title: '', description: '', url: '', category: 'Full Class', duration: 30
@@ -202,9 +202,16 @@ const AdminDashboard = () => {
     const handleCreateClass = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
+            const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+            const schedule = weekdays.map(day => ({
+                day,
+                startTime: newClass.scheduleStart,
+                endTime: newClass.scheduleEnd
+            }));
+            
             const payload = {
                 title: newClass.title, instructor: newClass.instructor, style: newClass.style, level: newClass.level, capacity: newClass.capacity,
-                schedule: [{ day: newClass.scheduleDay, startTime: newClass.scheduleStart, endTime: newClass.scheduleEnd }]
+                schedule 
             };
             await axios.post('/api/admin/classes', payload);
             toast.success("Dance Class created!");
@@ -357,13 +364,11 @@ const AdminDashboard = () => {
                                     <option>Advanced</option>
                                 </select>
                             </div>
-                            <div className="grid grid-cols-3 gap-4">
-                                <select value={newClass.scheduleDay} onChange={e => setNewClass({...newClass, scheduleDay: e.target.value})} className="w-full p-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl outline-none">
-                                    {['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'].map(d=><option key={d} value={d}>{d}</option>)}
-                                </select>
-                                <input required type="time" value={newClass.scheduleStart} onChange={e => setNewClass({...newClass, scheduleStart: e.target.value})} className="w-full p-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl outline-none" />
-                                <input required type="time" value={newClass.scheduleEnd} onChange={e => setNewClass({...newClass, scheduleEnd: e.target.value})} className="w-full p-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl outline-none" />
+                            <div className="grid grid-cols-2 gap-4">
+                                <input required type="time" title="Start Time" value={newClass.scheduleStart} onChange={e => setNewClass({...newClass, scheduleStart: e.target.value})} className="w-full p-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl outline-none" />
+                                <input required type="time" title="End Time" value={newClass.scheduleEnd} onChange={e => setNewClass({...newClass, scheduleEnd: e.target.value})} className="w-full p-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl outline-none" />
                             </div>
+                            <p className="text-xs text-slate-500 font-bold mb-2">* This class will automatically be scheduled every weekday (Mon-Fri) at these times.</p>
                             <input required type="number" placeholder="Capacity" value={newClass.capacity} onChange={e => setNewClass({...newClass, capacity: parseInt(e.target.value)})} className="w-full p-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl outline-none" />
                             <button type="submit" className="w-full mt-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl shadow-lg">Create Class</button>
                         </form>

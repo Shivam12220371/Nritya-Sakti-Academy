@@ -215,8 +215,10 @@ const StudentDashboard = () => {
                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="max-w-4xl mx-auto space-y-8">
                   <div className="flex justify-between items-end mb-8">
                      <div>
-                        <h1 className="text-3xl font-black mb-2 tracking-tight text-slate-800 dark:text-white">Dancer Intelligence Portfolio</h1>
-                        <p className="text-slate-500 dark:text-slate-400 font-medium">Metrics actively synced with Administrator assessments.</p>
+                        <h1 className="text-3xl font-black mb-2 tracking-tight text-slate-800 dark:text-white">
+                           Welcome, <span className="text-indigo-600 dark:text-indigo-400">{studentData.name.split(' ')[0]}</span>!
+                        </h1>
+                        <p className="text-slate-500 dark:text-slate-400 font-medium">Track your personal growth, attendance, and achievements.</p>
                      </div>
                   </div>
 
@@ -270,35 +272,55 @@ const StudentDashboard = () => {
                </motion.div>
             )}
 
-            {activeTab === 'timetable' && (
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="max-w-6xl mx-auto space-y-6">
-                    <h2 className="text-3xl font-black text-slate-800 dark:text-white mb-6">Class Schedule</h2>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {classes.length === 0 && <p className="text-slate-500 font-medium">No classes are currently scheduled.</p>}
-                        {classes.map(cls => (
-                            <div key={cls._id} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 hover:shadow-xl transition-all group">
-                                <div className="flex justify-between items-start mb-4">
-                                    <span className="bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-sm border border-indigo-100">{cls.style}</span>
-                                    <span className={`font-bold text-xs px-2 py-1 rounded ${cls.level === 'Beginner' ? 'bg-green-100 text-green-700' : cls.level === 'Intermediate' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'}`}>{cls.level}</span>
+            {activeTab === 'timetable' && (() => {
+                const currentDay = new Date().toLocaleDateString('en-US', { weekday: 'long' });
+                const todayClasses = classes.filter(cls => 
+                    cls.schedule?.some((s: any) => s.day === currentDay)
+                );
+                const isWeekend = currentDay === 'Saturday' || currentDay === 'Sunday';
+
+                return (
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="max-w-6xl mx-auto space-y-6">
+                        <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
+                            <h2 className="text-3xl font-black text-slate-800 dark:text-white">Class Schedule for {currentDay}</h2>
+                        </div>
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {isWeekend ? (
+                                <div className="col-span-full py-16 text-center border-2 border-dashed border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 rounded-3xl">
+                                    <p className="text-xl text-slate-500 font-bold mb-2">No classes scheduled on {currentDay}s!</p>
+                                    <p className="text-slate-400">Our structured syllabus classes run Monday through Friday.</p>
                                 </div>
-                                <h3 className="text-xl font-bold mb-2">{cls.title}</h3>
-                                <div className="space-y-3 mt-4 text-sm font-medium text-slate-600 dark:text-slate-400">
-                                    <p className="flex items-center gap-2"><User className="w-4 h-4"/> Instructor: {cls.instructor?.name}</p>
-                                    
-                                    {cls.schedule?.length > 0 ? (
-                                        <div className="bg-indigo-50 dark:bg-indigo-900/20 p-3 rounded-xl border border-indigo-100 dark:border-indigo-800 space-y-2 mt-3 text-indigo-700 dark:text-indigo-400">
-                                            <p className="flex items-center gap-2"><Calendar className="w-4 h-4"/> {cls.schedule[0].day}</p>
-                                            <p className="flex items-center gap-2 font-bold"><Clock className="w-4 h-4"/> {cls.schedule[0].startTime} - {cls.schedule[0].endTime}</p>
+                            ) : todayClasses.length === 0 ? (
+                                <div className="col-span-full py-16 text-center border-2 border-dashed border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 rounded-3xl">
+                                    <p className="text-xl text-slate-500 font-bold">No classes are scheduled for you today.</p>
+                                    <p className="text-slate-400 mt-2">Check back tomorrow or review your previous class recordings in the Video Hub.</p>
+                                </div>
+                            ) : todayClasses.map(cls => {
+                                const todaySchedule = cls.schedule.find((s: any) => s.day === currentDay);
+                                return (
+                                    <div key={cls._id} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all group">
+                                        <div className="flex justify-between items-start mb-4">
+                                            <span className="bg-indigo-50 text-indigo-700 font-bold px-3 py-1 rounded-lg text-sm border border-indigo-100">{cls.style}</span>
+                                            <span className={`font-bold text-xs px-2 py-1 rounded ${cls.level === 'Beginner' ? 'bg-green-100 text-green-700' : cls.level === 'Intermediate' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'}`}>{cls.level}</span>
                                         </div>
-                                    ) : (
-                                        <p className="flex items-center gap-2 text-slate-400"><Clock className="w-4 h-4"/> Schedule Pending</p>
-                                    )}
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </motion.div>
-            )}
+                                        <h3 className="text-xl font-bold mb-2">{cls.title}</h3>
+                                        <div className="space-y-3 mt-4 text-sm font-medium text-slate-600 dark:text-slate-400">
+                                            <p className="flex items-center gap-2"><User className="w-4 h-4"/> Instructor: {cls.instructor?.name}</p>
+                                            
+                                            <div className="bg-indigo-50 dark:bg-indigo-900/20 p-3 rounded-xl border border-indigo-100 dark:border-indigo-800 flex items-center justify-between mt-3">
+                                                <div>
+                                                    <p className="text-xs font-bold text-indigo-500 uppercase tracking-widest mb-0.5">Today's Slot</p>
+                                                    <p className="flex items-center gap-2 font-black text-indigo-700 dark:text-indigo-400 text-lg"><Clock className="w-5 h-5"/> {todaySchedule.startTime} - {todaySchedule.endTime}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </motion.div>
+                );
+            })()}
 
             {activeTab === 'videos' && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="max-w-6xl mx-auto">
