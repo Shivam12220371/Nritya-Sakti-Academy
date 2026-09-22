@@ -7,6 +7,9 @@ const PrideStudents = () => {
     '/pride_students/media__1790113785945.jpg',
     '/pride_students/media__1790113785991.jpg',
     '/pride_students/media__1790113786062.jpg',
+    '/pride_students/media__1790114700914.jpg',
+    '/pride_students/media__1790114700970.jpg',
+    '/pride_students/media__1790114701027.jpg',
   ];
 
   // We duplicate the images to create a seamless infinite scrolling effect
