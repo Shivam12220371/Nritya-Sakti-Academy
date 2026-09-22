@@ -24,7 +24,7 @@ const HomePage = () => {
             className="md:w-1/2 text-center md:text-left"
           >
             <div className="inline-block px-4 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-sm font-medium mb-6">
-              ✨ Authentic Indian Classical Training
+              Authentic Indian Classical Training
             </div>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
               Nritya Shakti Academy <br/><span className="text-4xl md:text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">Honoring Tradition. Inspiring Grace.</span>
