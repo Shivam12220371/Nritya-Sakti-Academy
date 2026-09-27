@@ -119,12 +119,16 @@ const HomePage = () => {
                 ))}
               </div>
             </div>
-            <div className="md:w-1/2">
-              <div className="relative bg-slate-100 dark:bg-slate-800 rounded-3xl p-8 border border-slate-200 dark:border-slate-700 overflow-hidden shadow-2xl">
-                <div className="absolute inset-0 bg-gradient-to-br from-indigo-200/40 via-purple-100/50 to-pink-200/40 dark:from-indigo-900/40 dark:via-purple-900/20 dark:to-pink-900/30 opacity-80 animate-[pulse_6s_ease-in-out_infinite] pointer-events-none z-0"></div>
+            <div className="md:w-1/2 mt-12 md:mt-0">
+              <div className="relative rounded-3xl p-8 border border-slate-700 overflow-hidden shadow-2xl text-white group">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center z-0 transition-transform duration-1000 group-hover:scale-105" 
+                  style={{ backgroundImage: 'url(/ghungroo_feet.png)' }}
+                ></div>
+                <div className="absolute inset-0 bg-black/60 dark:bg-black/70 backdrop-blur-[1px] z-0 transition-opacity duration-500"></div>
 
-                <h3 className="relative z-10 text-xl font-bold mb-6 text-center text-slate-500 tracking-widest uppercase">Student Journey</h3>
-                <div className="space-y-6 relative z-10 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-indigo-500 before:to-transparent">
+                <h3 className="relative z-10 text-xl font-bold mb-6 text-center text-amber-500 tracking-widest uppercase drop-shadow-md">Student Journey</h3>
+                <div className="space-y-6 relative z-10 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-amber-500 before:to-transparent">
                   {[
                     { title: 'Register for Trial', desc: 'Book a free introductory session online to explore our campus.' },
                     { title: 'Choose Your Style', desc: 'Pick your path: Classical forms or vibrant Bollywood styles.' },
