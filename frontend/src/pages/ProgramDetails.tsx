@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, CheckCircle } from 'lucide-react';
@@ -110,6 +111,15 @@ const ProgramDetails = () => {
     return <Navigate to="/" replace />;
   }
 
+  // Smooth scroll to top when page is opened dynamically
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }, [programId]);
+
   const bgIcon = instrumentSVGs[programId || ''] || null;
 
   return (
@@ -158,14 +168,39 @@ const ProgramDetails = () => {
               ))}
             </div>
 
-            <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
-               {program.features.map((feature: string, i: number) => (
-                 <div key={i} className="flex flex-col items-center justify-center p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm text-center transform transition hover:-translate-y-1 hover:shadow-md">
-                    <CheckCircle className="w-6 h-6 text-green-500 mb-2" />
-                    <span className="font-semibold text-slate-800 dark:text-slate-200 text-sm">{feature}</span>
-                 </div>
-               ))}
-            </div>
+            <motion.div 
+              initial="hidden" animate="visible"
+              variants={{
+                hidden: { opacity: 0 },
+                visible: { opacity: 1, transition: { staggerChildren: 0.2, delayChildren: 0.3 } }
+              }}
+              className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4"
+            >
+               {program.features.map((feature: string, i: number) => {
+                 const bgColors = [
+                   'bg-gradient-to-br from-pink-100 to-rose-200 dark:from-pink-900/40 dark:to-rose-800/20 border-pink-200 dark:border-pink-800/50 shadow-pink-500/10 hover:shadow-pink-500/20',
+                   'bg-gradient-to-br from-indigo-100 to-blue-200 dark:from-indigo-900/40 dark:to-blue-800/20 border-indigo-200 dark:border-indigo-800/50 shadow-indigo-500/10 hover:shadow-indigo-500/20',
+                   'bg-gradient-to-br from-amber-100 to-orange-200 dark:from-amber-900/40 dark:to-orange-800/20 border-amber-200 dark:border-amber-800/50 shadow-amber-500/10 hover:shadow-amber-500/20',
+                 ];
+                 const iconColors = [
+                   'text-rose-500 dark:text-rose-400',
+                   'text-indigo-500 dark:text-indigo-400',
+                   'text-amber-500 dark:text-amber-400',
+                 ];
+                 return (
+                 <motion.div 
+                   variants={{
+                     hidden: { opacity: 0, y: 20 },
+                     visible: { opacity: 1, y: 0 }
+                   }}
+                   key={i} 
+                   className={`flex flex-col items-center justify-center p-5 rounded-2xl border ${bgColors[i % bgColors.length]} text-center transform transition duration-300 hover:-translate-y-1`}
+                 >
+                    <CheckCircle className={`w-8 h-8 mb-3 ${iconColors[i % iconColors.length]}`} />
+                    <span className="font-bold text-slate-800 dark:text-slate-100 text-[15px]">{feature}</span>
+                 </motion.div>
+               )})}
+            </motion.div>
 
             <div className="mt-12">
               <Link to="/login" className="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full font-bold shadow-lg shadow-indigo-200 dark:shadow-none transition-all mr-4 inline-block">
