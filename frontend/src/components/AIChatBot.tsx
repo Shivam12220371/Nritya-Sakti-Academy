@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageCircle, X, Send, Bot, Loader2 } from 'lucide-react';
+import { MessageCircle, X, Send, Bot, Loader2, Volume2, VolumeX } from 'lucide-react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -21,6 +21,18 @@ const AIChatBot: React.FC = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const [isSpeechEnabled, setIsSpeechEnabled] = useState(false);
+
+  const speakText = (text: string) => {
+    if (!isSpeechEnabled || !window.speechSynthesis) return;
+    window.speechSynthesis.cancel(); // Stop any current speech
+    const utterance = new SpeechSynthesisUtterance(text);
+    // Optional: pick a specific voice or tweak rate
+    utterance.rate = 1.0;
+    utterance.pitch = 1.0;
+    window.speechSynthesis.speak(utterance);
+  };
+
   useEffect(() => {
     scrollToBottom();
   }, [messages, isOpen]);
@@ -36,7 +48,9 @@ const AIChatBot: React.FC = () => {
 
     try {
       const response = await axios.post('/api/chat', { message: userMsg });
-      setMessages((prev) => [...prev, { role: 'model', text: response.data.reply }]);
+      const replyText = response.data.reply;
+      setMessages((prev) => [...prev, { role: 'model', text: replyText }]);
+      speakText(replyText);
     } catch (error: any) {
       console.error('Chat error:', error);
       const errorMsg = error.response?.data?.error || 'Sorry, I am having trouble connecting right now.';
@@ -65,13 +79,25 @@ const AIChatBot: React.FC = () => {
                   <Bot size={24} />
                   <h3 className="font-semibold">Academy AI Assist</h3>
                 </div>
-                <button
-                  onClick={() => setIsOpen(false)}
-                  className="p-1 hover:bg-indigo-700 rounded-full transition-colors"
-                  aria-label="Close chat"
-                >
-                  <X size={20} />
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => {
+                      if (isSpeechEnabled) window.speechSynthesis?.cancel();
+                      setIsSpeechEnabled(!isSpeechEnabled);
+                    }}
+                    className="p-1 hover:bg-indigo-700 rounded-full transition-colors"
+                    aria-label="Toggle voice"
+                  >
+                    {isSpeechEnabled ? <Volume2 size={20} /> : <VolumeX size={20} />}
+                  </button>
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className="p-1 hover:bg-indigo-700 rounded-full transition-colors"
+                    aria-label="Close chat"
+                  >
+                    <X size={20} />
+                  </button>
+                </div>
               </div>
 
               {/* Messages Area */}
