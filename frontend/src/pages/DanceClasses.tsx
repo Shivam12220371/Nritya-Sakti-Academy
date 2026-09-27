@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Clock, Info, CheckCircle2, ShieldCheck, Sparkle } from 'lucide-react';
-import React, { useRef } from 'react';
+import { ShieldCheck, Sparkle, Info } from 'lucide-react';
+import { useRef } from 'react';
 
 const DanceClasses = () => {
   const containerRef = useRef<HTMLDivElement>(null);

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageCircle, X, Send, Bot, Loader2, Volume2, VolumeX, Mic, MicOff } from 'lucide-react';
+import { MessageCircle, X, Send, Bot, Loader2, Volume2, VolumeX, Mic } from 'lucide-react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 
