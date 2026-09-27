@@ -180,11 +180,11 @@ const AIChatBot: React.FC = () => {
                     onClick={startListening}
                     disabled={isLoading || isListening}
                     className={`p-2 rounded-full transition-colors flex-shrink-0 ${
-                      isListening ? 'bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400' : 'text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-700'
+                      isListening ? 'bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 animate-pulse' : 'text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-700'
                     }`}
-                    title="Speak your message"
+                    title={isListening ? "Listening..." : "Speak your message"}
                   >
-                    {isListening ? <MicOff size={18} className="animate-pulse" /> : <Mic size={18} />}
+                    <Mic size={18} />
                   </button>
                   <button
                     type="submit"
