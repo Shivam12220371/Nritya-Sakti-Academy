@@ -12,7 +12,7 @@ router.post('/', async (req, res) => {
     }
 
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-3.8-flash" });
 
     const systemPrompt = `You are a helpful and professional AI assistant for Nritya Shakti Academy. 
     Information you must use to answer questions:
