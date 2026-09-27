@@ -12,7 +12,7 @@ router.post('/', async (req, res) => {
     }
 
     const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: "gemini-3.8-flash" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const systemPrompt = `You are a helpful and professional AI assistant for Nritya Shakti Academy. 
     Information you must use to answer questions:
@@ -45,9 +45,26 @@ router.post('/', async (req, res) => {
       ],
     });
 
-    const result = await chat.sendMessage(message);
-    const response = await result.response;
-    const text = response.text();
+    const MAX_RETRIES = 2;
+    let attempt = 0;
+    let text = "";
+
+    while (attempt <= MAX_RETRIES) {
+      try {
+        const result = await chat.sendMessage(message);
+        const response = await result.response;
+        text = response.text();
+        break; // Success! Break out of the loop
+      } catch (err) {
+        attempt++;
+        console.log(`Google API error or high demand. Retry attempt ${attempt} / ${MAX_RETRIES}...`);
+        if (attempt > MAX_RETRIES) {
+          throw err; // Throw to the outer catch block to return 500
+        }
+        // Wait 1.5 seconds before retrying
+        await new Promise(resolve => setTimeout(resolve, 1500));
+      }
+    }
 
     res.json({ reply: text });
   } catch (error) {
