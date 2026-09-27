@@ -15,6 +15,15 @@ const HomePage = () => {
     <div className="pt-20">
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-slate-900 text-white">
+        {/* Dynamic Ganesha Idol - Top Right corner */}
+        <motion.div 
+          animate={{ y: [-4, 4, -4], rotate: [0, 2, -2, 0] }} 
+          transition={{ duration: 6, ease: "easeInOut", repeat: Infinity }}
+          className="absolute top-24 right-4 md:right-12 xl:right-16 w-14 md:w-20 lg:w-24 z-20 opacity-90 mix-blend-screen mix-blend-lighten pointer-events-none drop-shadow-xl"
+        >
+          <img src="/ganesha.png" alt="Shree Ganesha" className="w-full h-auto object-contain drop-shadow-[0_0_15px_rgba(245,158,11,0.4)]" />
+        </motion.div>
+
         {/* Abstract Background Elements */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
           <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-indigo-600/20 blur-3xl"></div>
@@ -184,8 +193,19 @@ const HomePage = () => {
       <PrideStudents />
 
       {/* Founder Section */}
-      <section className="py-24 bg-slate-50 dark:bg-slate-950">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-24 bg-slate-50 dark:bg-slate-950 relative overflow-hidden">
+        {/* Dynamic SHAKTI Shadow */}
+        <motion.div 
+          initial={{ opacity: 0, x: -100 }} 
+          whileInView={{ opacity: 1, x: 0 }} 
+          viewport={{ once: false, margin: "-100px" }} 
+          transition={{ duration: 1.5, ease: "easeOut" }}
+          className="absolute top-1/2 left-0 -translate-y-1/2 md:-translate-y-1/4 text-[12rem] md:text-[25rem] font-black text-slate-900/[0.03] dark:text-slate-100/[0.02] select-none pointer-events-none z-0 tracking-tighter mix-blend-overlay"
+        >
+          SHAKTI
+        </motion.div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex flex-col md:flex-row items-center gap-16">
             <motion.div
               initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }} whileInView={{ opacity: 1, scale: 1, filter: 'blur(0px)' }} viewport={{ once: false, margin: "-100px" }} transition={{ duration: 0.7 }}
