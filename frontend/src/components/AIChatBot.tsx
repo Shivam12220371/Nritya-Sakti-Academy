@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageCircle, X, Send, Bot, Loader2, Volume2, VolumeX } from 'lucide-react';
+import { MessageCircle, X, Send, Bot, Loader2, Volume2, VolumeX, Mic, MicOff } from 'lucide-react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -22,6 +22,39 @@ const AIChatBot: React.FC = () => {
   };
 
   const [isSpeechEnabled, setIsSpeechEnabled] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+
+  const startListening = () => {
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      alert("Your browser does not support Speech Recognition. Please try using Chrome or Edge.");
+      return;
+    }
+    const recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = 'en-US';
+
+    recognition.onstart = () => {
+      setIsListening(true);
+    };
+
+    recognition.onresult = (event: any) => {
+      const transcript = event.results[0][0].transcript;
+      setInput((prev) => prev + (prev ? ' ' : '') + transcript);
+    };
+
+    recognition.onerror = (event: any) => {
+      console.error('Speech recognition error:', event.error);
+      setIsListening(false);
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+
+    recognition.start();
+  };
 
   const speakText = (text: string) => {
     if (!isSpeechEnabled || !window.speechSynthesis) return;
@@ -142,6 +175,17 @@ const AIChatBot: React.FC = () => {
                     className="flex-1 bg-transparent border-none outline-none dark:text-white dark:placeholder-slate-400 py-2"
                     disabled={isLoading}
                   />
+                  <button
+                    type="button"
+                    onClick={startListening}
+                    disabled={isLoading || isListening}
+                    className={`p-2 rounded-full transition-colors flex-shrink-0 ${
+                      isListening ? 'bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400' : 'text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-700'
+                    }`}
+                    title="Speak your message"
+                  >
+                    {isListening ? <MicOff size={18} className="animate-pulse" /> : <Mic size={18} />}
+                  </button>
                   <button
                     type="submit"
                     disabled={!input.trim() || isLoading}
