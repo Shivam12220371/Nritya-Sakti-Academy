@@ -70,6 +70,8 @@ const markAttendance = async (req, res) => {
     if (!danceClass) return res.status(403).json({ message: 'Not authorized for this class' });
 
     for (const record of studentsData) {
+        let didCompleteNewClass = false;
+
         // Find existing attendance for this student/date to prevent duplicates
         const existing = await Attendance.findOne({
             class: classId,
@@ -78,10 +80,16 @@ const markAttendance = async (req, res) => {
         });
 
         if (existing) {
+            if (existing.status !== 'Present' && record.status === 'Present') {
+                didCompleteNewClass = true;
+            }
             existing.status = record.status;
             existing.markedBy = req.user._id;
             await existing.save();
         } else {
+            if (record.status === 'Present') {
+                didCompleteNewClass = true;
+            }
             await Attendance.create({
                 class: classId,
                 student: record.student,
@@ -99,7 +107,12 @@ const markAttendance = async (req, res) => {
            ? Math.round((presentRecords / totalAttendanceRecords) * 100) 
            : 0;
            
-        await User.findByIdAndUpdate(record.student, { attendancePercent: newPercent });
+        const updateObj = { $set: { attendancePercent: newPercent } };
+        if (didCompleteNewClass) {
+            updateObj.$inc = { classesCompleted: 1 };
+        }
+           
+        await User.findByIdAndUpdate(record.student, updateObj);
     }
 
     res.status(200).json({ message: 'Attendance recorded successfully' });

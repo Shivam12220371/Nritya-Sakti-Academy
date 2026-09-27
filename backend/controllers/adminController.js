@@ -82,14 +82,14 @@ const updateStudentData = async (req, res) => {
     }
 
     const { 
-      currentLevel, subscriptionPlan, classesCompleted, attendancePercent,
+      currentLevel, subscriptionPlan, attendancePercent,
       videosWatched, certificates,
       overall, technique, flexibility, rhythm, expression 
     } = req.body;
 
     user.currentLevel = currentLevel || user.currentLevel;
     user.subscriptionPlan = subscriptionPlan || user.subscriptionPlan;
-    user.classesCompleted = classesCompleted !== undefined ? classesCompleted : user.classesCompleted;
+
     user.attendancePercent = attendancePercent !== undefined ? attendancePercent : user.attendancePercent;
     user.videosWatched = videosWatched !== undefined ? videosWatched : user.videosWatched;
     user.certificates = certificates !== undefined ? certificates : user.certificates;

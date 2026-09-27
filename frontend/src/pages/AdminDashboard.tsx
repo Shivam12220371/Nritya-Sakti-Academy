@@ -513,7 +513,7 @@ const AdminDashboard = () => {
                         <form onSubmit={handleUpdateStudentData} className="space-y-4">
                             <h3 className="font-bold text-slate-800 dark:text-slate-200 text-sm border-b pb-2">Student Counters</h3>
                             <div className="grid grid-cols-4 gap-2">
-                                <div><label className="text-xs font-bold text-slate-500">Classes</label><input type="number" min="0" value={selectedStudent.classesCompleted} onChange={e=>setSelectedStudent({...selectedStudent, classesCompleted: parseInt(e.target.value)})} className="w-full p-2 border rounded-lg" /></div>
+
                                 <div><label className="text-xs font-bold text-slate-500">Videos</label><input type="number" min="0" value={selectedStudent.videosWatched} onChange={e=>setSelectedStudent({...selectedStudent, videosWatched: parseInt(e.target.value)})} className="w-full p-2 border rounded-lg" /></div>
                                 <div><label className="text-xs font-bold text-slate-500">Certificates</label><input type="number" min="0" value={selectedStudent.certificates} onChange={e=>setSelectedStudent({...selectedStudent, certificates: parseInt(e.target.value)})} className="w-full p-2 border rounded-lg" /></div>
                                 <div><label className="text-xs font-bold text-slate-500">Attendance %</label><input type="number" min="0" max="100" value={selectedStudent.attendancePercent} onChange={e=>setSelectedStudent({...selectedStudent, attendancePercent: parseInt(e.target.value)})} className="w-full p-2 border rounded-lg" /></div>
