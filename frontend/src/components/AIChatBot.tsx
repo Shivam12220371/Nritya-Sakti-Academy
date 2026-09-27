@@ -63,13 +63,30 @@ const AIChatBot: React.FC = () => {
 
   const speakText = (text: string) => {
     if (!isSpeechEnabled || !window.speechSynthesis) return;
-    window.speechSynthesis.cancel(); // Stop any current speech
+    
+    // In some browsers, very long sentences freeze the speech API, so we ensure it's clean
+    window.speechSynthesis.cancel(); 
+    
     const utterance = new SpeechSynthesisUtterance(text);
-    // Optional: pick a specific voice or tweak rate
+    
+    const voices = window.speechSynthesis.getVoices();
+    if (voices && voices.length > 0) {
+      const englishVoice = voices.find(v => v.lang.includes('en-US')) || voices.find(v => v.lang.includes('en'));
+      if (englishVoice) utterance.voice = englishVoice;
+    }
+    
+    utterance.volume = 1.0;
     utterance.rate = 1.0;
     utterance.pitch = 1.0;
     window.speechSynthesis.speak(utterance);
   };
+
+  // Pre-load voices to avoid silent failures on first click
+  useEffect(() => {
+    if (window.speechSynthesis) {
+      window.speechSynthesis.getVoices();
+    }
+  }, []);
 
   useEffect(() => {
     scrollToBottom();
@@ -122,6 +139,11 @@ const AIChatBot: React.FC = () => {
                     onClick={() => {
                       if (isSpeechEnabled) window.speechSynthesis?.cancel();
                       setIsSpeechEnabled(!isSpeechEnabled);
+                      if (!isSpeechEnabled && window.speechSynthesis) {
+                        const dummy = new SpeechSynthesisUtterance(" ");
+                        dummy.volume = 0;
+                        window.speechSynthesis.speak(dummy);
+                      }
                     }}
                     className="p-1 hover:bg-indigo-700 rounded-full transition-colors"
                     aria-label="Toggle voice"
