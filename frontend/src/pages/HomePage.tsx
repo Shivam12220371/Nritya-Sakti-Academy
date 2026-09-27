@@ -3,6 +3,7 @@ import { ArrowRight, Play, CheckCircle2, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import DanceProgramsCarousel from '../components/DanceProgramsCarousel';
 import PrideStudents from '../components/PrideStudents';
+import GoogleReviews from '../components/GoogleReviews';
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -25,14 +26,14 @@ const HomePage = () => {
             initial="hidden" animate="visible" variants={fadeIn}
             className="md:w-1/2 text-center md:text-left"
           >
-            <div className="inline-block px-4 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-sm font-medium mb-6">
-              Authentic Indian Classical Training
+            <div className="inline-block px-4 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-sm font-medium mb-6 uppercase tracking-wider text-amber-300">
+              Kathak • Bharatanatyam • Western • Zumba • Free Style
             </div>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
-              Nritya Shakti Academy <br /><span className="text-4xl md:text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">Honoring Tradition. Inspiring Grace.</span>
+              Nritya Shakti Academy <br /><span className="text-4xl md:text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-500">Find Your Rhythm. Free Your Soul.</span>
             </h1>
             <p className="text-lg md:text-xl text-slate-300 mb-10 max-w-lg mx-auto md:mx-0">
-              Immerse yourself in the profound art of Indian classical dance. Learn the perfect postures, express deep emotions, and master intricate rhythms with our esteemed gurus.
+              Whether you want to connect with the timeless grace of classical forms or unleash your energy with modern and fitness routines, our expert gurus will guide every step of your journey.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start flex-wrap">
               <Link to="/login" className="bg-amber-500 hover:bg-amber-400 text-slate-900 px-8 py-4 rounded-full font-bold text-lg transition-all shadow-[0_0_20px_rgba(245,158,11,0.4)] flex items-center justify-center gap-2">
@@ -54,27 +55,21 @@ const HomePage = () => {
 
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.2 }}
-            className="md:w-1/2 mt-16 md:mt-0 relative pl-0 md:pl-10"
+            className="w-full md:w-1/2 mt-16 md:mt-0 relative pl-0 md:pl-10"
           >
-            <div className="relative rounded-[2rem] overflow-hidden shadow-2xl border-[6px] border-white/10 bg-slate-800 flex items-center justify-center group cursor-pointer aspect-[4/3] rotate-3 hover:rotate-0 transition-transform duration-500 w-full">
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-[6px] border-white/10 bg-slate-800 flex items-center justify-center group cursor-pointer aspect-[4/3] rotate-0 md:rotate-3 hover:rotate-0 transition-transform duration-500 w-full max-w-[100vw]">
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent to-transparent z-10 pointer-events-none"></div>
 
               <motion.div
                 animate={{
-                  scale: [1.1, 1.15, 1.1, 1.18, 1.1],
-                  rotate: [0, 2, -2, 1, 0],
-                  y: [0, -10, 0, -5, 0],
-                  x: [0, 5, -5, 2, 0]
+                  scale: [1.05, 1.1, 1.05],
+                  y: [0, -5, 0]
                 }}
-                transition={{ duration: 6, ease: "easeInOut", repeat: Infinity }}
+                transition={{ duration: 8, ease: "easeInOut", repeat: Infinity }}
                 className="absolute inset-0 w-full h-full"
               >
-                <img src="/dance1.jpg" alt="Masterclass Performance" className="w-full h-full object-cover group-hover:brightness-110 transition-all duration-500 origin-bottom" />
+                <img src="/masterclass_group.png" alt="Masterclass Performance" className="w-full h-full object-cover group-hover:brightness-110 transition-all duration-500 origin-bottom" />
               </motion.div>
-
-              <div className="z-20 w-24 h-24 rounded-full bg-white/20 backdrop-blur-md border border-white/40 flex items-center justify-center group-hover:bg-amber-500 group-hover:scale-110 transition-all duration-300 shadow-[0_0_30px_rgba(245,158,11,0.0)] group-hover:shadow-[0_0_30px_rgba(245,158,11,0.6)]">
-                <Play className="w-10 h-10 text-white ml-2" />
-              </div>
 
               <div className="absolute bottom-6 left-6 z-20 text-left">
                 <p className="text-amber-400 font-bold tracking-widest uppercase text-sm mb-1">Live Masterclass</p>
@@ -246,6 +241,9 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+
+      {/* Google Reviews */}
+      <GoogleReviews />
     </div>
   );
 };

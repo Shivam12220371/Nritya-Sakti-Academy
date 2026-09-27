@@ -11,6 +11,7 @@ const ScrollToTop = () => {
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
+import ProgramDetails from './pages/ProgramDetails';
 import AboutUs from './pages/AboutUs';
 import DanceClasses from './pages/DanceClasses';
 import StudentDashboard from './pages/StudentDashboard';
@@ -38,6 +39,7 @@ function App() {
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<HomePage />} />
+          <Route path="/programs/:programId" element={<ProgramDetails />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/classes" element={<DanceClasses />} />
           <Route path="/login" element={<AuthPage />} />

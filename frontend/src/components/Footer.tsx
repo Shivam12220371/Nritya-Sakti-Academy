@@ -37,7 +37,11 @@ const Footer = () => {
             <ul className="space-y-3">
               <li><Link to="/about" className="hover:text-amber-400 transition-colors flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span> About Us</Link></li>
               <li><Link to="/classes" className="hover:text-amber-400 transition-colors flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Class Schedule</Link></li>
-              <li><Link to="/login" className="hover:text-amber-400 transition-colors flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Student Portal</Link></li>
+              <li><Link to="/programs/kathak" className="hover:text-amber-400 transition-colors flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Kathak</Link></li>
+              <li><Link to="/programs/bharatanatyam" className="hover:text-amber-400 transition-colors flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Bharatanatyam</Link></li>
+              <li><Link to="/programs/western-dance" className="hover:text-amber-400 transition-colors flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Western Dance</Link></li>
+              <li><Link to="/programs/zumba" className="hover:text-amber-400 transition-colors flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Zumba</Link></li>
+              <li><Link to="/programs/free-style" className="hover:text-amber-400 transition-colors flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Free Style</Link></li>
             </ul>
           </div>
 

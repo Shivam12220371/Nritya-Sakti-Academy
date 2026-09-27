@@ -29,17 +29,39 @@ const Navbar = () => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-8 items-center">
-            <Link to="/" className="text-slate-600 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 transition-colors font-medium">Home</Link>
+            <Link to="/" className="relative text-slate-600 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 transition-colors font-medium group py-2">
+              <span className="absolute -top-1 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-indigo-600 dark:bg-indigo-400 transition-all duration-300 group-hover:w-full rounded-full pointer-events-none"></span>
+              Home
+            </Link>
             {!isDashboard && (
               <>
-                <Link to="/classes" className="text-slate-600 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 transition-colors font-medium">Classes</Link>
-                <Link to="/about" className="text-slate-600 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 transition-colors font-medium">About</Link>
+                <div className="relative group">
+                  <button className="flex items-center gap-1 text-slate-600 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 transition-colors font-medium cursor-default py-2">
+                    <span className="absolute -top-1 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-indigo-600 dark:bg-indigo-400 transition-all duration-300 group-hover:w-full rounded-full pointer-events-none"></span>
+                    Programs
+                  </button>
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-48 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 overflow-hidden flex flex-col py-2">
+                    <Link to="/programs/kathak" className="px-4 py-2 text-sm text-slate-600 hover:text-indigo-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-800 transition-colors">Kathak</Link>
+                    <Link to="/programs/bharatanatyam" className="px-4 py-2 text-sm text-slate-600 hover:text-indigo-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-800 transition-colors">Bharatanatyam</Link>
+                    <Link to="/programs/western-dance" className="px-4 py-2 text-sm text-slate-600 hover:text-indigo-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-800 transition-colors">Western Dance</Link>
+                    <Link to="/programs/zumba" className="px-4 py-2 text-sm text-slate-600 hover:text-indigo-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-800 transition-colors">Zumba</Link>
+                    <Link to="/programs/free-style" className="px-4 py-2 text-sm text-slate-600 hover:text-indigo-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-800 transition-colors">Free Style</Link>
+                  </div>
+                </div>
+                <Link to="/classes" className="relative text-slate-600 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 transition-colors font-medium group py-2">
+                  <span className="absolute -top-1 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-indigo-600 dark:bg-indigo-400 transition-all duration-300 group-hover:w-full rounded-full pointer-events-none"></span>
+                  Classes
+                </Link>
+                <Link to="/about" className="relative text-slate-600 hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400 transition-colors font-medium group py-2">
+                  <span className="absolute -top-1 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-indigo-600 dark:bg-indigo-400 transition-all duration-300 group-hover:w-full rounded-full pointer-events-none"></span>
+                  About
+                </Link>
               </>
             )}
             
             {!token ? (
-              <Link to="/login" className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-full font-medium transition-all shadow-lg shadow-indigo-200 dark:shadow-none">
-                Login
+              <Link to="/register" className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-full font-medium transition-all shadow-lg shadow-indigo-200 dark:shadow-none">
+                Register
               </Link>
             ) : (
               <div className="flex gap-4 items-center">
@@ -69,13 +91,21 @@ const Navbar = () => {
             <Link to="/" className="block px-3 py-3 text-slate-600 dark:text-slate-300 hover:text-indigo-600 font-medium text-lg" onClick={() => setIsOpen(false)}>Home</Link>
             {!isDashboard && (
               <>
+                <div className="flex flex-col border-y border-slate-100 dark:border-slate-800/50 my-2 py-2">
+                  <div className="text-slate-400 dark:text-slate-500 font-bold px-3 py-2 uppercase text-xs tracking-widest text-center">Programs</div>
+                  <Link to="/programs/kathak" className="block px-3 py-2 text-slate-600 dark:text-slate-300 hover:text-indigo-600 font-medium" onClick={() => setIsOpen(false)}>Kathak</Link>
+                  <Link to="/programs/bharatanatyam" className="block px-3 py-2 text-slate-600 dark:text-slate-300 hover:text-indigo-600 font-medium" onClick={() => setIsOpen(false)}>Bharatanatyam</Link>
+                  <Link to="/programs/western-dance" className="block px-3 py-2 text-slate-600 dark:text-slate-300 hover:text-indigo-600 font-medium" onClick={() => setIsOpen(false)}>Western Dance</Link>
+                  <Link to="/programs/zumba" className="block px-3 py-2 text-slate-600 dark:text-slate-300 hover:text-indigo-600 font-medium" onClick={() => setIsOpen(false)}>Zumba</Link>
+                  <Link to="/programs/free-style" className="block px-3 py-2 text-slate-600 dark:text-slate-300 hover:text-indigo-600 font-medium" onClick={() => setIsOpen(false)}>Free Style</Link>
+                </div>
                 <Link to="/classes" className="block px-3 py-3 text-slate-600 dark:text-slate-300 hover:text-indigo-600 font-medium text-lg" onClick={() => setIsOpen(false)}>Classes</Link>
                 <Link to="/about" className="block px-3 py-3 text-slate-600 dark:text-slate-300 hover:text-indigo-600 font-medium text-lg" onClick={() => setIsOpen(false)}>About</Link>
               </>
             )}
             
             {!token ? (
-              <Link to="/login" className="block px-3 py-3 mt-4 mx-4 bg-indigo-600 text-white rounded-full font-medium shadow-md" onClick={() => setIsOpen(false)}>Login</Link>
+              <Link to="/register" className="block px-3 py-3 mt-4 mx-4 bg-indigo-600 text-white rounded-full font-medium shadow-md text-center" onClick={() => setIsOpen(false)}>Register</Link>
             ) : (
               <>
                 {!isDashboard && (
