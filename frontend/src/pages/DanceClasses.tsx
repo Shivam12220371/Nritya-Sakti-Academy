@@ -10,7 +10,7 @@ const DanceClasses = () => {
   });
 
   const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const floatAnim = {
+  const floatAnim: any = {
     y: [0, -15, 0],
     transition: { duration: 6, repeat: Infinity, ease: "easeInOut" }
   };
