@@ -129,16 +129,33 @@ const AIChatBot: React.FC = () => {
           )}
         </AnimatePresence>
 
-        {/* Floating Button */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className={`h-14 w-14 rounded-full shadow-lg flex items-center justify-center text-white transition-all transform hover:scale-105 active:scale-95 ${
-            isOpen ? 'bg-rose-500 hover:bg-rose-600' : 'bg-indigo-600 hover:bg-indigo-700'
-          }`}
-          aria-label="Toggle AI Chat"
-        >
-          {isOpen ? <X size={28} /> : <MessageCircle size={28} />}
-        </button>
+        {/* Floating Button Label & Button Container */}
+        <div className="relative flex flex-col items-center">
+          {/* Label Tooltip */}
+          <AnimatePresence>
+            {!isOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                className="absolute -top-12 right-0 whitespace-nowrap bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 px-4 py-2 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700 font-medium text-sm flex items-center gap-2"
+              >
+                Nritya Shakti AI Chatbot
+                <div className="absolute -bottom-2 right-6 w-4 h-4 bg-white dark:bg-slate-800 border-b border-r border-slate-200 dark:border-slate-700 transform rotate-45"></div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className={`h-14 w-14 rounded-full shadow-lg flex items-center justify-center text-white transition-all transform hover:scale-105 active:scale-95 ${
+              isOpen ? 'bg-rose-500 hover:bg-rose-600' : 'bg-indigo-600 hover:bg-indigo-700'
+            }`}
+            aria-label="Toggle AI Chat"
+          >
+            {isOpen ? <X size={28} /> : <MessageCircle size={28} />}
+          </button>
+        </div>
       </div>
     </>
   );
