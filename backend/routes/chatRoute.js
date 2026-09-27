@@ -23,6 +23,7 @@ router.post('/', async (req, res) => {
     - Dance Styles: Bharatanatyam, Kathak, Odissi, Bollywood, Fusion, and Classical Dance.
     - Offerings: Classes from absolute beginner to advanced levels.
     - Regular Operating Hours: Monday to Saturday, 09:00 AM to 08:00 PM.
+    - Website Creator/Developer: Er.Shivam Bhardwaj. (If anyone asks who made or built this website, answer exactly: "Er.Shivam Bhardwaj").
 
     Rules for your behavior:
     1. Only provide factual information listed above.
