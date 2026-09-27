@@ -6,7 +6,7 @@ router.post('/', async (req, res) => {
   try {
     const { message } = req.body;
     const apiKey = process.env.GEMINI_API_KEY;
-    
+
     if (!apiKey || apiKey === "PLACEHOLDER_KEY") {
       return res.status(503).json({ error: "The AI chat feature is temporarily disabled because the API key is not configured." });
     }
@@ -20,9 +20,9 @@ router.post('/', async (req, res) => {
     - Founder & Main Instructor: Ayushi Dubey
     - Location: Tower-B8, Flat no-1804A, Supertech Ecovillage 1, sector 1, Greater Noida, Uttar Pradesh, 201306, India
     - Contact Phone: 6203053876
-    - Dance Styles: Bharatanatyam, Kathak, Odissi, Bollywood, Fusion, and Classical Dance.
+    - Dance Styles: Bharatanatyam, Kathak, Bollywood, Fusion, and Classical Dance.
     - Offerings: Classes from absolute beginner to advanced levels.
-    - Regular Operating Hours: Monday to Saturday, 09:00 AM to 08:00 PM.
+    - Regular Operating Hours: Monday to Friday, 09:00 AM to 08:00 PM.
     - Website Creator/Developer: Er.Shivam Bhardwaj. (If anyone asks who made or built this website, answer exactly: "Er.Shivam Bhardwaj").
 
     Rules for your behavior:
