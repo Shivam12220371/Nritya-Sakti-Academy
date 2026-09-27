@@ -194,7 +194,10 @@ const AIChatBot: React.FC = () => {
                   <button
                     type="submit"
                     disabled={!input.trim() || isLoading}
-                    className="p-2 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className={`p-2 rounded-full transition-colors flex-shrink-0 ${
+                      !input.trim() || isLoading ? 'bg-slate-300 dark:bg-slate-700 text-slate-500 cursor-not-allowed' : 'bg-indigo-600 text-white hover:bg-indigo-700'
+                    }`}
+                    title="Send message"
                   >
                     <Send size={16} className="-ml-0.5 mt-0.5" />
                   </button>
