@@ -6,7 +6,7 @@ const programsData: Record<string, any> = {
   'kathak': {
     title: 'Kathak',
     subtitle: '"We Teach Kathak with Passion and Expertise"',
-    description: `At Swar Sandhya Mahavidyalaya, we are dedicated to nurturing your dance journey through expert Kathak instruction. Our experienced teachers focus on the fundamental techniques, intricate footwork, and expressive storytelling that define this classical art form.
+    description: `At Nritya Shakti Academy, we are dedicated to nurturing your dance journey through expert Kathak instruction. Our experienced teachers focus on the fundamental techniques, intricate footwork, and expressive storytelling that define this classical art form.
 
 We offer a supportive environment where students of all levels can explore their creativity, develop their skills, and gain a deeper understanding of Kathak’s rich cultural heritage. Whether you’re a complete beginner or looking to refine your technique, our personalized approach ensures that you receive the guidance you need to flourish. Join us and discover the transformative power of Kathak!`,
     image: '/class_kathak_1790074487878.png',
@@ -17,14 +17,14 @@ We offer a supportive environment where students of all levels can explore their
     subtitle: '"Immerse Yourself in the Art of Bharatanatyam"',
     description: `Bharatanatyam, one of India’s oldest and most revered classical dance forms, is a beautiful blend of rhythm, expression, and tradition. Originating from the temples of Tamil Nadu, this dance is known for its precise footwork, graceful hand gestures, and sculptural poses that tell powerful stories. 
 
-At Swar Sandhya Mahavidyalaya, we teach Bharatanatyam with a focus on preserving its rich cultural roots while encouraging each student to find their unique expression within the form. Whether you’re a beginner or an experienced dancer, our classes offer the perfect balance of technical training and creative exploration. Join us to experience the grace, discipline, and joy of Bharatanatyam!`,
+At Nritya Shakti Academy, we teach Bharatanatyam with a focus on preserving its rich cultural roots while encouraging each student to find their unique expression within the form. Whether you’re a beginner or an experienced dancer, our classes offer the perfect balance of technical training and creative exploration. Join us to experience the grace, discipline, and joy of Bharatanatyam!`,
     image: '/class_bharatanatyam_1790074472985.png',
     features: ['Precise Footwork', 'Graceful Gestures', 'Sculptural Poses']
   },
   'western-dance': {
     title: 'Western Dance',
     subtitle: '"Explore the World of Western Dance"',
-    description: `Western dance brings a vibrant mix of styles, from ballet’s grace to hip-hop and jazz’s high-energy moves. At Swar Sandhya Mahavidyalaya, we offer Western dance classes that cater to all levels, providing you with the opportunity to express yourself, build confidence, and improve your technique. 
+    description: `Western dance brings a vibrant mix of styles, from ballet’s grace to hip-hop and jazz’s high-energy moves. At Nritya Shakti Academy, we offer Western dance classes that cater to all levels, providing you with the opportunity to express yourself, build confidence, and improve your technique. 
 
 Whether you’re looking for the elegance of classical styles or the dynamic rhythms of contemporary dance, our experienced instructors will guide you every step of the way. Join us to unlock your creativity, develop new skills, and experience the thrill of Western dance!`,
     image: '/western_casual_dance.png',
