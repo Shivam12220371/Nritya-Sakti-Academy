@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Play, CheckCircle2, MessageCircle } from 'lucide-react';
+import { ArrowRight, CheckCircle2, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import DanceProgramsCarousel from '../components/DanceProgramsCarousel';
 import PrideStudents from '../components/PrideStudents';

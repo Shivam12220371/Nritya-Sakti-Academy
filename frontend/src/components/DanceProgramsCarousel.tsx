@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 const programs = [
   { img: '/dance2.jpg', title: 'Expressive Formations', desc: 'Master emotive storytelling', hoverDesc: 'Coordinate graceful gestures and evocative hand mudras to vividly illustrate complex myths and emotions as a group.' },
