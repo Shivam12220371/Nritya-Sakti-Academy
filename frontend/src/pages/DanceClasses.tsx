@@ -1,128 +1,196 @@
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { Clock, Info, CheckCircle2, ShieldCheck, Sparkle } from 'lucide-react';
-
+import React, { useRef } from 'react';
 
 const DanceClasses = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
+
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const floatAnim = {
+    y: [0, -15, 0],
+    transition: { duration: 6, repeat: Infinity, ease: "easeInOut" }
+  };
+
   return (
-    <div className="pt-24 pb-20 min-h-screen bg-slate-50 dark:bg-slate-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div ref={containerRef} className="relative min-h-screen bg-slate-950 overflow-hidden">
+      
+      {/* Cinematic Parallax Background */}
+      <motion.div 
+        style={{ y: backgroundY }}
+        className="absolute inset-0 z-0 h-[130vh] w-full"
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/90 to-slate-950 z-10" />
+        <img 
+          src="/dancer-bg.png" 
+          alt="Classical Dancer Silhouette" 
+          className="w-full h-full object-cover opacity-60"
+        />
+      </motion.div>
+
+      <div className="relative z-20 pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="text-center mb-16">
-          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <span className="text-indigo-600 dark:text-indigo-400 font-bold tracking-widest uppercase text-sm mb-2 block">Our Curriculum</span>
-            <h1 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight text-slate-900 dark:text-white">
-              Dance Classes & Schedule
+        {/* Header Section */}
+        <div className="text-left mb-24 md:pl-20 border-l-4 border-amber-500/50 pl-6">
+          <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, ease: "easeOut" }}>
+            <span className="text-amber-500 font-bold tracking-[0.3em] uppercase text-xs mb-4 block drop-shadow-md">
+              Our Curriculum
+            </span>
+            <h1 className="text-5xl md:text-7xl font-serif mb-6 text-white leading-tight drop-shadow-lg">
+              Find Your <br/> <span className="italic text-amber-100 font-light">&nbsp;Rhythm.</span>
             </h1>
-            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto font-medium">
-              Flexible learning structures tailored for your ambitions. Join us in the evenings and find your rhythm.
+            <p className="text-lg md:text-xl text-slate-300 max-w-2xl font-light leading-relaxed">
+              Experience the profound depth of classical art in an environment tailored for your ambitions. Join us in the evening, when the shadows stretch and the spirit dances.
             </p>
           </motion.div>
         </div>
 
-        {/* Schedule Grid - Column Wise (1 Hour Gap) */}
-        <motion.div 
-            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-            className="mb-20"
-        >
-            <div className="flex items-center gap-3 justify-center mb-8">
-                <Clock className="w-8 h-8 text-indigo-500" />
-                <h2 className="text-3xl font-bold">Evening Schedule</h2>
+        {/* Schedule Timeline - Asymmetric Layout */}
+        <div className="mb-32 relative">
+          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-amber-500/0 via-amber-500/50 to-amber-500/0"></div>
+          
+          <div className="flex flex-col gap-24">
+            
+            {/* 5 PM Slot */}
+            <motion.div 
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8 }}
+              className="flex flex-col md:flex-row items-center gap-8 md:gap-20"
+            >
+              <div className="md:w-1/2 flex justify-end">
+                <div className="text-right">
+                  <h2 className="text-6xl md:text-8xl font-serif text-amber-500/80 mb-2">5<span className="text-4xl text-amber-500/40 font-sans font-light">PM</span></h2>
+                  <p className="text-amber-100/60 uppercase tracking-widest text-sm">Evening Initiation</p>
+                </div>
+              </div>
+              <motion.div animate={floatAnim} className="md:w-1/2">
+                <div className="bg-slate-900/60 backdrop-blur-md rounded-2xl p-8 border border-slate-800/50 hover:border-amber-500/30 transition-colors shadow-2xl relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl group-hover:scale-150 transition-all duration-700"></div>
+                  <h3 className="text-white font-serif text-2xl mb-6">Foundation & Form</h3>
+                  <ul className="space-y-4 relative z-10">
+                    <li className="flex items-center gap-4 text-slate-300">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-500 block"></span>
+                      <span className="font-light tracking-wide text-lg">Bharatanatyam (Batch A)</span>
+                    </li>
+                    <li className="flex items-center gap-4 text-slate-300">
+                      <span className="w-1.5 h-1.5 rounded-full bg-rose-500 block"></span>
+                      <span className="font-light tracking-wide text-lg">Bollywood Style (Batch B)</span>
+                    </li>
+                  </ul>
+                </div>
+              </motion.div>
+            </motion.div>
+
+            {/* 6 PM Slot - Reversed */}
+            <motion.div 
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8 }}
+              className="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-20"
+            >
+              <div className="md:w-1/2 flex justify-start">
+                <div className="text-left">
+                  <h2 className="text-6xl md:text-8xl font-serif text-rose-500/80 mb-2">6<span className="text-4xl text-rose-500/40 font-sans font-light">PM</span></h2>
+                  <p className="text-rose-100/60 uppercase tracking-widest text-sm">Peak Expression</p>
+                </div>
+              </div>
+              <motion.div animate={{ ...floatAnim, transition: { ...floatAnim.transition, delay: 1 } }} className="md:w-1/2 flex justify-end">
+                <div className="bg-slate-900/60 backdrop-blur-md rounded-2xl p-8 border border-slate-800/50 hover:border-rose-500/30 transition-colors shadow-2xl relative overflow-hidden group w-full text-left">
+                  <div className="absolute top-0 left-0 w-32 h-32 bg-rose-500/10 rounded-full blur-2xl group-hover:scale-150 transition-all duration-700"></div>
+                  <h3 className="text-white font-serif text-2xl mb-6">Movement & Flow</h3>
+                  <ul className="space-y-4 relative z-10">
+                    <li className="flex items-center justify-end gap-4 text-slate-300 flex-row-reverse">
+                      <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 block"></span>
+                      <span className="font-light tracking-wide text-lg text-right">Free Style Dance (Mixed)</span>
+                    </li>
+                    <li className="flex items-center justify-end gap-4 text-slate-300 flex-row-reverse">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-500 block"></span>
+                      <span className="font-light tracking-wide text-lg text-right">Bharatanatyam (Batch B)</span>
+                    </li>
+                  </ul>
+                </div>
+              </motion.div>
+            </motion.div>
+
+            {/* 7 PM Slot */}
+            <motion.div 
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8 }}
+              className="flex flex-col md:flex-row items-center gap-8 md:gap-20"
+            >
+              <div className="md:w-1/2 flex justify-end">
+                <div className="text-right">
+                  <h2 className="text-6xl md:text-8xl font-serif text-indigo-500/80 mb-2">7<span className="text-4xl text-indigo-500/40 font-sans font-light">PM</span></h2>
+                  <p className="text-indigo-100/60 uppercase tracking-widest text-sm">Advanced Rhythm</p>
+                </div>
+              </div>
+              <motion.div animate={{ ...floatAnim, transition: { ...floatAnim.transition, delay: 2 } }} className="md:w-1/2">
+                <div className="bg-slate-900/60 backdrop-blur-md rounded-2xl p-8 border border-slate-800/50 hover:border-indigo-500/30 transition-colors shadow-2xl relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl group-hover:scale-150 transition-all duration-700"></div>
+                  <h3 className="text-white font-serif text-2xl mb-6">Mastery & Drill</h3>
+                  <ul className="space-y-4 relative z-10">
+                    <li className="flex items-center gap-4 text-slate-300">
+                      <span className="w-1.5 h-1.5 rounded-full bg-rose-500 block"></span>
+                      <span className="font-light tracking-wide text-lg">Bollywood Style (Batch A)</span>
+                    </li>
+                    <li className="flex items-center gap-4 text-slate-300">
+                      <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 block"></span>
+                      <span className="font-light tracking-wide text-lg">Masterclass / Performance Drill</span>
+                    </li>
+                  </ul>
+                </div>
+              </motion.div>
+            </motion.div>
+
+          </div>
+        </div>
+
+        {/* Floating Policy Cards */}
+        <div className="mt-32">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          >
+            {/* All-Rounder Track */}
+            <div className="bg-gradient-to-br from-slate-900/90 to-slate-950 backdrop-blur-xl p-10 border border-amber-500/20 rounded-[2rem] hover:border-amber-500/50 transition-colors shadow-2xl shadow-amber-500/5">
+              <Sparkle className="w-10 h-10 text-amber-500 mb-6 drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]" />
+              <h4 className="text-3xl font-serif text-amber-50 mb-3">All-Rounder Track</h4>
+              <p className="text-amber-100/60 font-light mb-8">For students who wish to experience and master every style of dance we teach.</p>
+              
+              <ul className="space-y-4 text-slate-300 font-light tracking-wide">
+                <li className="flex items-center gap-4"><span className="w-1 h-1 bg-amber-500 rounded-full"></span> 2 Days: Bharatanatyam Form</li>
+                <li className="flex items-center gap-4"><span className="w-1 h-1 bg-rose-500 rounded-full"></span> 2 Days: Bollywood Style Choreography</li>
+                <li className="flex items-center gap-4"><span className="w-1 h-1 bg-indigo-500 rounded-full"></span> 1 Day: Free Style Expression</li>
+              </ul>
+            </div>
+
+            {/* Specialist Track */}
+            <div className="bg-gradient-to-br from-slate-900/90 to-slate-950 backdrop-blur-xl p-10 border border-indigo-500/20 rounded-[2rem] hover:border-indigo-500/50 transition-colors shadow-2xl shadow-indigo-500/5">
+              <ShieldCheck className="w-10 h-10 text-indigo-500 mb-6 drop-shadow-[0_0_8px_rgba(99,102,241,0.5)]" />
+              <h4 className="text-3xl font-serif text-indigo-50 mb-3">Specialist Track</h4>
+              <p className="text-indigo-100/60 font-light mb-8">For students who have a singular passion and dedicate themselves strictly to one art form.</p>
+              
+              <div className="bg-indigo-950/40 border border-indigo-500/20 p-6 rounded-2xl flex gap-4 items-start shadow-inner">
+                <Info className="w-6 h-6 text-indigo-400 shrink-0 mt-1" />
+                <p className="text-indigo-100/70 font-light leading-relaxed">
+                  Choose your specific core style (such as exclusive Bharatanatyam) and continue gracefully with that focused schedule throughout your entire journey.
+                </p>
+              </div>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {/* 5 PM Column */}
-                <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-lg relative overflow-hidden group">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-bl-full -z-10 group-hover:scale-125 transition-transform duration-500"></div>
-                    <div className="text-center mb-6 border-b border-slate-100 dark:border-slate-800 pb-4">
-                        <span className="text-indigo-600 dark:text-indigo-400 font-black text-3xl">5:00 PM</span>
-                        <p className="text-slate-500 mt-1 font-medium">to 6:00 PM</p>
-                    </div>
-                     <ul className="space-y-4">
-                        <li className="flex items-center justify-center p-3 rounded-xl bg-amber-50 text-amber-700 dark:bg-amber-900/20 dark:text-amber-400 font-bold shadow-sm">Bharatanatyam (Batch A)</li>
-                        <li className="flex items-center justify-center p-3 rounded-xl bg-pink-50 text-pink-700 dark:bg-pink-900/20 dark:text-pink-400 font-bold shadow-sm">Bollywood Style (Batch B)</li>
-                    </ul>
-                </div>
-
-                {/* 6 PM Column */}
-                <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-lg relative overflow-hidden group">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-bl-full -z-10 group-hover:scale-125 transition-transform duration-500"></div>
-                    <div className="text-center mb-6 border-b border-slate-100 dark:border-slate-800 pb-4">
-                        <span className="text-amber-500 dark:text-amber-400 font-black text-3xl">6:00 PM</span>
-                        <p className="text-slate-500 mt-1 font-medium">to 7:00 PM</p>
-                    </div>
-                     <ul className="space-y-4">
-                        <li className="flex items-center justify-center p-3 rounded-xl bg-blue-50 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400 font-bold shadow-sm">Free Style Dance (Mixed)</li>
-                        <li className="flex items-center justify-center p-3 rounded-xl bg-amber-50 text-amber-700 dark:bg-amber-900/20 dark:text-amber-400 font-bold shadow-sm">Bharatanatyam (Batch B)</li>
-                    </ul>
-                </div>
-
-                {/* 7 PM Column */}
-                <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-lg relative overflow-hidden group">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-pink-500/10 rounded-bl-full -z-10 group-hover:scale-125 transition-transform duration-500"></div>
-                    <div className="text-center mb-6 border-b border-slate-100 dark:border-slate-800 pb-4">
-                        <span className="text-pink-500 font-black text-3xl">7:00 PM</span>
-                        <p className="text-slate-500 mt-1 font-medium">to 8:00 PM</p>
-                    </div>
-                    <ul className="space-y-4">
-                        <li className="flex items-center justify-center p-3 rounded-xl bg-pink-50 text-pink-700 dark:bg-pink-900/20 dark:text-pink-400 font-bold shadow-sm">Bollywood Style (Batch A)</li>
-                        <li className="flex items-center justify-center p-3 rounded-xl bg-indigo-50 text-indigo-700 dark:bg-indigo-900/20 dark:text-indigo-400 font-bold shadow-sm">Masterclass / Drill</li>
-                    </ul>
-                </div>
-            </div>
-        </motion.div>
-
-        {/* Academy Policy Section */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.4 }}>
-            <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-200 dark:border-slate-800 p-10 md:p-14 shadow-xl">
-                <div className="flex flex-col md:flex-row gap-12 items-center">
-                    
-                    <div className="md:w-1/3">
-                        <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-indigo-500/30">
-                            <ShieldCheck className="w-8 h-8 text-white" />
-                        </div>
-                        <h3 className="text-3xl font-extrabold mb-4">Academy Policy & Flexibility</h3>
-                        <p className="text-slate-600 dark:text-slate-400 font-medium">
-                            We believe that every student learns differently. That is why we provide ultimate flexibility while maintaining a structured curriculum for rapid growth.
-                        </p>
-                    </div>
-
-                    <div className="md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-6">
-                        
-                        {/* Universal Learner Track */}
-                        <div className="bg-slate-50 dark:bg-slate-950 p-8 rounded-3xl border border-indigo-100 dark:border-indigo-900/30">
-                            <h4 className="text-xl font-bold flex items-center gap-2 mb-4 text-slate-800 dark:text-slate-100">
-                                <Sparkle className="w-5 h-5 text-amber-500" />
-                                All-Rounder Track
-                            </h4>
-                            <p className="text-slate-600 dark:text-slate-400 text-sm mb-6 pb-6 border-b border-slate-200 dark:border-slate-800">
-                                For students who wish to master every style of dance we teach.
-                            </p>
-                            <ul className="space-y-3 font-medium text-sm text-slate-700 dark:text-slate-300">
-                                <li className="flex gap-3"><span className="w-2 h-2 rounded-full bg-amber-500 mt-1.5 shrink-0"></span>2 Days: Bharatanatyam form</li>
-                                <li className="flex gap-3"><span className="w-2 h-2 rounded-full bg-pink-500 mt-1.5 shrink-0"></span>2 Days: Bollywood Style choreography</li>
-                                <li className="flex gap-3"><span className="w-2 h-2 rounded-full bg-blue-500 mt-1.5 shrink-0"></span>1 Day: Free Style expression</li>
-                            </ul>
-                        </div>
-
-                        {/* Dedicated Learner Track */}
-                        <div className="bg-slate-50 dark:bg-slate-950 p-8 rounded-3xl border border-slate-200 dark:border-slate-800">
-                            <h4 className="text-xl font-bold flex items-center gap-2 mb-4 text-slate-800 dark:text-slate-100">
-                                <CheckCircle2 className="w-5 h-5 text-indigo-500" />
-                                Specialist Track
-                            </h4>
-                            <p className="text-slate-600 dark:text-slate-400 text-sm mb-6 pb-6 border-b border-slate-200 dark:border-slate-800">
-                                For students who have a singular passion and want to master one specific style.
-                            </p>
-                            <div className="flex p-4 rounded-xl bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-900/30 text-green-800 dark:text-green-400 text-sm font-bold gap-3 items-start">
-                                <Info className="w-5 h-5 shrink-0" />
-                                <p>You can choose your specific style (e.g. only Bharatanatyam) and continue exclusively with that class schedule for the entire duration of your tenure.</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </motion.div>
+          </motion.div>
+        </div>
 
       </div>
     </div>
