@@ -46,6 +46,11 @@ const AIChatBot: React.FC = () => {
 
     recognition.onerror = (event: any) => {
       console.error('Speech recognition error:', event.error);
+      if (event.error === 'not-allowed') {
+        alert('Microphone access blocked! Please click the camera/mic icon in your URL bar to allow microphone permissions.');
+      } else {
+        alert('Microphone error: ' + event.error);
+      }
       setIsListening(false);
     };
 
