@@ -21,7 +21,7 @@ const AIChatBot: React.FC = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const [isSpeechEnabled, setIsSpeechEnabled] = useState(false);
+  const [isSpeechEnabled, setIsSpeechEnabled] = useState(true);
   const [isListening, setIsListening] = useState(false);
 
   const startListening = () => {
