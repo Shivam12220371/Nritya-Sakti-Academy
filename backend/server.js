@@ -11,6 +11,7 @@ const adminRoutes = require('./routes/adminRoutes');
 const userRoutes = require('./routes/userRoutes');
 const instructorRoutes = require('./routes/instructorRoutes');
 const certificateRoutes = require('./routes/certificateRoutes');
+const chatRoute = require('./routes/chatRoute');
 const path = require('path');
 
 // Middleware
@@ -28,6 +29,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/instructor', instructorRoutes);
 app.use('/api/certificates', certificateRoutes);
+app.use('/api/chat', chatRoute);
 
 // Mount public uploads folder for profile pictures
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));

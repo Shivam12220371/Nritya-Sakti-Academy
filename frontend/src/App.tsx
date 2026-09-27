@@ -20,6 +20,7 @@ import AuthPage from './pages/AuthPage';
 import VerificationPage from './pages/VerificationPage';
 import { Toaster } from 'react-hot-toast';
 import { useAuth } from './context/AuthContext';
+import AIChatBot from './components/AIChatBot';
 
 function App() {
   const { loading } = useAuth();
@@ -49,6 +50,7 @@ function App() {
           <Route path="/instructor/*" element={<InstructorDashboard />} />
         </Routes>
         <Footer />
+        <AIChatBot />
       </div>
     </Router>
   );
