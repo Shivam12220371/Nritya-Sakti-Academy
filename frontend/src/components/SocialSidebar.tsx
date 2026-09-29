@@ -18,24 +18,25 @@ const SocialSidebar = () => {
   ];
 
   return (
-    <div className="fixed top-1/2 -translate-y-1/2 left-0 z-50 flex flex-col gap-3">
+    <div className="fixed top-1/2 -translate-y-1/2 right-0 z-50 flex flex-col gap-3">
       {socials.map((social, idx) => (
         <motion.a
           key={idx}
           href={social.link}
           target="_blank"
           rel="noopener noreferrer"
-          initial={{ x: -104 }}
-          animate={{ x: -104 }}
+          initial={{ x: 104 }}
+          animate={{ x: 104 }}
           whileHover={{ x: 0 }}
-          className={`flex items-center w-40 h-14 ${social.color} text-white rounded-r-xl shadow-lg cursor-pointer transition-colors border border-white/20`}
+          className={`flex items-center w-40 h-14 ${social.color} text-white rounded-l-xl shadow-lg cursor-pointer transition-colors border border-white/20`}
           transition={{ type: 'spring', stiffness: 300, damping: 25 }}
         >
+
+          <div className="w-14 h-14 shrink-0 flex items-center justify-center bg-white/20 rounded-l-xl backdrop-blur-md">
+            {social.icon}
+          </div>
           <div className="flex-1 px-3 font-semibold text-base tracking-wide flex justify-start items-center ml-2">
             {social.name}
-          </div>
-          <div className="w-14 h-14 shrink-0 flex items-center justify-center bg-white/20 rounded-r-xl backdrop-blur-md">
-            {social.icon}
           </div>
         </motion.a>
       ))}
