@@ -107,10 +107,6 @@ const ProgramDetails = () => {
   const { programId } = useParams<{ programId: string }>();
   const program = programId ? programsData[programId] : null;
 
-  if (!program) {
-    return <Navigate to="/" replace />;
-  }
-
   // Smooth scroll to top when page is opened dynamically
   useEffect(() => {
     window.scrollTo({
@@ -119,6 +115,10 @@ const ProgramDetails = () => {
       behavior: 'smooth'
     });
   }, [programId]);
+
+  if (!program) {
+    return <Navigate to="/" replace />;
+  }
 
   const bgIcon = instrumentSVGs[programId || ''] || null;
 

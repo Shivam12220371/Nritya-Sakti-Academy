@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Lock, User, ArrowRight } from 'lucide-react';
+import { Mail, Lock, User, ArrowRight, Eye, EyeOff } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -15,6 +15,7 @@ const AuthPage = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
@@ -154,14 +155,27 @@ const AuthPage = () => {
                                     <Lock className="h-5 w-5 text-slate-400" />
                                 </div>
                                 <input 
-                                    type="password" 
-                                    className="block w-full pl-10 pr-3 py-3 border border-slate-300 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-950 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium" 
+                                    type={showPassword ? "text" : "password"}
+                                    className="block w-full pl-10 pr-10 py-3 border border-slate-300 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-950 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium" 
                                     placeholder="Password"
                                     autoComplete={isLogin ? "current-password" : "new-password"}
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     required
                                 />
+                                <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 focus:outline-none flex items-center justify-center p-1"
+                                    >
+                                        {showPassword ? (
+                                            <EyeOff className="h-5 w-5" />
+                                        ) : (
+                                            <Eye className="h-5 w-5" />
+                                        )}
+                                    </button>
+                                </div>
                             </div>
 
                             {isLogin && (

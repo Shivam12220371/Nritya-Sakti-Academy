@@ -22,6 +22,7 @@ import VerificationPage from './pages/VerificationPage';
 import { Toaster } from 'react-hot-toast';
 import { useAuth } from './context/AuthContext';
 import AIChatBot from './components/AIChatBot';
+import SocialSidebar from './components/SocialSidebar';
 
 function App() {
   const { loading } = useAuth();
@@ -36,6 +37,7 @@ function App() {
       <div className="min-h-screen bg-slate-50 dark:bg-slate-950 font-sans selection:bg-indigo-500/30">
         <ScrollToTop />
         <Navbar />
+        <SocialSidebar />
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<HomePage />} />
