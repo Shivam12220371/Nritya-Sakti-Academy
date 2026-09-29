@@ -64,27 +64,36 @@ const AIChatBot: React.FC = () => {
   const speakText = (text: string) => {
     if (!isSpeechEnabled || !window.speechSynthesis) return;
     
-    // In some browsers, very long sentences freeze the speech API, so we ensure it's clean
+    // Desktop Chrome fix: cancel active speech, then delay slightly before speaking avoiding instant drop
     window.speechSynthesis.cancel(); 
     
-    const utterance = new SpeechSynthesisUtterance(text);
-    
-    const voices = window.speechSynthesis.getVoices();
-    if (voices && voices.length > 0) {
-      const englishVoice = voices.find(v => v.lang.includes('en-US')) || voices.find(v => v.lang.includes('en'));
-      if (englishVoice) utterance.voice = englishVoice;
-    }
-    
-    utterance.volume = 1.0;
-    utterance.rate = 1.0;
-    utterance.pitch = 1.0;
-    window.speechSynthesis.speak(utterance);
+    setTimeout(() => {
+      const utterance = new SpeechSynthesisUtterance(text);
+      
+      const voices = window.speechSynthesis.getVoices();
+      if (voices && voices.length > 0) {
+        // Look for Google US English first (sounds best on Chrome Desktop), then any en-US, then any en
+        const voice = voices.find(v => v.name.includes("Google US English")) || 
+                      voices.find(v => v.lang === 'en-US') || 
+                      voices.find(v => v.lang.includes('en'));
+        if (voice) utterance.voice = voice;
+      }
+      
+      utterance.volume = 1.0;
+      utterance.rate = 1.0;
+      utterance.pitch = 1.0;
+      window.speechSynthesis.speak(utterance);
+    }, 50);
   };
 
-  // Pre-load voices to avoid silent failures on first click
+  // Pre-load voices for desktop to avoid empty arrays on first interaction
   useEffect(() => {
     if (window.speechSynthesis) {
       window.speechSynthesis.getVoices();
+      // Chrome desktop requires an event listener for voices to fully trigger load
+      window.speechSynthesis.onvoiceschanged = () => {
+        window.speechSynthesis.getVoices();
+      };
     }
   }, []);
 
