@@ -16,8 +16,8 @@ const HomePage = () => {
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-slate-900 text-white">
         {/* Dynamic Ganesha Idol - Top Right corner */}
-        <motion.div 
-          animate={{ y: [-4, 4, -4], rotate: [0, 2, -2, 0] }} 
+        <motion.div
+          animate={{ y: [-4, 4, -4], rotate: [0, 2, -2, 0] }}
           transition={{ duration: 6, ease: "easeInOut", repeat: Infinity }}
           className="absolute top-24 right-4 md:right-12 xl:right-16 w-14 md:w-20 lg:w-24 z-20 opacity-90 mix-blend-screen mix-blend-lighten pointer-events-none drop-shadow-xl"
         >
@@ -115,7 +115,7 @@ const HomePage = () => {
 
               <div className="space-y-4">
                 {[
-                  'Expert Teachers & Choreographers',
+                  'Expert Teacher & Instructor Ayushi Dubey',
                   'Flexible Batch Slots',
                   'Recorded Video Materials',
                   'Detailed Progress Tracking',
@@ -130,8 +130,8 @@ const HomePage = () => {
             </div>
             <div className="md:w-1/2 mt-12 md:mt-0">
               <div className="relative rounded-3xl p-8 border border-slate-700 overflow-hidden shadow-2xl text-white group">
-                <div 
-                  className="absolute inset-0 bg-cover bg-center z-0 transition-transform duration-1000 group-hover:scale-105" 
+                <div
+                  className="absolute inset-0 bg-cover bg-center z-0 transition-transform duration-1000 group-hover:scale-105"
                   style={{ backgroundImage: 'url(/ghungroo_feet.png)' }}
                 ></div>
                 <div className="absolute inset-0 bg-black/60 dark:bg-black/70 backdrop-blur-[1px] z-0 transition-opacity duration-500"></div>
@@ -195,16 +195,16 @@ const HomePage = () => {
       {/* Founder Section */}
       <section className="py-24 bg-slate-50 dark:bg-slate-950 relative overflow-hidden">
         {/* Dynamic SHAKTI Shadow */}
-        <motion.div 
-          initial={{ opacity: 0, x: -100 }} 
-          whileInView={{ opacity: 1, x: 0 }} 
-          viewport={{ once: false, margin: "-100px" }} 
+        <motion.div
+          initial={{ opacity: 0, x: -100 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: false, margin: "-100px" }}
           transition={{ duration: 1.5, ease: "easeOut" }}
           className="absolute top-1/2 left-0 -translate-y-1/2 md:-translate-y-1/4 text-[12rem] md:text-[25rem] font-black text-slate-900/[0.03] dark:text-slate-100/[0.02] select-none pointer-events-none z-0 tracking-tighter mix-blend-overlay"
         >
           SHAKTI
         </motion.div>
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="flex flex-col md:flex-row items-center gap-16">
             <motion.div
