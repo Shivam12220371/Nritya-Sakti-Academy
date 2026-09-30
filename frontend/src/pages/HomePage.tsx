@@ -19,7 +19,7 @@ const HomePage = () => {
         <motion.div
           animate={{ y: [-4, 4, -4], rotate: [0, 2, -2, 0] }}
           transition={{ duration: 6, ease: "easeInOut", repeat: Infinity }}
-          className="absolute top-24 right-4 md:right-12 xl:right-16 w-14 md:w-20 lg:w-24 z-20 opacity-90 mix-blend-screen mix-blend-lighten pointer-events-none drop-shadow-xl"
+          className="absolute top-4 md:top-24 right-4 md:right-12 xl:right-16 w-12 sm:w-14 md:w-20 lg:w-24 z-20 opacity-90 mix-blend-screen mix-blend-lighten pointer-events-none drop-shadow-xl"
         >
           <img src="/ganesha.png" alt="Shree Ganesha" className="w-full h-auto object-contain drop-shadow-[0_0_15px_rgba(245,158,11,0.4)]" />
         </motion.div>
