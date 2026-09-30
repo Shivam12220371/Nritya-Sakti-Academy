@@ -1,10 +1,11 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isProgramsOpen, setIsProgramsOpen] = useState(false);
   const { user, token, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -21,9 +22,9 @@ const Navbar = () => {
         <div className="flex justify-between h-20 items-center">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <Link to="/" className="flex items-center text-2xl font-bold tracking-tighter text-indigo-600 dark:text-indigo-400">
-              <img src="/logo.jpg" alt="Nritya Shakti" className="w-12 h-12 rounded-full mr-3 shadow-md" />
-              <span className="hidden sm:block">NRITYA<span className="text-slate-900 dark:text-white">SHAKTI</span> ACADEMY</span>
+            <Link to="/" className="flex items-center text-[0.8rem] sm:text-xl md:text-2xl font-bold tracking-tight sm:tracking-tighter text-indigo-600 dark:text-indigo-400">
+              <img src="/logo.jpg" alt="Nritya Shakti" className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full mr-2 md:mr-3 shadow-md" />
+              <span>NRITYA<span className="text-slate-900 dark:text-white">SHAKTI</span> ACADEMY</span>
             </Link>
           </div>
 
@@ -92,12 +93,17 @@ const Navbar = () => {
             {!isDashboard && (
               <>
                 <div className="flex flex-col border-y border-slate-100 dark:border-slate-800/50 my-2 py-2">
-                  <div className="text-slate-400 dark:text-slate-500 font-bold px-3 py-2 uppercase text-xs tracking-widest text-center">Programs</div>
-                  <Link to="/programs/kathak" className="block px-3 py-2 text-slate-600 dark:text-slate-300 hover:text-indigo-600 font-medium" onClick={() => setIsOpen(false)}>Kathak</Link>
-                  <Link to="/programs/bharatanatyam" className="block px-3 py-2 text-slate-600 dark:text-slate-300 hover:text-indigo-600 font-medium" onClick={() => setIsOpen(false)}>Bharatanatyam</Link>
-                  <Link to="/programs/western-dance" className="block px-3 py-2 text-slate-600 dark:text-slate-300 hover:text-indigo-600 font-medium" onClick={() => setIsOpen(false)}>Western Dance</Link>
-                  <Link to="/programs/zumba" className="block px-3 py-2 text-slate-600 dark:text-slate-300 hover:text-indigo-600 font-medium" onClick={() => setIsOpen(false)}>Zumba</Link>
-                  <Link to="/programs/free-style" className="block px-3 py-2 text-slate-600 dark:text-slate-300 hover:text-indigo-600 font-medium" onClick={() => setIsOpen(false)}>Free Style</Link>
+                  <button onClick={() => setIsProgramsOpen(!isProgramsOpen)} className="flex items-center justify-center w-full px-3 py-2 text-slate-600 dark:text-slate-300 hover:text-indigo-600 font-medium text-lg">
+                    Programs
+                    <ChevronDown className={`ml-2 w-5 h-5 transition-transform duration-300 ${isProgramsOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                  <div className={`flex flex-col overflow-hidden transition-all duration-300 ease-in-out ${isProgramsOpen ? 'max-h-64 opacity-100 py-2' : 'max-h-0 opacity-0'}`}>
+                    <Link to="/programs/kathak" className="block px-3 py-2 text-slate-600 dark:text-slate-300 hover:text-indigo-600 font-medium" onClick={() => setIsOpen(false)}>Kathak</Link>
+                    <Link to="/programs/bharatanatyam" className="block px-3 py-2 text-slate-600 dark:text-slate-300 hover:text-indigo-600 font-medium" onClick={() => setIsOpen(false)}>Bharatanatyam</Link>
+                    <Link to="/programs/western-dance" className="block px-3 py-2 text-slate-600 dark:text-slate-300 hover:text-indigo-600 font-medium" onClick={() => setIsOpen(false)}>Western Dance</Link>
+                    <Link to="/programs/zumba" className="block px-3 py-2 text-slate-600 dark:text-slate-300 hover:text-indigo-600 font-medium" onClick={() => setIsOpen(false)}>Zumba</Link>
+                    <Link to="/programs/free-style" className="block px-3 py-2 text-slate-600 dark:text-slate-300 hover:text-indigo-600 font-medium" onClick={() => setIsOpen(false)}>Free Style</Link>
+                  </div>
                 </div>
                 <Link to="/classes" className="block px-3 py-3 text-slate-600 dark:text-slate-300 hover:text-indigo-600 font-medium text-lg" onClick={() => setIsOpen(false)}>Classes</Link>
                 <Link to="/about" className="block px-3 py-3 text-slate-600 dark:text-slate-300 hover:text-indigo-600 font-medium text-lg" onClick={() => setIsOpen(false)}>About</Link>
