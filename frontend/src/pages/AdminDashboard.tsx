@@ -761,7 +761,7 @@ const AdminDashboard = () => {
                                                     Broadcasted by {msg.sender?.name} ({msg.role}) • {new Date(msg.createdAt).toLocaleDateString()}
                                                 </p>
                                             </div>
-                                            <button onClick={() => handleDeleteMessage(msg._id)} className="text-red-500 bg-red-50 hover:bg-red-100 p-2 rounded-lg opacity-0 group-hover:opacity-100 transition shadow-sm">
+                                            <button onClick={() => handleDeleteMessage(msg._id)} className="text-red-500 bg-red-50 hover:bg-red-100 p-2 rounded-lg transition shadow-sm border border-red-200">
                                                 <Trash2 className="w-5 h-5" />
                                             </button>
                                         </div>

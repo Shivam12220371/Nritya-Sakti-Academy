@@ -378,7 +378,7 @@ const InstructorDashboard = () => {
                                             </div>
                                             {/* Only show delete button if instructor created this message, or just let them delete it */}
                                             {msg.sender?._id === user?._id && (
-                                                <button onClick={() => handleDeleteMessage(msg._id)} className="text-red-500 bg-red-50 hover:bg-red-100 p-2 rounded-lg opacity-0 group-hover:opacity-100 transition shadow-sm">
+                                                <button onClick={() => handleDeleteMessage(msg._id)} className="text-red-500 bg-red-50 hover:bg-red-100 px-4 py-2 rounded-lg font-bold transition shadow-sm border border-red-200">
                                                     Remove
                                                 </button>
                                             )}
