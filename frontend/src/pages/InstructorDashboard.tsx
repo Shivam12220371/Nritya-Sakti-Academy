@@ -172,7 +172,7 @@ const InstructorDashboard = () => {
                     </div>
                 </div>
 
-                <nav className="flex-1 space-y-2">
+                <nav className="flex-1 space-y-2 overflow-y-auto pr-2 custom-scrollbar">
                     {[
                         { id: 'classes', icon: BookOpen, label: 'My Classes' },
                         { id: 'students', icon: Users, label: 'My Students' },

@@ -589,7 +589,7 @@ const AdminDashboard = () => {
                     </div>
                 </div>
 
-                <nav className="flex-1 space-y-2">
+                <nav className="flex-1 space-y-2 overflow-y-auto pr-2 custom-scrollbar">
                     {[
                         { id: 'overview', icon: LayoutDashboard, label: 'Overview' },
                         { id: 'students', icon: Users, label: 'Student Users' },
