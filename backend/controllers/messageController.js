@@ -48,13 +48,11 @@ const deleteMessage = async (req, res) => {
       return res.status(404).json({ message: 'Message not found' });
     }
 
-    // Optionally check if the user is authorized to delete this message.
-    // Admin can delete any, instructors can delete their own.
     if (req.user.role !== 'admin' && message.sender.toString() !== req.user._id.toString()) {
       return res.status(403).json({ message: 'Not authorized to delete this message' });
     }
 
-    await message.deleteOne();
+    await Message.findByIdAndDelete(req.params.id);
     res.status(200).json({ message: 'Message deleted successfully', id: req.params.id });
   } catch (error) {
     res.status(500).json({ message: error.message });
