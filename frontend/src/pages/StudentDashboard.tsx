@@ -161,6 +161,12 @@ const StudentDashboard = () => {
 
    const profileImageUrl = studentData.profileImage ? `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${studentData.profileImage}` : null;
    const watchedVideoSet = new Set(studentData.watchedVideoIds || []);
+   
+   const activeBannerMessages = messages.filter(m => {
+       const msgTime = new Date(m.createdAt).getTime();
+       const now = Date.now();
+       return now - msgTime <= 24 * 60 * 60 * 1000;
+   });
 
    // Setup structural data safely 
    const skills = [
@@ -235,7 +241,7 @@ const StudentDashboard = () => {
          <main className="flex-1 p-6 md:p-10 overflow-auto relative">
             
             {/* Dynamic Fluctuating Messages Banner */}
-            {messages.length > 0 && (
+            {activeBannerMessages.length > 0 && (
                 <div className="mb-8 overflow-hidden bg-indigo-600 rounded-xl shadow-lg border border-indigo-500 relative flex items-center p-3 text-white">
                     <div className="absolute left-0 bg-indigo-700 h-full flex items-center px-4 font-black tracking-widest text-sm z-10 rounded-l-xl uppercase shadow-[4px_0_10px_rgba(0,0,0,0.2)]">
                         Alert
@@ -246,7 +252,7 @@ const StudentDashboard = () => {
                             animate={{ x: ["100%", "-100%"] }}
                             transition={{ repeat: Infinity, duration: 15, ease: "linear" }}
                         >
-                            {messages.map((m) => (
+                            {activeBannerMessages.map((m) => (
                                 <span key={m._id} className="mx-6">
                                     • {m.content} <span className="opacity-50 font-normal ml-2">({m.sender?.name})</span>
                                 </span>
