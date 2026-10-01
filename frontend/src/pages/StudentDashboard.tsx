@@ -21,6 +21,7 @@ const StudentDashboard = () => {
    const [classes, setClasses] = useState<any[]>([]);
    const [videos, setVideos] = useState<any[]>([]);
    const [myCertificates, setMyCertificates] = useState<any[]>([]);
+   const [messages, setMessages] = useState<any[]>([]);
    
    const [attendanceHistory, setAttendanceHistory] = useState<any[]>([]);
    const [showAttendanceModal, setShowAttendanceModal] = useState(false);
@@ -54,6 +55,13 @@ const StudentDashboard = () => {
            setMyCertificates(certData);
          } catch(e) {
            console.error("Error fetching certificates", e);
+         }
+
+         try {
+             const { data: msgData } = await axios.get('/api/messages');
+             setMessages(msgData);
+         } catch (e) {
+             console.error("Error fetching messages", e);
          }
 
       } catch (error: any) {
@@ -200,6 +208,7 @@ const StudentDashboard = () => {
                   { id: 'videos', icon: Video, label: 'Video Hub' },
                   { id: 'certificates', icon: Award, label: 'Achievements' },
                   { id: 'payments', icon: IndianRupee, label: 'Fee Payments' },
+                  { id: 'announcements', icon: Camera, label: 'Announcements' },
                ].map((item) => (
                   <button 
                      key={item.id}
@@ -223,7 +232,30 @@ const StudentDashboard = () => {
          </aside>
 
          {/* Main Content Area */}
-         <main className="flex-1 p-6 md:p-10 overflow-auto">
+         <main className="flex-1 p-6 md:p-10 overflow-auto relative">
+            
+            {/* Dynamic Fluctuating Messages Banner */}
+            {messages.length > 0 && (
+                <div className="mb-8 overflow-hidden bg-indigo-600 rounded-xl shadow-lg border border-indigo-500 relative flex items-center p-3 text-white">
+                    <div className="absolute left-0 bg-indigo-700 h-full flex items-center px-4 font-black tracking-widest text-sm z-10 rounded-l-xl uppercase shadow-[4px_0_10px_rgba(0,0,0,0.2)]">
+                        Alert
+                    </div>
+                    <div className="flex-1 overflow-hidden ml-20">
+                        <motion.div 
+                            className="whitespace-nowrap font-bold text-sm"
+                            animate={{ x: ["100%", "-100%"] }}
+                            transition={{ repeat: Infinity, duration: 15, ease: "linear" }}
+                        >
+                            {messages.map((m, i) => (
+                                <span key={m._id} className="mx-6">
+                                    • {m.content} <span className="opacity-50 font-normal ml-2">({m.sender?.name})</span>
+                                </span>
+                            ))}
+                        </motion.div>
+                    </div>
+                </div>
+            )}
+
             {activeTab === 'profile' && (
                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="max-w-4xl mx-auto space-y-8">
                   <div className="flex justify-between items-end mb-8">
@@ -311,15 +343,35 @@ const StudentDashboard = () => {
                         </div>
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {isWeekend ? (
-                                <div className="col-span-full py-16 text-center border-2 border-dashed border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 rounded-3xl">
-                                    <p className="text-xl text-slate-500 font-bold mb-2">No classes scheduled on {currentDay}s!</p>
-                                    <p className="text-slate-400">Our structured syllabus classes run Monday through Friday.</p>
+                                <div className="col-span-full py-20 text-center border-2 border-dashed border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 rounded-3xl">
+                                    <h3 className="text-2xl font-bold text-slate-600 dark:text-slate-300 mb-2">Weekend Off!</h3>
+                                    <p className="text-slate-500 font-medium">Our academy is off on Saturday and Sunday. No class timetable will be shown.</p>
                                 </div>
                             ) : todayClasses.length === 0 ? (
-                                <div className="col-span-full py-16 text-center border-2 border-dashed border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 rounded-3xl">
-                                    <p className="text-xl text-slate-500 font-bold">No classes are scheduled for you today.</p>
-                                    <p className="text-slate-400 mt-2">Check back tomorrow or review your previous class recordings in the Video Hub.</p>
-                                </div>
+                                <>
+                                    <div className="col-span-full py-10 text-center border-2 border-dashed border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 rounded-3xl mb-4">
+                                        <p className="text-xl text-slate-500 font-bold">No classes are scheduled for you today.</p>
+                                        <p className="text-slate-400 mt-2">Here are your other enrolled classes.</p>
+                                    </div>
+                                    {classes.map(cls => (
+                                        <div key={cls._id} className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all group opacity-80">
+                                            <div className="flex justify-between items-start mb-4">
+                                                <span className="bg-slate-100 text-slate-600 font-bold px-3 py-1 rounded-lg text-sm">{cls.style}</span>
+                                                <span className="font-bold text-xs px-2 py-1 rounded bg-slate-100 text-slate-500">{cls.level}</span>
+                                            </div>
+                                            <h3 className="text-xl font-bold mb-2">{cls.title}</h3>
+                                            <div className="space-y-3 mt-4 text-sm font-medium text-slate-500">
+                                                <p className="flex items-center gap-2"><User className="w-4 h-4"/> Instructor: {cls.instructor?.name}</p>
+                                                <div className="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl border border-slate-100 dark:border-slate-800">
+                                                    <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Schedule</p>
+                                                    {cls.schedule?.map((s: any, idx: number) => (
+                                                        <p key={idx} className="flex items-center gap-2 mb-1 last:mb-0"><Clock className="w-3 h-3"/> {s.day}s, {s.startTime} - {s.endTime}</p>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </>
                             ) : todayClasses.map(cls => {
                                 const todaySchedule = cls.schedule.find((s: any) => s.day === currentDay);
                                 return (
@@ -512,6 +564,34 @@ const StudentDashboard = () => {
                             </div>
                         </div>
                     )}
+                </motion.div>
+            )}
+
+            {activeTab === 'announcements' && (
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="max-w-4xl mx-auto">
+                    <h2 className="text-3xl font-black text-slate-800 dark:text-white mb-2">Academy Announcements</h2>
+                    <p className="text-slate-500 mb-8 font-medium">Important messages and broadcasts from your instructors and administrators.</p>
+                    
+                    <div className="space-y-4">
+                        {messages.length === 0 && (
+                            <div className="py-20 text-center border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-3xl">
+                                <p className="text-xl text-slate-500 font-bold">No active announcements</p>
+                            </div>
+                        )}
+                        {messages.map(msg => (
+                            <div key={msg._id} className="bg-white dark:bg-slate-900 border border-indigo-200 dark:border-indigo-900/50 rounded-2xl p-6 shadow-md border-l-4 border-l-indigo-500">
+                                <p className="text-lg font-black text-slate-800 dark:text-slate-100 mb-4">{msg.content}</p>
+                                <div className="flex items-center gap-2">
+                                    <div className="w-6 h-6 bg-indigo-100 text-indigo-700 rounded-full flex items-center justify-center font-bold text-xs">
+                                        {msg.sender?.name?.charAt(0) || 'A'}
+                                    </div>
+                                    <span className="text-xs font-bold text-slate-500">
+                                        {msg.sender?.name} ({msg.role}) • {new Date(msg.createdAt).toLocaleDateString()}
+                                    </span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </motion.div>
             )}
          </main>

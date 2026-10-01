@@ -11,6 +11,8 @@ const InstructorDashboard = () => {
     // Core Data
     const [classes, setClasses] = useState<any[]>([]);
     const [students, setStudents] = useState<any[]>([]);
+    const [messages, setMessages] = useState<any[]>([]);
+    const [newMessage, setNewMessage] = useState('');
     
     // UI States
     const { logout, user, updateUser } = useAuth();
@@ -32,6 +34,9 @@ const InstructorDashboard = () => {
 
             const { data: studentsData } = await axios.get('/api/instructor/students');
             setStudents(studentsData);
+            
+            const { data: msgsData } = await axios.get('/api/messages');
+            setMessages(msgsData);
         } catch (error: any) {
             if (error.response?.status !== 401) {
                 toast.error("Failed to load dashboard data");
@@ -111,6 +116,28 @@ const InstructorDashboard = () => {
         }
     };
 
+    const handleCreateMessage = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!newMessage.trim()) return toast.error("Message cannot be empty");
+        try {
+            await axios.post('/api/messages', { content: newMessage });
+            toast.success("Announcement Broadcasted!");
+            setNewMessage('');
+            fetchData();
+        } catch (error: any) {
+            toast.error(error.response?.data?.message || 'Failed to broadcast');
+        }
+    };
+
+    const handleDeleteMessage = async (id: string) => {
+        if (!window.confirm("Remove this announcement?")) return;
+        try {
+            await axios.delete(`/api/messages/${id}`);
+            toast.success("Announcement Removed");
+            setMessages(messages.filter(m => m._id !== id));
+        } catch { toast.error('Failed to remove announcement'); }
+    };
+
     return (
         <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col md:flex-row pt-20">
             {/* Sidebar */}
@@ -150,7 +177,8 @@ const InstructorDashboard = () => {
                         { id: 'classes', icon: BookOpen, label: 'My Classes' },
                         { id: 'students', icon: Users, label: 'My Students' },
                         { id: 'attendance', icon: ClipboardCheck, label: 'Mark Attendance' },
-                        { id: 'videos', icon: Video, label: 'Upload Materials' }
+                        { id: 'videos', icon: Video, label: 'Upload Materials' },
+                        { id: 'announcements', icon: Camera, label: 'Announcements' }
                     ].map((item) => (
                         <button 
                             key={item.id}
@@ -317,6 +345,46 @@ const InstructorDashboard = () => {
                                         Publish to Student Dashboards
                                     </button>
                                 </form>
+                            </div>
+                        </div>
+                    )}
+
+                    {activeTab === 'announcements' && (
+                        <div>
+                            <h1 className="text-3xl font-bold mb-8">Broadcast Announcements</h1>
+                            <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border shadow-sm">
+                                <form onSubmit={handleCreateMessage} className="mb-8 flex flex-col sm:flex-row gap-4">
+                                    <input 
+                                        type="text" 
+                                        value={newMessage}
+                                        onChange={(e) => setNewMessage(e.target.value)}
+                                        placeholder="Type an announcement to broadcast to all students..." 
+                                        className="flex-1 p-3 border border-slate-300 rounded-xl outline-none"
+                                        required 
+                                    />
+                                    <button type="submit" className="bg-indigo-600 text-white font-bold px-6 py-3 rounded-xl hover:bg-indigo-700 transition shadow-lg">Broadcast</button>
+                                </form>
+
+                                <div className="space-y-4">
+                                    <h3 className="font-bold text-lg border-b pb-2">Active Announcements</h3>
+                                    {messages.length === 0 && <p className="text-slate-500">No active announcements.</p>}
+                                    {messages.map((msg) => (
+                                        <div key={msg._id} className="p-4 border rounded-xl shadow-sm hover:shadow flex justify-between items-start group transition bg-slate-50">
+                                            <div>
+                                                <p className="font-bold text-lg text-slate-800 mb-1">{msg.content}</p>
+                                                <p className="text-sm text-slate-500">
+                                                    Broadcasted by {msg.sender?.name} ({msg.role}) • {new Date(msg.createdAt).toLocaleDateString()}
+                                                </p>
+                                            </div>
+                                            {/* Only show delete button if instructor created this message, or just let them delete it */}
+                                            {msg.sender?._id === user?._id && (
+                                                <button onClick={() => handleDeleteMessage(msg._id)} className="text-red-500 bg-red-50 hover:bg-red-100 p-2 rounded-lg opacity-0 group-hover:opacity-100 transition shadow-sm">
+                                                    Remove
+                                                </button>
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     )}

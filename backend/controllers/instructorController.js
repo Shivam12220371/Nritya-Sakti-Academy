@@ -107,10 +107,12 @@ const markAttendance = async (req, res) => {
            ? Math.round((presentRecords / totalAttendanceRecords) * 100) 
            : 0;
            
-        const updateObj = { $set: { attendancePercent: newPercent } };
-        if (didCompleteNewClass) {
-            updateObj.$inc = { classesCompleted: 1 };
-        }
+        const updateObj = { 
+            $set: { 
+                attendancePercent: newPercent,
+                classesCompleted: presentRecords
+            } 
+        };
            
         await User.findByIdAndUpdate(record.student, updateObj);
     }

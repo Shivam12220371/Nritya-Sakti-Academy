@@ -21,6 +21,8 @@ const AdminDashboard = () => {
     const [users, setUsers] = useState<any[]>([]);
     const [classes, setClasses] = useState<any[]>([]);
     const [videos, setVideos] = useState<any[]>([]);
+    const [messages, setMessages] = useState<any[]>([]);
+    const [newMessage, setNewMessage] = useState('');
     const [stats, setStats] = useState({
         totalStudents: 0,
         activeInstructors: 0,
@@ -79,6 +81,10 @@ const AdminDashboard = () => {
             if (activeTab === 'videos') {
                 const { data: vids } = await axios.get('/api/admin/videos');
                 setVideos(vids);
+            }
+            if (activeTab === 'announcements') {
+                const { data: msgs } = await axios.get('/api/messages');
+                setMessages(msgs);
             }
         } catch (error: any) {
             if (error.response?.status !== 401) {
@@ -271,6 +277,29 @@ const AdminDashboard = () => {
             setShowVideoModal(false);
             fetchDashboardData();
         } catch { toast.error('Failed to publish'); }
+    };
+
+    // Messages Logic
+    const handleCreateMessage = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!newMessage.trim()) return toast.error("Message cannot be empty");
+        try {
+            await axios.post('/api/messages', { content: newMessage });
+            toast.success("Message Broadcasted!");
+            setNewMessage('');
+            fetchDashboardData();
+        } catch (error: any) {
+            toast.error(error.response?.data?.message || 'Failed to broadcast message');
+        }
+    };
+
+    const handleDeleteMessage = async (id: string) => {
+        if (!window.confirm("Remove this message from all dashboards?")) return;
+        try {
+            await axios.delete(`/api/messages/${id}`);
+            toast.success("Message Removed");
+            setMessages(messages.filter(m => m._id !== id));
+        } catch { toast.error('Failed to remove message'); }
     };
 
     const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -568,6 +597,7 @@ const AdminDashboard = () => {
                         { id: 'classes', icon: CalendarDays, label: 'Class Scheduler' },
                         { id: 'attendance', icon: ClipboardCheck, label: 'Mark Attendance' },
                         { id: 'videos', icon: VideoIcon, label: 'Academy Media' },
+                        { id: 'announcements', icon: Award, label: 'Announcements' },
                     ].map((item) => (
                         <button key={item.id} onClick={() => setActiveTab(item.id)} className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl ${activeTab === item.id ? 'bg-indigo-600 text-white' : 'hover:bg-slate-800'}`}>
                             <item.icon className="w-5 h-5" />
@@ -699,6 +729,44 @@ const AdminDashboard = () => {
                                         </div>
                                     </div>
                                 ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {activeTab === 'announcements' && (
+                        <div className="bg-white rounded-2xl border overflow-hidden shadow-sm">
+                            <div className="p-6 border-b flex justify-between items-center bg-slate-50">
+                                <h3 className="text-xl font-bold">Academy Announcements</h3>
+                            </div>
+                            <div className="p-6">
+                                <form onSubmit={handleCreateMessage} className="mb-8 flex gap-4">
+                                    <input 
+                                        type="text" 
+                                        value={newMessage}
+                                        onChange={(e) => setNewMessage(e.target.value)}
+                                        placeholder="Type an announcement to broadcast..." 
+                                        className="flex-1 p-3 border border-slate-300 rounded-xl outline-none"
+                                        required 
+                                    />
+                                    <button type="submit" className="bg-indigo-600 text-white font-bold px-6 py-3 rounded-xl hover:bg-indigo-700 transition shadow">Broadcast Message</button>
+                                </form>
+
+                                <div className="space-y-4">
+                                    {messages.length === 0 && <p className="text-slate-500">No active announcements.</p>}
+                                    {messages.map((msg) => (
+                                        <div key={msg._id} className="p-4 border rounded-xl shadow-sm hover:shadow flex justify-between items-start group transition bg-slate-50">
+                                            <div>
+                                                <p className="font-bold text-lg text-slate-800 mb-1">{msg.content}</p>
+                                                <p className="text-sm text-slate-500">
+                                                    Broadcasted by {msg.sender?.name} ({msg.role}) • {new Date(msg.createdAt).toLocaleDateString()}
+                                                </p>
+                                            </div>
+                                            <button onClick={() => handleDeleteMessage(msg._id)} className="text-red-500 bg-red-50 hover:bg-red-100 p-2 rounded-lg opacity-0 group-hover:opacity-100 transition shadow-sm">
+                                                <Trash2 className="w-5 h-5" />
+                                            </button>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     )}
