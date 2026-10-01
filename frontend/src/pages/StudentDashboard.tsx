@@ -246,7 +246,7 @@ const StudentDashboard = () => {
                             animate={{ x: ["100%", "-100%"] }}
                             transition={{ repeat: Infinity, duration: 15, ease: "linear" }}
                         >
-                            {messages.map((m, i) => (
+                            {messages.map((m) => (
                                 <span key={m._id} className="mx-6">
                                     • {m.content} <span className="opacity-50 font-normal ml-2">({m.sender?.name})</span>
                                 </span>
