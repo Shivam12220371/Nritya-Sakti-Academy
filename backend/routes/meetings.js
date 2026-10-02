@@ -42,7 +42,7 @@ router.get('/active', protect, async (req, res) => {
         }
 
         // Find which classes the student is enrolled in
-        const enrollments = await Enrollment.find({ student: req.user._id, status: 'Approved' });
+        const enrollments = await Enrollment.find({ student: req.user._id, status: 'Active' });
         const enrolledClassIds = enrollments.map(e => e.class);
 
         const meetings = await LiveMeeting.find({
@@ -100,7 +100,7 @@ router.get('/verify/:roomId', protect, async (req, res) => {
         }
 
         // Student validation
-        const enrollments = await Enrollment.find({ student: req.user._id, status: 'Approved' });
+        const enrollments = await Enrollment.find({ student: req.user._id, status: 'Active' });
         const enrolledClassIds = enrollments.map(e => e.class.toString());
         
         const hasAccess = room.targetClasses.some(tc => enrolledClassIds.includes(tc.toString()));
