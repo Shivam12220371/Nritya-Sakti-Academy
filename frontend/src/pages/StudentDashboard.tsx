@@ -218,6 +218,7 @@ const StudentDashboard = () => {
             <nav className="flex-1 space-y-2">
                {[
                   { id: 'profile', icon: User, label: 'Performance Matrix' },
+                  { id: 'live', icon: Radio, label: 'Live Classes' },
                   { id: 'timetable', icon: Calendar, label: 'Core Timetable' },
                   { id: 'videos', icon: Video, label: 'Video Hub' },
                   { id: 'certificates', icon: Award, label: 'Achievements' },
@@ -233,6 +234,7 @@ const StudentDashboard = () => {
                      <span className="font-medium tracking-wide text-sm">{item.label}</span>
                      
                      {/* Badge Counters */}
+                     {item.id === 'live' && liveMeetings.length > 0 && <span className="ml-auto bg-red-100 text-red-700 text-xs px-2 py-0.5 rounded-full font-bold animate-pulse">{liveMeetings.length}</span>}
                      {item.id === 'videos' && videos.length > 0 && <span className="ml-auto bg-indigo-100 text-indigo-700 text-xs px-2 py-0.5 rounded-full font-bold">{videos.length}</span>}
                      {item.id === 'certificates' && studentData.certificates > 0 && <span className="ml-auto bg-amber-100 text-amber-700 text-xs px-2 py-0.5 rounded-full font-bold">{studentData.certificates}</span>}
                   </button>
@@ -363,6 +365,37 @@ const StudentDashboard = () => {
                      </div>
                   </div>
                </motion.div>
+            )}
+
+            {activeTab === 'live' && (
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="max-w-4xl mx-auto">
+                    <h2 className="text-3xl font-black text-slate-800 dark:text-white mb-2">Live Classes</h2>
+                    <p className="text-slate-500 mb-8 font-medium">Join active broadcast sessions hosted by your instructors.</p>
+                    
+                    <div className="space-y-4">
+                        {liveMeetings.length === 0 ? (
+                            <div className="py-20 text-center border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-3xl">
+                                <Radio className="w-12 h-12 text-slate-300 mx-auto mb-3" />
+                                <p className="text-xl text-slate-500 font-bold">No active live sessions right now.</p>
+                            </div>
+                        ) : (
+                            liveMeetings.map(meeting => (
+                                <div key={meeting._id} className="bg-white dark:bg-slate-900 border border-indigo-200 dark:border-indigo-900/50 rounded-2xl p-6 shadow-md flex flex-col md:flex-row justify-between items-center gap-4">
+                                    <div>
+                                        <div className="flex items-center gap-2 mb-1">
+                                            <span className="flex h-3 w-3 relative"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span><span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span></span>
+                                            <h3 className="font-bold text-xl text-slate-800 dark:text-white">{meeting.title}</h3>
+                                        </div>
+                                        <p className="text-sm font-bold text-slate-500">Host: {meeting.host?.name}</p>
+                                    </div>
+                                    <a href={`/live/${meeting.meetingRoomId}`} target="_blank" rel="noreferrer" className="w-full md:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-8 py-3 rounded-xl shadow-lg transition-colors whitespace-nowrap flex items-center justify-center gap-2">
+                                        <Radio className="w-5 h-5"/> Join Session
+                                    </a>
+                                </div>
+                            ))
+                        )}
+                    </div>
+                </motion.div>
             )}
 
             {activeTab === 'timetable' && (() => {
