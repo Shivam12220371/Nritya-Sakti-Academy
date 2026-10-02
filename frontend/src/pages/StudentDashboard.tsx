@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { User, Calendar, Video, Award, LogOut, CheckCircle2, Camera, Clock, PlayCircle, ExternalLink, IndianRupee, QrCode, X } from 'lucide-react';
+import { User, Calendar, Video, Award, LogOut, CheckCircle2, Camera, Clock, PlayCircle, ExternalLink, IndianRupee, QrCode, X, Radio } from 'lucide-react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
@@ -22,6 +22,7 @@ const StudentDashboard = () => {
    const [videos, setVideos] = useState<any[]>([]);
    const [myCertificates, setMyCertificates] = useState<any[]>([]);
    const [messages, setMessages] = useState<any[]>([]);
+   const [liveMeetings, setLiveMeetings] = useState<any[]>([]);
    
    const [attendanceHistory, setAttendanceHistory] = useState<any[]>([]);
    const [showAttendanceModal, setShowAttendanceModal] = useState(false);
@@ -62,6 +63,13 @@ const StudentDashboard = () => {
              setMessages(msgData);
          } catch (e) {
              console.error("Error fetching messages", e);
+         }
+
+         try {
+             const { data: liveData } = await axios.get('/api/live-meetings/active');
+             setLiveMeetings(liveData);
+         } catch (e) {
+             console.error("Error fetching live meetings", e);
          }
 
       } catch (error: any) {
@@ -240,6 +248,28 @@ const StudentDashboard = () => {
          {/* Main Content Area */}
          <main className="flex-1 p-6 md:p-10 overflow-auto relative">
             
+            {/* Live Meeting High-Priority Banner */}
+            {liveMeetings.length > 0 && liveMeetings.map(meeting => (
+                <div key={meeting._id} className="mb-6 bg-gradient-to-r from-red-600 to-rose-600 rounded-xl shadow-lg border-2 border-red-400 p-4 flex flex-col md:flex-row items-center justify-between text-white animate-pulse">
+                    <div className="flex items-center gap-4 mb-4 md:mb-0">
+                        <div className="bg-white/20 p-3 rounded-full">
+                            <Radio className="w-8 h-8" />
+                        </div>
+                        <div>
+                            <p className="text-xs font-black uppercase tracking-widest text-red-100 flex items-center gap-2">
+                                <span className="flex h-2 w-2 relative"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span><span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span></span>
+                                Live Session Started
+                            </p>
+                            <h3 className="font-bold text-xl">{meeting.title}</h3>
+                            <p className="text-sm text-red-100">by {meeting.host?.name}</p>
+                        </div>
+                    </div>
+                    <a href={`/live/${meeting.meetingRoomId}`} target="_blank" rel="noreferrer" className="bg-white text-red-600 hover:bg-slate-50 font-bold px-8 py-3 rounded-xl shadow-xl transition-colors whitespace-nowrap">
+                        Join Class Now
+                    </a>
+                </div>
+            ))}
+
             {/* Dynamic Fluctuating Messages Banner */}
             {activeBannerMessages.length > 0 && (
                 <div className="mb-8 overflow-hidden bg-indigo-600 rounded-xl shadow-lg border border-indigo-500 relative flex items-center p-3 text-white">

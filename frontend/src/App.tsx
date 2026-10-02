@@ -23,6 +23,7 @@ import { Toaster } from 'react-hot-toast';
 import { useAuth } from './context/AuthContext';
 import AIChatBot from './components/AIChatBot';
 import SocialSidebar from './components/SocialSidebar';
+import LiveMeetingRoom from './pages/LiveMeetingRoom';
 
 function App() {
   const { loading } = useAuth();
@@ -52,6 +53,7 @@ function App() {
           <Route path="/student/*" element={<StudentDashboard />} />
           <Route path="/admin/*" element={<AdminDashboard />} />
           <Route path="/instructor/*" element={<InstructorDashboard />} />
+          <Route path="/live/:roomId" element={<LiveMeetingRoom />} />
         </Routes>
         <Footer />
         <AIChatBot />

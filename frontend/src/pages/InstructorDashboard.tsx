@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { BookOpen, Users, ClipboardCheck, Video, LogOut, Calendar, Clock, UploadCloud, Camera } from 'lucide-react';
+import { BookOpen, Users, ClipboardCheck, Video, LogOut, Calendar, Clock, UploadCloud, Camera, Radio, Play } from 'lucide-react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
@@ -12,7 +12,10 @@ const InstructorDashboard = () => {
     const [classes, setClasses] = useState<any[]>([]);
     const [students, setStudents] = useState<any[]>([]);
     const [messages, setMessages] = useState<any[]>([]);
+    const [liveMeetings, setLiveMeetings] = useState<any[]>([]);
     const [newMessage, setNewMessage] = useState('');
+    const [newMeetingTitle, setNewMeetingTitle] = useState('');
+    const [selectedTargetClasses, setSelectedTargetClasses] = useState<string[]>([]);
     
     // UI States
     const { logout, user, updateUser } = useAuth();
@@ -37,6 +40,11 @@ const InstructorDashboard = () => {
             
             const { data: msgsData } = await axios.get('/api/messages');
             setMessages(msgsData);
+
+            if (activeTab === 'live') {
+                const { data: mData } = await axios.get('/api/live-meetings/active');
+                setLiveMeetings(mData);
+            }
         } catch (error: any) {
             if (error.response?.status !== 401) {
                 toast.error("Failed to load dashboard data");
@@ -46,7 +54,33 @@ const InstructorDashboard = () => {
 
     useEffect(() => {
         fetchData();
-    }, [fetchData]);
+    }, [fetchData, activeTab]);
+
+    const handleStartLiveMeeting = async (e: React.FormEvent) => {
+        e.preventDefault();
+        try {
+            await axios.post('/api/live-meetings/start', {
+                title: newMeetingTitle,
+                targetClasses: selectedTargetClasses
+            });
+            toast.success("Live Meeting Room Created & Broadcasted!");
+            setNewMeetingTitle('');
+            setSelectedTargetClasses([]);
+            fetchData();
+        } catch {
+            toast.error("Failed to start live session");
+        }
+    };
+
+    const handleEndMeeting = async (id: string) => {
+        try {
+            await axios.post(`/api/live-meetings/end/${id}`);
+            toast.success("Meeting Ended");
+            fetchData();
+        } catch {
+            toast.error("Failed to end meeting");
+        }
+    };
 
     const handleLogout = () => {
         logout();
@@ -178,7 +212,8 @@ const InstructorDashboard = () => {
                         { id: 'students', icon: Users, label: 'My Students' },
                         { id: 'attendance', icon: ClipboardCheck, label: 'Mark Attendance' },
                         { id: 'videos', icon: Video, label: 'Upload Materials' },
-                        { id: 'announcements', icon: Camera, label: 'Announcements' }
+                        { id: 'announcements', icon: Camera, label: 'Announcements' },
+                        { id: 'live', icon: Radio, label: 'Live Server' }
                     ].map((item) => (
                         <button 
                             key={item.id}
@@ -384,6 +419,59 @@ const InstructorDashboard = () => {
                                             )}
                                         </div>
                                     ))}
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                    
+                    {activeTab === 'live' && (
+                        <div>
+                             <h1 className="text-3xl font-bold mb-8">Live Broadcasting</h1>
+                             <div className="bg-white rounded-2xl border min-h-[50vh] flex flex-col md:flex-row shadow-sm overflow-hidden">
+                                <div className="w-full md:w-1/3 bg-slate-50 border-r border-slate-200 p-6 flex flex-col">
+                                    <h3 className="text-xl font-bold mb-4 text-slate-800">Start Session</h3>
+                                    <form onSubmit={handleStartLiveMeeting} className="flex-1 space-y-4">
+                                        <div>
+                                            <label className="text-sm font-bold text-slate-500 mb-1 block">Meeting Title</label>
+                                            <input required value={newMeetingTitle} onChange={e=>setNewMeetingTitle(e.target.value)} type="text" placeholder="e.g. Masterclass" className="w-full p-3 bg-white border border-slate-300 rounded-xl outline-none" />
+                                        </div>
+                                        <div>
+                                            <label className="text-sm font-bold text-slate-500 mb-1 block">Target Batches</label>
+                                            <select multiple value={selectedTargetClasses} onChange={e=>setSelectedTargetClasses(Array.from(e.target.selectedOptions, option => option.value))} className="w-full p-3 bg-white border border-slate-300 rounded-xl outline-none min-h-[150px]">
+                                                {classes.map(c => <option key={c._id} value={c._id}>{c.title}</option>)}
+                                            </select>
+                                        </div>
+                                        <button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl mt-4 flex items-center justify-center gap-2 shadow-lg"><Radio className="w-5 h-5"/> Launch Broadcast</button>
+                                    </form>
+                                </div>
+                                
+                                <div className="w-full md:w-2/3 p-6 bg-white">
+                                    <h3 className="text-xl font-bold mb-6 text-slate-800">Your Active Rooms</h3>
+                                    <div className="space-y-4">
+                                        {liveMeetings.filter(m => m.host === user?._id).length === 0 && (
+                                            <div className="text-center py-10 border-2 border-dashed border-slate-200 rounded-2xl">
+                                                <Radio className="w-12 h-12 text-slate-300 mx-auto mb-3" />
+                                                <p className="text-slate-500 font-bold">You aren't broadcasting anything currently.</p>
+                                            </div>
+                                        )}
+                                        {liveMeetings.map(m => (
+                                            <div key={m._id} className="bg-slate-50 rounded-2xl p-5 border border-indigo-100 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                                                <div>
+                                                    <div className="flex items-center gap-2 mb-1">
+                                                        <span className="flex h-3 w-3 relative"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span><span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span></span>
+                                                        <h4 className="font-bold text-lg">{m.title}</h4>
+                                                    </div>
+                                                    <p className="text-sm text-slate-500">Targeting {m.targetClasses?.length || 0} batches</p>
+                                                </div>
+                                                <div className="flex gap-2 w-full md:w-auto">
+                                                    <a href={`/live/${m.meetingRoomId}`} target="_blank" rel="noreferrer" className="flex-1 text-center bg-indigo-100 text-indigo-700 hover:bg-indigo-200 font-bold px-4 py-2 rounded-xl transition flex items-center justify-center gap-2">
+                                                        <Play className="w-4 h-4"/> Join Room
+                                                    </a>
+                                                    <button onClick={()=>handleEndMeeting(m._id)} className="bg-white border border-slate-300 hover:bg-red-50 hover:text-red-600 hover:border-red-200 text-slate-600 px-4 py-2 rounded-xl font-bold transition">End</button>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
                         </div>
