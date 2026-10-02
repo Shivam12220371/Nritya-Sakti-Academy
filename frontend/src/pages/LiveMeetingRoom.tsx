@@ -40,7 +40,8 @@ const LiveMeetingRoom = () => {
         if (!isAuthorized || !jitsiContainerRef.current) return;
 
         // Dynamically load Jitsi External API Script to bypass NPM lock issues
-        const domain = 'meet.jit.si';
+        // We use an alternative robust public instance because meet.jit.si recently added a 5-minute cap on anonymous iframe embedded rooms.
+        const domain = 'meet.ffmuc.net';
         let api: any = null;
 
         const initJitsi = () => {
