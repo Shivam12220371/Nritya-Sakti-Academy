@@ -24,6 +24,8 @@ import { useAuth } from './context/AuthContext';
 import AIChatBot from './components/AIChatBot';
 import SocialSidebar from './components/SocialSidebar';
 import LiveMeetingRoom from './pages/LiveMeetingRoom';
+import GalleryPage from './pages/GalleryPage';
+import ContactUs from './pages/ContactUs';
 
 function App() {
   const { loading } = useAuth();
@@ -45,6 +47,8 @@ function App() {
           <Route path="/programs/:programId" element={<ProgramDetails />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/classes" element={<DanceClasses />} />
+          <Route path="/gallery" element={<GalleryPage />} />
+          <Route path="/contact" element={<ContactUs />} />
           <Route path="/login" element={<AuthPage />} />
           <Route path="/register" element={<AuthPage />} />
           <Route path="/verify/:certificateId" element={<VerificationPage />} />
