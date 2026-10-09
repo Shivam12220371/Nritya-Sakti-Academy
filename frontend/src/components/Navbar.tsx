@@ -88,26 +88,36 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="lg:hidden bg-white shadow-2xl border-t border-slate-100">
-          <div className="px-4 pt-4 pb-8 space-y-2 text-center flex flex-col">
-            <Link to="/" className="block px-3 py-3 text-slate-700 hover:text-[#463F3A] font-medium text-lg" onClick={() => setIsOpen(false)}>Home</Link>
+        <div className="lg:hidden bg-[#FAFAFA] shadow-2xl border-b border-[#F3E8E0] absolute w-full left-0 top-full pb-8">
+          <div className="px-6 pt-6 space-y-4 flex flex-col items-center">
+            <Link to="/" className="w-full text-center py-3 bg-white rounded-2xl text-[#463F3A] font-bold shadow-sm border border-[#F3E8E0]" onClick={() => setIsOpen(false)}>Home</Link>
             {!isDashboard && (
               <>
-                <Link to="/classes" className="block px-3 py-3 text-slate-700 hover:text-[#463F3A] font-medium text-lg" onClick={() => setIsOpen(false)}>Classes</Link>
-                <Link to="/about" className="block px-3 py-3 text-slate-700 hover:text-[#463F3A] font-medium text-lg" onClick={() => setIsOpen(false)}>About Us</Link>
-                <Link to="/programs/kathak" className="block px-3 py-3 text-slate-700 hover:text-[#463F3A] font-medium text-lg" onClick={() => setIsOpen(false)}>Programs</Link>
+                <Link to="/about" className="w-full text-center py-3 bg-white rounded-2xl text-[#463F3A] font-medium shadow-sm border border-[#F3E8E0]" onClick={() => setIsOpen(false)}>About Us</Link>
+                <Link to="/classes" className="w-full text-center py-3 bg-white rounded-2xl text-[#463F3A] font-medium shadow-sm border border-[#F3E8E0]" onClick={() => setIsOpen(false)}>Classes</Link>
+                <Link to="/gallery" className="w-full text-center py-3 bg-white rounded-2xl text-[#463F3A] font-medium shadow-sm border border-[#F3E8E0]" onClick={() => setIsOpen(false)}>Gallery</Link>
+                <Link to="/contact" className="w-full text-center py-3 bg-white rounded-2xl text-[#463F3A] font-medium shadow-sm border border-[#F3E8E0]" onClick={() => setIsOpen(false)}>Contact Us</Link>
+                
+                <a href="https://wa.me/916203053876" target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center gap-2 py-3 bg-green-500 rounded-2xl text-white font-bold shadow-sm mt-4">
+                  <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M11.97 2.005c-5.52 0-9.99 4.47-9.99 9.99 0 1.95.56 3.82 1.55 5.43L2 22l4.67-1.55a9.962 9.962 0 005.3 1.54h.01c5.52 0 10-4.48 10-10S17.49 2.005 11.97 2.005zm0 16.27h-.01c-1.63 0-3.23-.42-4.66-1.22l-.33-.2-3.46 1.15 1.17-3.37-.22-.35a8.288 8.288 0 01-1.27-4.47c0-4.57 3.73-8.3 8.3-8.3 2.22 0 4.3.87 5.86 2.43 1.56 1.57 2.42 3.65 2.42 5.87 0 4.56-3.73 8.29-8.29 8.29zm4.56-6.23c-.25-.12-1.48-.73-1.71-.81-.23-.08-.4-.12-.57.12-.17.25-.65.81-.79.98-.15.17-.3.19-.55.06-1.57-.79-2.61-2-3.62-3.71-.1-.17-.01-.27.06-.37.14-.14.28-.32.41-.48.06-.06.12-.12.16-.17.15-.3.08-.57-.04-.81-.13-.25-.57-1.38-.79-1.89-.2-.5-.4-.43-.57-.44h-.48c-.17 0-.46.06-.7.32s-.92.9-.92 2.2 1.45 2.56 1.65 2.82c.2.27 1.92 2.93 4.65 4.11.65.28 1.16.45 1.56.57.65.21 1.25.18 1.72.11.53-.08 1.48-.6 1.69-1.19.21-.59.21-1.09.15-1.19-.07-.1-.23-.48-.28z" /></svg>
+                  WhatsApp Us
+                </a>
               </>
             )}
             
             {!token ? (
-              <Link to="/register" className="block px-4 py-3 mt-4 mx-4 bg-[#463F3A] text-white rounded-full font-medium shadow-md text-center" onClick={() => setIsOpen(false)}>Register Free</Link>
+              <div className="pt-4 border-t border-[#F3E8E0] w-full mt-2">
+                <Link to="/register" className="w-full flex items-center justify-center gap-2 py-3.5 bg-[#463F3A] text-white rounded-full font-bold shadow-md" onClick={() => setIsOpen(false)}>
+                  Register Free <User className="w-4 h-4"/>
+                </Link>
+              </div>
             ) : (
-              <>
+              <div className="pt-4 border-t border-[#F3E8E0] w-full mt-2 flex flex-col gap-3">
                 {!isDashboard && (
-                  <Link to={user?.role === 'admin' ? '/admin' : user?.role === 'instructor' ? '/instructor' : '/student'} className="block px-3 py-3 text-indigo-600 font-bold text-lg" onClick={() => setIsOpen(false)}>Dashboard</Link>
+                  <Link to={user?.role === 'admin' ? '/admin' : user?.role === 'instructor' ? '/instructor' : '/student'} className="w-full text-center py-3 bg-[#EADCCF] rounded-full text-[#463F3A] font-bold shadow-sm" onClick={() => setIsOpen(false)}>Dashboard</Link>
                 )}
-                <button onClick={handleLogout} className="block w-[calc(100%-2rem)] text-center py-3 mt-2 mx-4 bg-red-500 text-white rounded-full font-medium shadow-md">Logout</button>
-              </>
+                <button onClick={() => { handleLogout(); setIsOpen(false); }} className="w-full text-center py-3 bg-red-500 text-white rounded-full font-bold shadow-sm">Logout</button>
+              </div>
             )}
           </div>
         </div>
