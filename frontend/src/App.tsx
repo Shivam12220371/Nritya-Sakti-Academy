@@ -37,7 +37,7 @@ function App() {
   return (
     <Router>
       <Toaster position="top-center" />
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 font-sans selection:bg-indigo-500/30">
+      <div className="min-h-screen overflow-x-hidden bg-slate-50 dark:bg-slate-950 font-sans selection:bg-indigo-500/30">
         <ScrollToTop />
         <Navbar />
         <SocialSidebar />
