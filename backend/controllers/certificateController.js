@@ -108,7 +108,7 @@ const generateCertificate = async (req, res) => {
           });
 
           await transporter.sendMail({
-            from: `"Nritya Shakti Academy" <${process.env.SMTP_USER}>`,
+            from: `"Natya Shakti Academy" <${process.env.SMTP_USER}>`,
             to: enrollment.student.email,
             subject: `Your Dance Academy Certificate - ${enrollment.class.title}`,
             text: `Congratulations ${enrollment.student.name}!\n\nYou have successfully completed the ${enrollment.class.title}.\nPlease find your certificate attached.\nCertificate ID: ${certificateId}\n\nRegards,\nDance Academy Team`,

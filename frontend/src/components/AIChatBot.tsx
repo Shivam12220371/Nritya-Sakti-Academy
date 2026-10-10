@@ -11,7 +11,7 @@ type Message = {
 const AIChatBot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'model', text: 'Hello! I am the Nritya Shakti Academy AI assistant. How can I help you today?' }
+    { role: 'model', text: 'Hello! I am the Natya Shakti Academy AI assistant. How can I help you today?' }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -249,7 +249,7 @@ const AIChatBot: React.FC = () => {
                 exit={{ opacity: 0, scale: 0.9 }}
                 className="absolute -top-12 right-0 whitespace-nowrap bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 px-4 py-2 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700 font-medium text-sm flex items-center gap-2"
               >
-                Nritya Shakti AI Chatbot
+                Natya Shakti AI Chatbot
                 <div className="absolute -bottom-2 right-6 w-4 h-4 bg-white dark:bg-slate-800 border-b border-r border-slate-200 dark:border-slate-700 transform rotate-45"></div>
               </motion.div>
             )}

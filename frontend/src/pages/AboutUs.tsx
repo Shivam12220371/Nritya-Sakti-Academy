@@ -42,7 +42,7 @@ const AboutUs = () => {
               Our Story
             </span>
             <h1 className="text-6xl md:text-7xl font-serif mb-6 tracking-tight text-[#463F3A] leading-tight">
-              About <span className="italic font-light text-[#C9A991]">Nritya Shakti Academy</span>
+              About <span className="italic font-light text-[#C9A991]">Natya Shakti Academy</span>
             </h1>
             <p className="text-xl text-gray-500 max-w-2xl mx-auto font-light leading-relaxed">
               Empowering dancers and preserving the rich heritage of classical and modern dance forms.
@@ -102,7 +102,7 @@ const AboutUs = () => {
                     Our Journey
                 </h3>
                 <p className="text-gray-600 font-light leading-relaxed text-lg text-justify md:text-left">
-                    Organized and established in <strong className="text-[#463F3A] font-medium">April 2020</strong>, the Nritya Shakti Academy was brought to life by <strong className="text-[#463F3A] font-medium">Ayushi Dubey</strong>, the proud owner and passionate instructor of the academy. What started as a vision to spread the joy of dance has grown into a thriving community.
+                    Organized and established in <strong className="text-[#463F3A] font-medium">April 2020</strong>, the Natya Shakti Academy was brought to life by <strong className="text-[#463F3A] font-medium">Ayushi Dubey</strong>, the proud owner and passionate instructor of the academy. What started as a vision to spread the joy of dance has grown into a thriving community.
                 </p>
             </motion.div>
 

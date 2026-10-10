@@ -35,8 +35,8 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center w-full md:w-auto justify-between">
             <Link to="/" className={`flex items-center text-[0.8rem] sm:text-xl md:text-2xl font-bold tracking-tight sm:tracking-tighter ${isTransparent ? 'text-white' : 'text-[#463F3A]'}`}>
-              <img src="/logo.jpg" alt="Nritya Shakti" className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full mr-2 md:mr-3 shadow-md ${isTransparent ? 'border-2 border-white/20' : 'border border-gray-200'}`} />
-              <span>NRITYA<span className={isTransparent ? 'text-[#F3E8E0]' : 'text-indigo-600'}>SHAKTI</span> {isTransparent ? <span className="opacity-90">ACADEMY</span> : <span className="opacity-80">ACADEMY</span>}</span>
+              <img src="/logo.jpg" alt="Natya Shakti" className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full mr-2 md:mr-3 shadow-md ${isTransparent ? 'border-2 border-white/20' : 'border border-gray-200'}`} />
+              <span>NATYA<span className={isTransparent ? 'text-[#F3E8E0]' : 'text-indigo-600'}>SHAKTI</span> {isTransparent ? <span className="opacity-90">ACADEMY</span> : <span className="opacity-80">ACADEMY</span>}</span>
             </Link>
           </div>
 

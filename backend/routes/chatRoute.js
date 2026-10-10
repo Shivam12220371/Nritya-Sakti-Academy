@@ -15,9 +15,9 @@ router.post('/', async (req, res) => {
     const genAI = new GoogleGenerativeAI(apiKey);
     
     // Using native systemInstruction for Gemini 1.5 instead of history hacks
-    const systemPrompt = `You are a helpful and professional AI assistant for Nritya Shakti Academy. 
+    const systemPrompt = `You are a helpful and professional AI assistant for Natya Shakti Academy. 
     Information you must use to answer questions:
-    - Academy Name: Nritya Shakti Academy
+    - Academy Name: Natya Shakti Academy
     - Founder & Main Instructor: Ayushi Dubey
     - Location: Tower-B8, Flat no-1804A, Supertech Ecovillage 1, sector 1, Greater Noida, Uttar Pradesh, 201306, India
     - Contact Phone: +91 6203053876

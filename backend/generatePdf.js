@@ -11,7 +11,7 @@ const generateGuide = () => {
         doc.pipe(stream);
         
         // 1. Cover Page
-        doc.fontSize(30).font('Helvetica-Bold').text('Nritya Shakti Academy', { align: 'center' });
+        doc.fontSize(30).font('Helvetica-Bold').text('Natya Shakti Academy', { align: 'center' });
         doc.moveDown(0.5);
         doc.fontSize(20).fillColor('gray').text('Master Developer Architecture Guide', { align: 'center' });
         doc.moveDown(2);

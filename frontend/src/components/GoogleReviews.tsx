@@ -16,7 +16,7 @@ const reviews = [
   {
     name: 'Bhanupriya Ojha',
     date: '2 weeks ago',
-    text: 'Nritya Shakti Academy is a fantastic dance institute.I highly recommend everyone to enroll their kids here. Thank you!',
+    text: 'Natya Shakti Academy is a fantastic dance institute.I highly recommend everyone to enroll their kids here. Thank you!',
   },
   {
     name: 'DEEPTI SRIVASTAVA',
@@ -36,7 +36,7 @@ const reviews = [
   {
     name: 'Jyotika Tiwari',
     date: '2 weeks ago',
-    text: 'Nritya Shakti is an amazing place to learn dance, and Ayushi Mam is so graceful and energetic that she really makes students love dancing. My daughter just adores her dance teacher.',
+    text: 'Natya Shakti is an amazing place to learn dance, and Ayushi Mam is so graceful and energetic that she really makes students love dancing. My daughter just adores her dance teacher.',
   },
   {
     name: 'S K',

@@ -111,7 +111,7 @@ const ContactUs = () => {
               e.preventDefault();
               if (!name || !message) return;
               
-              const text = `Hello Nritya Shakti Academy,%0A%0A*New Inquiry from ${name}* (${email || 'No email provided'})%0A*Subject:* ${subject}%0A*Message:*%0A${message}`;
+              const text = `Hello Natya Shakti Academy,%0A%0A*New Inquiry from ${name}* (${email || 'No email provided'})%0A*Subject:* ${subject}%0A*Message:*%0A${message}`;
               window.open(`https://wa.me/916203053876?text=${text}`, '_blank');
             }}>
               <h3 className="text-3xl font-serif text-[#463F3A] mb-2">Send a Message</h3>

@@ -112,12 +112,12 @@ const processFeePayment = async (req, res) => {
       return res.status(400).json({ message: 'Validation Denied: The UTR / Reference ID must be exactly 12 numerical digits long.' });
     }
     
-    const message = `Dear ${user.name},\n\nWe have successfully received your payment of ₹${amount} via ${method || 'UPI/QR'}.\nTransaction Reference ID: ${transactionId}\n\nThank you for choosing Nritya Shakti Academy!\n\nBest Regards,\nAyushi Dubey`;
+    const message = `Dear ${user.name},\n\nWe have successfully received your payment of ₹${amount} via ${method || 'UPI/QR'}.\nTransaction Reference ID: ${transactionId}\n\nThank you for choosing Natya Shakti Academy!\n\nBest Regards,\nAyushi Dubey`;
 
     try {
       await sendEmail({
         email: user.email,
-        subject: 'Secure Payment Receipt - Nritya Shakti Academy',
+        subject: 'Secure Payment Receipt - Natya Shakti Academy',
         message: message
       });
     } catch (emailError) {

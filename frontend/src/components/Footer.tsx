@@ -16,11 +16,11 @@ const Footer = () => {
           {/* Academy Info */}
           <div className="col-span-1 md:col-span-4 lg:col-span-5 pr-0 lg:pr-8">
             <Link to="/" className="flex items-center text-white text-xl md:text-2xl font-bold tracking-tight mb-6">
-              <img src="/logo.jpg" alt="Nritya Shakti" className="w-12 h-12 rounded-full mr-3 shadow-md border border-white/20" />
-              NRITYA<span className="text-[#C9A991] mx-1">SHAKTI</span><span className="font-light text-white/90">ACADEMY</span>
+              <img src="/logo.jpg" alt="Natya Shakti" className="w-12 h-12 rounded-full mr-3 shadow-md border border-white/20" />
+              NATYA<span className="text-[#C9A991] mx-1">SHAKTI</span><span className="font-light text-white/90">ACADEMY</span>
             </Link>
             <p className="text-gray-300 mb-8 leading-relaxed font-light">
-              Nritya Shakti Academy is a premier institution dedicated to preserving and propagating the rich heritage of classical Indian dance. We nurture aspiring performers by instilling grace, tradition, and profound rhythmic mastery through expert choreography and immersive learning.
+              Natya Shakti Academy is a premier institution dedicated to preserving and propagating the rich heritage of classical Indian dance. We nurture aspiring performers by instilling grace, tradition, and profound rhythmic mastery through expert choreography and immersive learning.
             </p>
             <div className="flex gap-4">
               <a href="#" className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-[#C9A991] hover:text-white transition-all shadow-sm">
@@ -80,7 +80,7 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/10 text-center text-sm font-medium flex flex-col justify-center items-center text-gray-400 gap-1.5">
-          <p>&copy; {new Date().getFullYear()} Nritya Shakti Academy. All Rights Reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Natya Shakti Academy. All Rights Reserved.</p>
           <p className="text-[#C9A991]">Designed by Er.Shivam Bhardwaj</p>
         </div>
       </div>
