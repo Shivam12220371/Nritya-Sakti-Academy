@@ -59,6 +59,14 @@ const ContactUs = () => {
                       Tower No- B8, Flat No- 1804A, SuperTech Eco-Village1,<br />
                       Sector 1, Greater Noida, 201306
                     </p>
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=Natya+Shakti+Academy+SuperTech+Eco-Village1+Sector+1+Greater+Noida"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 mt-2.5 text-xs font-bold text-[#C9A991] hover:text-[#463F3A] transition-colors"
+                    >
+                      <span>📍 View Natya Shakti Academy on Google Maps &rarr;</span>
+                    </a>
                   </div>
                 </div>
 

@@ -11,42 +11,42 @@ const Footer = () => {
   return (
     <footer className="bg-[#463F3A] pt-20 pb-10 border-t border-[#3c3531]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-10 lg:gap-12 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-6 lg:gap-12 mb-12 items-start">
 
           {/* Academy Info */}
-          <div className="col-span-1 md:col-span-2 lg:col-span-5 min-w-0 pr-0 lg:pr-6">
-            <Link to="/" className="inline-flex items-center gap-3 text-white text-lg sm:text-xl md:text-2xl font-extrabold tracking-tight mb-6 group">
-              <img src="/logo.jpg" alt="Natya Shakti Academy" className="w-10 h-10 sm:w-12 sm:h-12 rounded-full shadow-md border-2 border-[#C9A991]/40 flex-shrink-0" />
+          <div className="col-span-1 md:col-span-5 min-w-0 pr-0 md:pr-4 lg:pr-6">
+            <Link to="/" className="inline-flex items-center gap-2.5 sm:gap-3 text-white text-base sm:text-lg md:text-xl font-extrabold tracking-tight mb-5 group">
+              <img src="/logo.jpg" alt="Natya Shakti Academy" className="w-9 h-9 sm:w-11 sm:h-11 rounded-full shadow-md border-2 border-[#C9A991]/40 flex-shrink-0" />
               <span className="whitespace-nowrap">
                 NATYA <span className="text-[#C9A991]">SHAKTI</span> ACADEMY
               </span>
             </Link>
-            <p className="text-gray-300 mb-8 leading-relaxed font-light text-sm sm:text-base max-w-md">
+            <p className="text-gray-300 mb-6 leading-relaxed font-light text-xs sm:text-sm lg:text-base max-w-md">
               Natya Shakti Academy is a premier institution dedicated to preserving and propagating the rich heritage of classical Indian dance. We nurture aspiring performers by instilling grace, tradition, and profound rhythmic mastery through expert choreography and immersive learning.
             </p>
-            <div className="flex gap-4">
-              <a href="#" className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-[#C9A991] hover:text-white transition-all shadow-sm">
-                <Camera className="w-5 h-5" />
+            <div className="flex gap-3 sm:gap-4">
+              <a href="#" className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-[#C9A991] hover:text-white transition-all shadow-sm">
+                <Camera className="w-4 h-4 sm:w-5 sm:h-5" />
               </a>
-              <a href="#" className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-[#C9A991] hover:text-white transition-all shadow-sm">
-                <Globe className="w-5 h-5" />
+              <a href="#" className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-[#C9A991] hover:text-white transition-all shadow-sm">
+                <Globe className="w-4 h-4 sm:w-5 sm:h-5" />
               </a>
             </div>
           </div>
 
           {/* Quick Links */}
-          <div className="col-span-1 md:col-span-1 lg:col-span-3 min-w-0">
-            <h3 className="text-white font-bold mb-6 uppercase tracking-[0.15em] text-sm">Quick Links</h3>
-            <ul className="space-y-4">
-              <li><Link to="/about" className="text-gray-300 hover:text-[#C9A991] transition-colors flex items-center gap-3 font-medium text-sm sm:text-base"><span className="w-1.5 h-1.5 rounded-full bg-[#C9A991]"></span> About Us</Link></li>
-              <li><Link to="/classes" className="text-gray-300 hover:text-[#C9A991] transition-colors flex items-center gap-3 font-medium text-sm sm:text-base"><span className="w-1.5 h-1.5 rounded-full bg-[#C9A991]"></span> Class Schedule</Link></li>
-              <li><Link to="/gallery" className="text-gray-300 hover:text-[#C9A991] transition-colors flex items-center gap-3 font-medium text-sm sm:text-base"><span className="w-1.5 h-1.5 rounded-full bg-[#C9A991]"></span> Gallery</Link></li>
-              <li><Link to="/contact" className="text-gray-300 hover:text-[#C9A991] transition-colors flex items-center gap-3 font-medium text-sm sm:text-base"><span className="w-1.5 h-1.5 rounded-full bg-[#C9A991]"></span> Contact Us</Link></li>
+          <div className="col-span-1 md:col-span-3 min-w-0">
+            <h3 className="text-white font-bold mb-5 uppercase tracking-[0.15em] text-xs sm:text-sm">Quick Links</h3>
+            <ul className="space-y-3 sm:space-y-4">
+              <li><Link to="/about" className="text-gray-300 hover:text-[#C9A991] transition-colors flex items-center gap-2.5 font-medium text-xs sm:text-sm lg:text-base"><span className="w-1.5 h-1.5 rounded-full bg-[#C9A991]"></span> About Us</Link></li>
+              <li><Link to="/classes" className="text-gray-300 hover:text-[#C9A991] transition-colors flex items-center gap-2.5 font-medium text-xs sm:text-sm lg:text-base"><span className="w-1.5 h-1.5 rounded-full bg-[#C9A991]"></span> Class Schedule</Link></li>
+              <li><Link to="/gallery" className="text-gray-300 hover:text-[#C9A991] transition-colors flex items-center gap-2.5 font-medium text-xs sm:text-sm lg:text-base"><span className="w-1.5 h-1.5 rounded-full bg-[#C9A991]"></span> Gallery</Link></li>
+              <li><Link to="/contact" className="text-gray-300 hover:text-[#C9A991] transition-colors flex items-center gap-2.5 font-medium text-xs sm:text-sm lg:text-base"><span className="w-1.5 h-1.5 rounded-full bg-[#C9A991]"></span> Contact Us</Link></li>
             </ul>
           </div>
 
           {/* Contact Details */}
-          <div className="col-span-1 md:col-span-1 lg:col-span-4 min-w-0">
+          <div className="col-span-1 md:col-span-4 min-w-0">
             <h3 className="text-white font-bold mb-6 uppercase tracking-[0.15em] text-sm">Contact Us</h3>
             <div className="space-y-6">
               <div className="flex items-start gap-4">

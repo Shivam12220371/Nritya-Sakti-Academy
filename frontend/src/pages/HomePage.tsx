@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { CheckCircle2, ChevronRight, MapPin, Phone, Mail, MessageCircle } from 'lucide-react';
+import { CheckCircle2, ChevronRight, MapPin, Phone, Mail, MessageCircle, Sparkles, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import GoogleReviews from '../components/GoogleReviews';
 
@@ -8,41 +8,91 @@ const HomePage = () => {
     <div className="pt-24 bg-[#FAFAFA] min-h-screen font-sans">
       
       {/* Hero Section */}
-      <section className="relative w-full overflow-hidden min-h-[600px] md:min-h-[800px] flex items-center">
-        {/* Split Backgrounds */}
-        <div className="absolute inset-0 flex flex-col md:flex-row z-0">
-          <div className="w-full md:w-[65%] h-full bg-[#463F3A] relative">
+      <section className="relative w-full overflow-hidden bg-[#463F3A] md:bg-transparent min-h-[600px] md:min-h-[820px] flex items-center">
+        {/* Split Backgrounds (Laptop & Desktop) */}
+        <div className="hidden md:flex absolute inset-0 z-0">
+          <div className="w-[65%] h-full bg-[#463F3A] relative overflow-hidden">
+            {/* Ambient luxury radial glow */}
+            <div className="absolute top-0 left-0 w-96 h-96 bg-[#C9A991]/10 rounded-full blur-3xl pointer-events-none"></div>
             {/* Elegant SVG Curve Separator */}
-            <svg className="absolute -bottom-1 left-0 w-full h-[100px] md:h-full md:w-[200px] md:-right-[198px] md:bottom-auto text-[#FAFAFA] md:rotate-0 rotate-180" viewBox="0 0 100 100" preserveAspectRatio="none" fill="currentColor">
-              <path d="M0,100 C40,100 60,0 100,0 L100,100 Z" className="hidden md:block"/>
-              <path d="M0,0 C50,100 100,0 100,100 L0,100 Z" className="block md:hidden"/>
+            <svg className="absolute -right-[198px] top-0 h-full w-[200px] text-[#FAFAFA]" viewBox="0 0 100 100" preserveAspectRatio="none" fill="currentColor">
+              <path d="M0,100 C40,100 60,0 100,0 L100,100 Z" />
             </svg>
           </div>
-          <div className="w-full md:w-[35%] h-full bg-[#FAFAFA]"></div>
+          <div className="w-[35%] h-full bg-[#FAFAFA]"></div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full flex flex-col md:flex-row items-center pt-10 md:pt-0">
+        {/* Elegant Bottom Curve on Mobile transitioning into Dance Styles */}
+        <div className="md:hidden absolute -bottom-1 inset-x-0 z-0 pointer-events-none">
+          <svg className="w-full h-[36px] text-[#FAFAFA]" viewBox="0 0 100 100" preserveAspectRatio="none" fill="currentColor">
+            <path d="M0,100 Q50,0 100,100 Z" />
+          </svg>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full flex flex-col md:flex-row items-center pt-8 pb-14 md:py-0">
           
-          {/* Left Text Content */}
+          {/* Left Text Content (Professional Column One Design) */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="md:w-1/2 text-white pr-0 md:pr-10"
+            className="w-full md:w-1/2 text-white pr-0 md:pr-10 relative"
           >
-            <h1 className="text-4xl md:text-5xl lg:text-7xl font-semibold tracking-tight mb-6 leading-[1.1]">
+            {/* Elegant Ambient Blurred Shadows / Glows */}
+            <div className="absolute -top-16 -left-12 w-80 h-80 bg-[#C9A991]/20 rounded-full blur-[100px] pointer-events-none -z-10"></div>
+            <div className="absolute top-1/3 left-1/4 w-72 h-72 bg-[#EADCCF]/15 rounded-full blur-[110px] pointer-events-none -z-10"></div>
+            <div className="absolute -bottom-12 left-10 w-64 h-64 bg-amber-600/15 rounded-full blur-[90px] pointer-events-none -z-10"></div>
+
+            {/* Headline with Gold Accents */}
+            <h1 className="text-3xl sm:text-5xl lg:text-7xl font-semibold tracking-tight mb-6 leading-[1.15]">
               Elegance in Motion,<br/>
-              Tradition at Heart
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#F3E8E0] to-[#C9A991]">
+                Tradition at Heart
+              </span>
             </h1>
-            <p className="text-[#D4D2CD] text-lg mb-10 max-w-md">
-              Discover the timeless art of Bharatanatyam. Join us to master grace, discipline, and storytelling through dance. Enroll today and begin your journey!
+
+            {/* Subtitle */}
+            <p className="text-[#D4D2CD] text-base sm:text-lg mb-8 max-w-md font-light leading-relaxed">
+              Discover the timeless art of Bharatanatyam & Kathak. Master grace, discipline, and expressive storytelling under expert mentorship. Enroll today!
             </p>
-            <Link 
-              to="/register" 
-              className="inline-flex items-center gap-2 bg-[#F3E8E0] text-[#463F3A] px-8 py-3.5 rounded-full font-medium hover:bg-white transition-all w-fit"
-            >
-              Enroll Now <ChevronRight className="w-4 h-4 ml-2" />
-            </Link>
+
+            {/* Action Buttons */}
+            <div className="flex flex-wrap items-center gap-4 mb-10">
+              <Link 
+                to="/register" 
+                className="inline-flex items-center gap-2 bg-[#F3E8E0] text-[#463F3A] px-7 py-3.5 rounded-full font-semibold hover:bg-white hover:shadow-lg transition-all shadow-md group text-sm sm:text-base"
+              >
+                <span>Enroll Now</span>
+                <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+              <Link 
+                to="/classes" 
+                className="inline-flex items-center gap-2 bg-white/5 border border-white/20 text-white/90 px-6 py-3.5 rounded-full font-medium hover:bg-white/10 hover:border-[#C9A991] transition-all text-sm sm:text-base backdrop-blur-sm"
+              >
+                <span>Explore Batches</span>
+              </Link>
+            </div>
+
+            {/* Professional Trust Indicators Strip */}
+            <div className="pt-6 border-t border-white/10 flex items-center gap-5 sm:gap-8 text-left">
+              <div>
+                <p className="text-xl sm:text-2xl font-bold text-white tracking-tight">10+ <span className="text-[#C9A991] text-xs sm:text-sm font-medium">Yrs</span></p>
+                <p className="text-[11px] sm:text-xs text-gray-400 uppercase tracking-wider font-medium">Legacy</p>
+              </div>
+              <div className="w-px h-8 bg-white/15"></div>
+              <div>
+                <p className="text-xl sm:text-2xl font-bold text-white tracking-tight">500+ <span className="text-[#C9A991] text-xs sm:text-sm font-medium">Students</span></p>
+                <p className="text-[11px] sm:text-xs text-gray-400 uppercase tracking-wider font-medium">Trained</p>
+              </div>
+              <div className="w-px h-8 bg-white/15"></div>
+              <div>
+                <div className="flex items-center gap-1">
+                  <span className="text-xl sm:text-2xl font-bold text-white">5.0</span>
+                  <Star className="w-3.5 h-3.5 fill-current text-amber-400" />
+                </div>
+                <p className="text-[11px] sm:text-xs text-gray-400 uppercase tracking-wider font-medium">Top Rated</p>
+              </div>
+            </div>
           </motion.div>
 
           {/* Right Image Content */}
@@ -255,6 +305,14 @@ const HomePage = () => {
                     <p className="text-gray-500 text-sm leading-relaxed max-w-[200px]">
                       Tower No- B8, Flat No- 1804A, SuperTech Eco-Village1, Sector 1, Greater Noida, 201306
                     </p>
+                    <a
+                      href="https://www.google.com/maps/search/?api=1&query=Natya+Shakti+Academy+SuperTech+Eco-Village1+Sector+1+Greater+Noida"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 mt-2 text-xs font-bold text-[#C9A991] hover:text-[#463F3A] transition-colors"
+                    >
+                      <span>📍 View on Google Maps &rarr;</span>
+                    </a>
                   </div>
                 </div>
                 <div className="flex items-start gap-5">
