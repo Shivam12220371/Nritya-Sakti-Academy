@@ -1,5 +1,5 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { User, Menu, X } from 'lucide-react';
+import { User, Menu, X, Home } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 
@@ -100,6 +100,15 @@ const Navbar = () => {
               </Link>
             ) : (
               <div className="flex items-center gap-2 md:gap-3">
+                {isDashboard && (
+                  <Link
+                    to="/"
+                    className="font-semibold text-xs sm:text-sm md:text-base text-[#463F3A] hover:text-[#C9A991] transition-colors whitespace-nowrap flex items-center gap-1.5 px-3 py-1.5 rounded-full hover:bg-stone-100"
+                  >
+                    <Home className="w-4 h-4" />
+                    <span>Home</span>
+                  </Link>
+                )}
                 {!isDashboard && (
                   <Link
                     to={user?.role === 'admin' ? '/admin' : user?.role === 'instructor' ? '/instructor' : '/student'}
@@ -189,6 +198,16 @@ const Navbar = () => {
               </Link>
             ) : (
               <div className="flex flex-col gap-2">
+                {isDashboard && (
+                  <Link
+                    to="/"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center justify-center gap-2 py-2.5 rounded-xl font-semibold bg-[#F7F4F1] text-[#463F3A] text-sm"
+                  >
+                    <Home className="w-4 h-4" />
+                    <span>Home</span>
+                  </Link>
+                )}
                 {!isDashboard && (
                   <Link
                     to={user?.role === 'admin' ? '/admin' : user?.role === 'instructor' ? '/instructor' : '/student'}

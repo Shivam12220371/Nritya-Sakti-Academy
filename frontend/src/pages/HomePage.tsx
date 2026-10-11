@@ -147,7 +147,7 @@ const HomePage = () => {
                   </div>
                 </div>
                 <Link to="/programs/bharatanatyam" className="inline-flex bg-[#F3E8E0] text-[#463F3A] px-6 py-2 rounded-full text-sm font-medium hover:bg-transparent border border-[#F3E8E0] hover:border-[#463F3A] transition-all">
-                  Enroll Now ↗
+                  View Details ↗
                 </Link>
               </div>
               <div className="w-32 h-40 shrink-0 rounded-2xl overflow-hidden">
@@ -173,7 +173,7 @@ const HomePage = () => {
                   </div>
                 </div>
                 <Link to="/programs/kathak" className="inline-flex bg-[#F3E8E0] text-[#463F3A] px-6 py-2 rounded-full text-sm font-medium hover:bg-transparent border border-[#F3E8E0] hover:border-[#463F3A] transition-all">
-                  Enroll Now ↗
+                  View Details ↗
                 </Link>
               </div>
               <div className="w-32 h-40 shrink-0 rounded-2xl overflow-hidden bg-[#D1B29A]">
@@ -199,7 +199,7 @@ const HomePage = () => {
                   </div>
                 </div>
                 <Link to="/programs/western-dance" className="inline-flex bg-[#F3E8E0] text-[#463F3A] px-6 py-2 rounded-full text-sm font-medium hover:bg-transparent border border-[#F3E8E0] hover:border-[#463F3A] transition-all">
-                  Enroll Now ↗
+                  View Details ↗
                 </Link>
               </div>
               <div className="w-32 h-40 shrink-0 rounded-2xl overflow-hidden bg-[#463F3A]">
@@ -225,7 +225,7 @@ const HomePage = () => {
                   </div>
                 </div>
                 <Link to="/programs/free-style" className="inline-flex bg-[#F3E8E0] text-[#463F3A] px-6 py-2 rounded-full text-sm font-medium hover:bg-transparent border border-[#F3E8E0] hover:border-[#463F3A] transition-all">
-                  Enroll Now ↗
+                  View Details ↗
                 </Link>
               </div>
               <div className="w-32 h-40 shrink-0 rounded-2xl overflow-hidden bg-[#D1B29A]">

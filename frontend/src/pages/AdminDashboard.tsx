@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Users, GraduationCap, CalendarDays, IndianRupee, LayoutDashboard, Trash2, Plus, X, Edit, Video as VideoIcon, Award, FileUp, Camera, ClipboardCheck, Radio, Play } from 'lucide-react';
+import { Users, GraduationCap, CalendarDays, IndianRupee, LayoutDashboard, Trash2, Plus, X, Edit, Video as VideoIcon, Award, FileUp, Camera, ClipboardCheck, Radio, Play, Home, LogOut } from 'lucide-react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
+import { useNavigate, Link } from 'react-router-dom';
 
 const getYouTubeThumbnail = (url: string) => {
     if (!url) return null;
@@ -14,8 +15,14 @@ const getYouTubeThumbnail = (url: string) => {
 };
 
 const AdminDashboard = () => {
-    const { user, updateUser } = useAuth();
+    const { user, updateUser, logout } = useAuth();
+    const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('overview');
+
+    const handleLogout = () => {
+        logout();
+        navigate('/');
+    };
     
     // Core Data States
     const [users, setUsers] = useState<any[]>([]);
@@ -639,6 +646,17 @@ const AdminDashboard = () => {
                         </button>
                     ))}
                 </nav>
+
+                <div className="mt-auto space-y-2 pt-4 border-t border-slate-800">
+                    <Link to="/" className="w-full flex items-center gap-3 px-4 py-3 text-slate-300 hover:bg-slate-800 rounded-xl transition-all font-medium">
+                        <Home className="w-5 h-5" />
+                        Home
+                    </Link>
+                    <button onClick={handleLogout} className="w-full flex items-center gap-3 px-4 py-3 text-red-400 hover:bg-red-500/10 rounded-xl transition-all font-medium">
+                        <LogOut className="w-5 h-5" />
+                        Logout
+                    </button>
+                </div>
             </aside>
 
             <main className="flex-1 p-6 md:p-10 overflow-auto">

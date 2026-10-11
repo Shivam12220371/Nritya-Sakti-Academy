@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { User, Calendar, Video, Award, LogOut, CheckCircle2, Camera, Clock, PlayCircle, ExternalLink, IndianRupee, QrCode, X, Radio } from 'lucide-react';
+import { User, Calendar, Video, Award, LogOut, CheckCircle2, Camera, Clock, PlayCircle, ExternalLink, IndianRupee, QrCode, X, Radio, Home } from 'lucide-react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const getYouTubeThumbnail = (url: string) => {
     if (!url) return null;
@@ -241,10 +241,16 @@ const StudentDashboard = () => {
                ))}
             </nav>
 
-            <button onClick={handleLogout} className="w-full flex items-center gap-3 px-4 py-3 text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 border border-transparent hover:border-red-100 rounded-xl transition-all font-medium mt-auto">
-               <LogOut className="w-5 h-5" />
-               Sign Out Securely
-            </button>
+            <div className="mt-auto space-y-2 pt-4 border-t border-slate-100 dark:border-slate-800">
+               <Link to="/" className="w-full flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-all font-medium">
+                  <Home className="w-5 h-5" />
+                  Home
+               </Link>
+               <button onClick={handleLogout} className="w-full flex items-center gap-3 px-4 py-3 text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 border border-transparent hover:border-red-100 rounded-xl transition-all font-medium">
+                  <LogOut className="w-5 h-5" />
+                  Sign Out Securely
+               </button>
+            </div>
          </aside>
 
          {/* Main Content Area */}

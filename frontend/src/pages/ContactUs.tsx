@@ -78,7 +78,7 @@ const ContactUs = () => {
                     <h4 className="text-lg font-bold text-[#463F3A] mb-1">Phone Number</h4>
                     <p className="text-gray-500 leading-relaxed">
                       +91 6203053876<br />
-                      <span className="text-sm text-gray-400">Available Mon-Fri, 4PM to 8PM</span>
+                      <span className="text-sm text-gray-400">Available Mon-Fri, 11AM to 8PM</span>
                     </p>
                   </div>
                 </div>
@@ -90,7 +90,7 @@ const ContactUs = () => {
                   <div>
                     <h4 className="text-lg font-bold text-[#463F3A] mb-1">Email Address</h4>
                     <p className="text-gray-500 leading-relaxed">
-                      XYZ<br />
+                      <a href="mailto:ayushisaket82@gmail.com" className="hover:text-[#C9A991] transition-colors">ayushisaket82@gmail.com</a><br />
                       <span className="text-sm text-gray-400">We aim to reply within 24 hours</span>
                     </p>
                   </div>

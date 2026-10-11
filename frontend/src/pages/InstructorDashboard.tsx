@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { BookOpen, Users, ClipboardCheck, Video, LogOut, Calendar, Clock, UploadCloud, Camera, Radio, Play } from 'lucide-react';
+import { BookOpen, Users, ClipboardCheck, Video, LogOut, Calendar, Clock, UploadCloud, Camera, Radio, Play, Home } from 'lucide-react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
 
@@ -230,10 +230,16 @@ const InstructorDashboard = () => {
                     ))}
                 </nav>
 
-                <button onClick={handleLogout} className="w-full flex items-center gap-3 px-4 py-3 text-red-400 hover:bg-red-500/10 rounded-xl transition-all font-medium mt-auto">
-                    <LogOut className="w-5 h-5" />
-                    Logout
-                </button>
+                <div className="mt-auto space-y-2 pt-4 border-t border-slate-800">
+                    <Link to="/" className="w-full flex items-center gap-3 px-4 py-3 text-slate-300 hover:bg-slate-800 rounded-xl transition-all font-medium">
+                        <Home className="w-5 h-5" />
+                        Home
+                    </Link>
+                    <button onClick={handleLogout} className="w-full flex items-center gap-3 px-4 py-3 text-red-400 hover:bg-red-500/10 rounded-xl transition-all font-medium">
+                        <LogOut className="w-5 h-5" />
+                        Logout
+                    </button>
+                </div>
             </aside>
 
             {/* Main Content */}
