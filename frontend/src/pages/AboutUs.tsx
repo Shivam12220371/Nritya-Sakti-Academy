@@ -26,12 +26,21 @@ const AboutUs = () => {
   };
 
   return (
-    <div ref={containerRef} className="pt-24 pb-16 min-h-screen bg-[#FAFAFA] overflow-hidden relative">
-      <div className="absolute top-0 right-0 w-[50vw] h-[50vw] bg-[#FCF4F4] rounded-full blur-[100px] -z-10 translate-x-1/3 -translate-y-1/3" />
-      <div className="absolute bottom-0 left-0 w-[40vw] h-[40vw] bg-[#F3E8E0] rounded-full blur-[100px] -z-10 -translate-x-1/4 translate-y-1/3 opacity-50" />
-      
-      {/* Light Greenish Classical Instruments Shadow/Watermark - Kept subtle */}
-      <div className="absolute inset-0 z-0 opacity-10 mix-blend-multiply pointer-events-none" style={{ backgroundImage: "url('/instruments-bg.png')", backgroundRepeat: "repeat", backgroundSize: "600px" }}></div>
+    <div ref={containerRef} className="pt-28 pb-24 min-h-screen relative overflow-hidden selection:bg-[#C9A991]/20">
+      {/* Cinematic Professional Studio Background Image */}
+      <div className="absolute inset-0 -z-10 pointer-events-none">
+        <img 
+          src="/about_us_bg.png" 
+          alt="Natya Shakti Academy Classical Dance Studio" 
+          className="w-full h-full object-cover object-center fixed inset-0 opacity-25 filter blur-[0.5px]"
+        />
+        {/* Soft Luxury Overlay to ensure immaculate readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#FDFBF9]/95 via-[#FDFBF9]/88 to-[#FDFBF9]/98" />
+        
+        {/* Ambient Radial Spotlights */}
+        <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#C9A991]/15 rounded-full blur-[120px]" />
+        <div className="absolute bottom-1/4 left-10 w-[600px] h-[600px] bg-[#FCF4F4]/60 rounded-full blur-[140px]" />
+      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
