@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { CheckCircle2, ChevronRight, MapPin, Phone, Mail, MessageCircle, Sparkles, Star } from 'lucide-react';
+import { CheckCircle2, ChevronRight, MapPin, Phone, Mail, MessageCircle, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import GoogleReviews from '../components/GoogleReviews';
 
