@@ -18,6 +18,8 @@ const PrideStudents = () => {
     '/pride_students/media__1790114700914.jpg',
     '/pride_students/media__1790114700970.jpg',
     '/pride_students/media__1790114701027.jpg',
+    '/pride_students/media__1791832963128.jpg',
+    '/gallery/gallery-group-stage-recital.jpg',
   ];
 
   // No longer repeating images since we are using a grid display

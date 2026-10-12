@@ -2,16 +2,26 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight, ZoomIn, Sparkles, Award } from 'lucide-react';
 
+type CategoryType = 'Performances' | 'Classical Bharatanatyam' | 'Guru & Shishya' | 'Pride Students';
+
 interface GalleryItem {
   id: string;
   src: string;
   title: string;
-  category: 'Performances' | 'Classical Bharatanatyam' | 'Guru & Shishya' | 'Pride Students';
+  category: CategoryType | CategoryType[];
   description: string;
   featured?: boolean;
 }
 
 const galleryItems: GalleryItem[] = [
+  {
+    id: 'stage-recital-ensemble',
+    src: '/gallery/gallery-group-stage-recital.jpg',
+    title: 'Stage Recital Ensemble',
+    category: ['Performances', 'Pride Students'],
+    description: 'Our brilliant young students shining together on stage in vibrant classical Bharatanatyam attire.',
+    featured: true,
+  },
   {
     id: 'group-perf',
     src: '/gallery/gallery-group-performance.jpg',
@@ -32,7 +42,7 @@ const galleryItems: GalleryItem[] = [
     id: 'bharatanatyam-pose-1',
     src: '/gallery/gallery-student-pose-1.jpg',
     title: 'Aramandi & Utplavana Precision',
-    category: 'Classical Bharatanatyam',
+    category: ['Pride Students', 'Classical Bharatanatyam'],
     description: 'Disciplined classical stance displaying perfect balance, mudra precision, and intricate traditional jewelry.',
     featured: true,
   },
@@ -40,7 +50,7 @@ const galleryItems: GalleryItem[] = [
     id: 'bharatanatyam-pose-2',
     src: '/gallery/gallery-student-pose-2.jpg',
     title: 'Hastak & Natya Expression',
-    category: 'Classical Bharatanatyam',
+    category: ['Pride Students', 'Classical Bharatanatyam'],
     description: 'Expansive posture capturing the grace and abhinaya essence of ancient Bharatanatyam choreography.',
     featured: true,
   },
@@ -48,7 +58,7 @@ const galleryItems: GalleryItem[] = [
     id: 'blue-pose',
     src: '/gallery/gallery-student-blue-pose.jpg',
     title: 'Devotional Bhavam Pose',
-    category: 'Classical Bharatanatyam',
+    category: ['Pride Students', 'Classical Bharatanatyam'],
     description: 'Graceful arching posture expressing pure joy, rhythm, and devotion in dazzling blue and gold attire.',
     featured: true,
   },
@@ -56,14 +66,14 @@ const galleryItems: GalleryItem[] = [
     id: 'yellow-pose',
     src: '/gallery/gallery-student-yellow-pose.jpg',
     title: 'Golden Costumed Alarippu Pose',
-    category: 'Classical Bharatanatyam',
+    category: ['Pride Students', 'Classical Bharatanatyam'],
     description: 'Exquisite yellow and crimson costume showcasing eye expression, hand mudras, and foot posture.',
   },
   {
     id: 'green-night',
     src: '/gallery/gallery-student-green-night.jpg',
     title: 'Twilight Recital Stance',
-    category: 'Performances',
+    category: ['Pride Students', 'Performances'],
     description: 'Radiant stage presence during an evening open-air cultural performance.',
   },
   {
@@ -72,6 +82,14 @@ const galleryItems: GalleryItem[] = [
     title: 'Nataraja Grace & Teacher Blessings',
     category: 'Guru & Shishya',
     description: 'Special dedication honoring our shining students under the divine grace and blessings of Lord Nataraja.',
+    featured: true,
+  },
+  {
+    id: 'pride-duet',
+    src: '/pride_students/media__1791832963128.jpg',
+    title: 'Graceful Bharatanatyam Duet',
+    category: ['Pride Students', 'Classical Bharatanatyam'],
+    description: 'Disciplined young disciples performing synchronized classical postures with vibrant expressions.',
     featured: true,
   },
   {
@@ -152,7 +170,11 @@ const GalleryPage = () => {
 
   const filteredItems = activeCategory === 'All'
     ? galleryItems
-    : galleryItems.filter((item) => item.category === activeCategory);
+    : galleryItems.filter((item) =>
+        Array.isArray(item.category)
+          ? item.category.includes(activeCategory as CategoryType)
+          : item.category === activeCategory
+      );
 
   const openLightbox = (index: number) => {
     setSelectedImageIndex(index);
@@ -268,7 +290,9 @@ const GalleryPage = () => {
                   <div className="absolute top-3 left-3">
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-white/90 backdrop-blur-md text-[#463F3A] shadow-sm">
                       {item.featured && <Award className="w-3 h-3 text-[#C9A991]" />}
-                      {item.category}
+                      {Array.isArray(item.category)
+                        ? (activeCategory !== 'All' && item.category.includes(activeCategory as CategoryType) ? activeCategory : item.category[0])
+                        : item.category}
                     </span>
                   </div>
 
@@ -373,7 +397,9 @@ const GalleryPage = () => {
               {/* Caption & Category */}
               <div className="mt-4 text-white max-w-xl">
                 <span className="text-[#C9A991] text-xs font-semibold uppercase tracking-widest block mb-1">
-                  {filteredItems[selectedImageIndex].category}
+                  {Array.isArray(filteredItems[selectedImageIndex].category)
+                    ? filteredItems[selectedImageIndex].category.join(' • ')
+                    : filteredItems[selectedImageIndex].category}
                 </span>
                 <h3 className="text-xl font-serif font-medium mb-1">
                   {filteredItems[selectedImageIndex].title}

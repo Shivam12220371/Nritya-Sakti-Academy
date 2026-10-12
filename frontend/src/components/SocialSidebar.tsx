@@ -1,10 +1,6 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
 import { FaInstagram, FaYoutube } from 'react-icons/fa';
 
 const SocialSidebar = () => {
-  const [activeIdx, setActiveIdx] = useState<number | null>(null);
-
   const socials = [
     {
       name: 'Instagram',
@@ -21,40 +17,23 @@ const SocialSidebar = () => {
   ];
 
   return (
-    <div className="fixed top-1/2 -translate-y-1/2 right-0 z-50 flex flex-col gap-2.5 sm:gap-3">
-      {socials.map((social, idx) => {
-        const isExpanded = activeIdx === idx;
-        return (
-          <motion.a
-            key={idx}
-            href={social.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            initial={{ x: 102 }}
-            animate={{ x: isExpanded ? 0 : 102 }}
-            whileHover={{ x: 0 }}
-            whileTap={{ x: 0 }}
-            onTouchStart={() => {
-              setActiveIdx(idx);
-            }}
-            onTouchEnd={() => {
-              // Delay retracting slightly so the user can see the expanded label
-              setTimeout(() => setActiveIdx(null), 1800);
-            }}
-            onMouseEnter={() => setActiveIdx(idx)}
-            onMouseLeave={() => setActiveIdx(null)}
-            className={`flex items-center w-36 sm:w-40 h-12 sm:h-14 ${social.color} text-white rounded-l-xl shadow-lg cursor-pointer border border-white/20 select-none`}
-            transition={{ type: 'spring', stiffness: 320, damping: 26 }}
-          >
-            <div className="w-12 h-12 sm:w-14 sm:h-14 shrink-0 flex items-center justify-center bg-white/20 rounded-l-xl backdrop-blur-md">
-              {social.icon}
-            </div>
-            <div className="flex-1 px-2.5 sm:px-3 font-semibold text-sm sm:text-base tracking-wide flex justify-start items-center">
-              {social.name}
-            </div>
-          </motion.a>
-        );
-      })}
+    <div className="fixed top-1/2 -translate-y-1/2 right-0 z-40 flex flex-col items-end gap-2.5 sm:gap-3 pointer-events-none select-none">
+      {socials.map((social, idx) => (
+        <a
+          key={idx}
+          href={social.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`pointer-events-auto flex items-center h-11 sm:h-14 w-11 sm:w-14 sm:hover:w-40 ${social.color} text-white rounded-l-xl shadow-lg cursor-pointer border border-white/20 overflow-hidden transition-all duration-300 ease-out group active:scale-95 touch-manipulation`}
+        >
+          <div className="w-11 h-11 sm:w-14 sm:h-14 shrink-0 flex items-center justify-center bg-white/20 rounded-l-xl backdrop-blur-md">
+            {social.icon}
+          </div>
+          <div className="hidden sm:flex opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-3 font-semibold text-sm sm:text-base tracking-wide whitespace-nowrap">
+            {social.name}
+          </div>
+        </a>
+      ))}
     </div>
   );
 };
