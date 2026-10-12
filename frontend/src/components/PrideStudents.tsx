@@ -2,6 +2,14 @@ import { motion } from 'framer-motion';
 
 const PrideStudents = () => {
   const images = [
+    '/gallery/gallery-group-performance.jpg',
+    '/gallery/gallery-guru-student.jpg',
+    '/gallery/gallery-student-pose-1.jpg',
+    '/gallery/gallery-student-pose-2.jpg',
+    '/gallery/gallery-student-blue-pose.jpg',
+    '/gallery/gallery-student-yellow-pose.jpg',
+    '/gallery/gallery-student-green-night.jpg',
+    '/gallery/gallery-blessings-poster.jpg',
     '/pride_students/media__1790113785865.jpg',
     '/pride_students/media__1790113785913.jpg',
     '/pride_students/media__1790113785945.jpg',
