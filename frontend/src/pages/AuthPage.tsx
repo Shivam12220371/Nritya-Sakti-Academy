@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Mail, Lock, User, ArrowRight, Eye, EyeOff, KeyRound, ArrowLeft } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
@@ -21,6 +21,17 @@ const AuthPage = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+
+    // Pre-warm: silently ping the backend the moment the user focuses the
+    // email field, so the server is warm well before the form is submitted.
+    const hasPreWarmed = useRef(false);
+    const preWarmBackend = () => {
+        if (hasPreWarmed.current) return;
+        hasPreWarmed.current = true;
+        fetch('/api/health', { method: 'GET', cache: 'no-cache' }).catch(() => {
+            // Ignore errors — this is a best-effort warm-up only
+        });
+    };
 
     const handleForgotPassword = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -294,6 +305,7 @@ const AuthPage = () => {
                                     autoComplete="username"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
+                                    onFocus={preWarmBackend}
                                     autoCapitalize="none"
                                     autoCorrect="off"
                                     spellCheck="false"

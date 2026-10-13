@@ -5,7 +5,7 @@ const SocialSidebar = () => {
     {
       name: 'Instagram',
       icon: <FaInstagram className="w-5 h-5 sm:w-6 sm:h-6" />,
-      link: 'https://www.instagram.com/nritya.shakti_academy?stkn=MWVqbXc1cnF4bGd2bQ==&utm_source=ig_contact_invite',
+      link: 'https://www.instagram.com/nritya.shakti_academy/',
       color: 'bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-500',
     },
     {

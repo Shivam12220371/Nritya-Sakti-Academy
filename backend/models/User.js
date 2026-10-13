@@ -40,6 +40,15 @@ const userSchema = new mongoose.Schema({
   resetPasswordOtpExpiry: { type: Date },
 }, { timestamps: true });
 
+// ─── Performance Indexes ────────────────────────────────────────────────────
+// Note: email index is created automatically by unique:true in the schema definition.
+// Speeds up role-based queries (admin/instructor dashboards)
+userSchema.index({ role: 1 });
+// Speeds up password-reset lookups
+userSchema.index({ resetPasswordOtp: 1, resetPasswordOtpExpiry: 1 });
+// Compound index for fee management queries on admin dashboard
+userSchema.index({ role: 1, feeStatus: 1 });
+
 // Pre-save hook to hash password
 userSchema.pre('save', async function() {
   if (!this.isModified('password')) return;

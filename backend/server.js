@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const compression = require('compression');
 require('dotenv').config();
 
 const app = express();
@@ -18,6 +19,8 @@ const path = require('path');
 
 // Middleware
 app.use(cors());
+// Gzip compression — reduces JSON/HTML payload size by 60-80%
+app.use(compression());
 app.use(express.json());
 
 // Database connection
@@ -35,8 +38,17 @@ app.use('/api/chat', chatRoute);
 app.use('/api/messages', messageRoutes);
 app.use('/api/live-meetings', meetingsRoutes);
 
-// Mount public uploads folder for profile pictures
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// Mount public uploads folder with long-lived cache headers
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'), {
+  maxAge: '7d',            // Browser caches profile images for 7 days
+  etag: true,
+  lastModified: true,
+}));
+
+// Health check endpoint — used for keep-alive pings and frontend pre-warm
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ status: 'ok', ts: Date.now() });
+});
 
 // Basic route
 app.get('/', (req, res) => {

@@ -5,6 +5,19 @@
   <meta charset="UTF-8" />
   <base href="/" />
   <link rel="icon" type="image/jpeg" href="/logo.jpg" />
+
+  <!-- ─── Performance: Resource Hints ──────────────────────────────────────
+       Establishes TCP/TLS connections early so the first API call is instant.
+  -->
+  <!-- Backend API (Render/Railway hosted) -->
+  <link rel="preconnect" href="https://nritya-sakti-academy-backend.onrender.com" crossorigin />
+  <link rel="dns-prefetch" href="https://nritya-sakti-academy-backend.onrender.com" />
+  <!-- Google OAuth & Fonts -->
+  <link rel="preconnect" href="https://accounts.google.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <!-- ───────────────────────────────────────────────────────────────────── -->
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Natya Shakti Academy | Dance Classes & Training Near Me</title>
   <meta name="description"
