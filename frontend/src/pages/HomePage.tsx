@@ -44,12 +44,17 @@ const HomePage = () => {
             <div className="absolute -bottom-12 left-10 w-64 h-64 bg-amber-600/15 rounded-full blur-[90px] pointer-events-none -z-10"></div>
 
             {/* Headline with Gold Accents */}
-            <h1 className="text-3xl sm:text-5xl lg:text-7xl font-semibold tracking-tight mb-6 leading-[1.15]">
+            <motion.h1
+              initial={{ opacity: 0, x: -80 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.9, delay: 0.15, ease: "easeOut" }}
+              className="text-3xl sm:text-5xl lg:text-7xl font-semibold tracking-tight mb-6 leading-[1.15]"
+            >
               Elegance in Motion,<br/>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#F3E8E0] to-[#C9A991]">
                 Tradition at Heart
               </span>
-            </h1>
+            </motion.h1>
 
             {/* Subtitle */}
             <p className="text-[#D4D2CD] text-base sm:text-lg mb-8 max-w-md font-light leading-relaxed">

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { MessageCircle, X, Send, Bot, Loader2, Volume2, VolumeX, Mic } from 'lucide-react';
+import { X, Send, Loader2, Volume2, VolumeX, Mic } from 'lucide-react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -11,7 +11,7 @@ type Message = {
 const AIChatBot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'model', text: 'Hello! I am the Natya Shakti Academy AI assistant. How can I help you today?' }
+    { role: 'model', text: 'Hello! I am Academy AI. How can I help you today?' }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -133,17 +133,29 @@ const AIChatBot: React.FC = () => {
               initial={{ opacity: 0, y: 20, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.9 }}
-              transition={{ duration: 0.2 }}
-              className="absolute bottom-16 right-0 w-80 sm:w-96 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden flex flex-col"
-              style={{ height: '500px', maxHeight: 'calc(100vh - 120px)' }}
+              transition={{ type: 'spring', stiffness: 320, damping: 25 }}
+              className="absolute bottom-16 right-0 w-[min(360px,calc(100vw-2rem))] bg-[#FAFAFA] rounded-2xl shadow-2xl border border-[#EADCCF] overflow-hidden flex flex-col"
+              style={{ height: '460px', maxHeight: 'calc(100vh - 120px)' }}
             >
               {/* Header */}
-              <div className="bg-indigo-600 p-4 text-white flex justify-between items-center">
-                <div className="flex items-center gap-2">
-                  <Bot size={24} />
-                  <h3 className="font-semibold">Academy AI Assist</h3>
+              <div className="relative overflow-hidden bg-gradient-to-r from-[#463F3A] to-[#6B554A] p-3.5 text-white flex justify-between items-center">
+                <img
+                  src="/hero_dancing_pose.png"
+                  alt=""
+                  className="absolute right-14 -bottom-5 h-20 w-16 object-contain opacity-20 pointer-events-none"
+                />
+                <div className="relative flex items-center gap-2.5">
+                  <img
+                    src="/logo.jpg"
+                    alt="Academy AI"
+                    className="w-9 h-9 rounded-full object-cover border-2 border-[#EADCCF] shadow-sm"
+                  />
+                  <div>
+                    <h3 className="font-semibold leading-tight">Academy AI</h3>
+                    <p className="text-[11px] text-[#EADCCF]">Your dance guide</p>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="relative flex items-center gap-1">
                   <button
                     onClick={() => {
                       if (isSpeechEnabled) window.speechSynthesis?.cancel();
@@ -154,14 +166,14 @@ const AIChatBot: React.FC = () => {
                         window.speechSynthesis.speak(dummy);
                       }
                     }}
-                    className="p-1 hover:bg-indigo-700 rounded-full transition-colors"
+                    className="p-1.5 hover:bg-white/15 rounded-full transition-colors"
                     aria-label="Toggle voice"
                   >
                     {isSpeechEnabled ? <Volume2 size={20} /> : <VolumeX size={20} />}
                   </button>
                   <button
                     onClick={() => setIsOpen(false)}
-                    className="p-1 hover:bg-indigo-700 rounded-full transition-colors"
+                    className="p-1.5 hover:bg-white/15 rounded-full transition-colors"
                     aria-label="Close chat"
                   >
                     <X size={20} />
@@ -170,7 +182,7 @@ const AIChatBot: React.FC = () => {
               </div>
 
               {/* Messages Area */}
-              <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50 dark:bg-slate-950/50">
+              <div className="flex-1 overflow-y-auto p-3.5 space-y-3 bg-[#F7F4F1]">
                 {messages.map((msg, idx) => (
                   <div
                     key={idx}
@@ -179,8 +191,8 @@ const AIChatBot: React.FC = () => {
                     <div
                       className={`max-w-[85%] rounded-2xl px-4 py-2 ${
                         msg.role === 'user'
-                          ? 'bg-indigo-600 text-white rounded-tr-sm'
-                          : 'bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 rounded-tl-sm'
+                          ? 'bg-[#463F3A] text-white rounded-tr-sm'
+                          : 'bg-white border border-[#EADCCF] text-[#463F3A] rounded-tl-sm'
                       }`}
                     >
                       <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.text}</p>
@@ -189,8 +201,8 @@ const AIChatBot: React.FC = () => {
                 ))}
                 {isLoading && (
                   <div className="flex justify-start">
-                    <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl rounded-tl-sm px-4 py-3">
-                      <Loader2 size={16} className="animate-spin text-indigo-600" />
+                    <div className="bg-white border border-[#EADCCF] rounded-2xl rounded-tl-sm px-4 py-3">
+                      <Loader2 size={16} className="animate-spin text-[#C9A991]" />
                     </div>
                   </div>
                 )}
@@ -198,17 +210,17 @@ const AIChatBot: React.FC = () => {
               </div>
 
               {/* Input Area */}
-              <div className="p-3 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
+              <div className="p-3 bg-white border-t border-[#EADCCF]">
                 <form
                   onSubmit={handleSend}
-                  className="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 rounded-full pl-4 pr-1 text-sm py-1 border border-slate-200 dark:border-slate-700 focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500 transition-all"
+                  className="flex items-center gap-2 bg-[#F7F4F1] rounded-full pl-4 pr-1 text-sm py-1 border border-[#EADCCF] focus-within:border-[#C9A991] focus-within:ring-1 focus-within:ring-[#C9A991] transition-all"
                 >
                   <input
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Ask about classes, fees, hours..."
-                    className="flex-1 bg-transparent border-none outline-none dark:text-white dark:placeholder-slate-400 py-2"
+                    className="flex-1 bg-transparent border-none outline-none text-[#463F3A] placeholder:text-[#8D8178] py-2"
                     disabled={isLoading}
                   />
                   <button
@@ -216,7 +228,7 @@ const AIChatBot: React.FC = () => {
                     onClick={startListening}
                     disabled={isLoading || isListening}
                     className={`p-2 rounded-full transition-colors flex-shrink-0 ${
-                      isListening ? 'bg-rose-100 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 animate-pulse' : 'text-slate-500 hover:bg-slate-200 dark:hover:bg-slate-700'
+                      isListening ? 'bg-rose-100 text-rose-600 animate-pulse' : 'text-[#8D8178] hover:bg-[#EADCCF]'
                     }`}
                     title={isListening ? "Listening..." : "Speak your message"}
                   >
@@ -226,7 +238,7 @@ const AIChatBot: React.FC = () => {
                     type="submit"
                     disabled={!input.trim() || isLoading}
                     className={`p-2 rounded-full transition-colors flex-shrink-0 ${
-                      !input.trim() || isLoading ? 'bg-slate-300 dark:bg-slate-700 text-slate-500 cursor-not-allowed' : 'bg-indigo-600 text-white hover:bg-indigo-700'
+                      !input.trim() || isLoading ? 'bg-[#D4C8BE] text-white cursor-not-allowed' : 'bg-[#463F3A] text-white hover:bg-[#322C28]'
                     }`}
                     title="Send message"
                   >
@@ -240,30 +252,28 @@ const AIChatBot: React.FC = () => {
 
         {/* Floating Button Label & Button Container */}
         <div className="relative flex flex-col items-center">
-          {/* Label Tooltip */}
-          <AnimatePresence>
-            {!isOpen && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                className="absolute -top-12 right-0 whitespace-nowrap bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 px-4 py-2 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700 font-medium text-sm flex items-center gap-2"
-              >
-                Natya Shakti AI Chatbot
-                <div className="absolute -bottom-2 right-6 w-4 h-4 bg-white dark:bg-slate-800 border-b border-r border-slate-200 dark:border-slate-700 transform rotate-45"></div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-          
-          <button
+          <motion.button
             onClick={() => setIsOpen(!isOpen)}
-            className={`h-14 w-14 rounded-full shadow-lg flex items-center justify-center text-white transition-all transform hover:scale-105 active:scale-95 ${
-              isOpen ? 'bg-rose-500 hover:bg-rose-600' : 'bg-indigo-600 hover:bg-indigo-700'
+            animate={{ y: [0, -4, 0] }}
+            transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.96 }}
+            className={`h-14 w-40 rounded-2xl shadow-lg flex items-center justify-between pl-4 pr-2 text-white border border-white/30 overflow-hidden ${
+              isOpen
+                ? 'bg-gradient-to-r from-rose-500 to-rose-600'
+                : 'bg-gradient-to-r from-[#463F3A] via-[#A86E59] to-[#C9A991]'
             }`}
-            aria-label="Toggle AI Chat"
+            aria-label={isOpen ? 'Close Academy AI' : 'Open Academy AI'}
           >
-            {isOpen ? <X size={28} /> : <MessageCircle size={28} />}
-          </button>
+            <span className="font-semibold text-sm tracking-wide">Academy AI</span>
+            <span className="h-11 w-11 rounded-xl bg-white/20 flex items-center justify-center overflow-hidden">
+              <img
+                src="/bharatanatyam_pose.png"
+                alt=""
+                className="h-12 w-12 object-contain drop-shadow-md"
+              />
+            </span>
+          </motion.button>
         </div>
       </div>
     </>
