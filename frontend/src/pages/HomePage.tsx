@@ -3,6 +3,15 @@ import { CheckCircle2, ChevronRight, MapPin, Phone, Mail, MessageCircle, Star } 
 import { Link } from 'react-router-dom';
 import GoogleReviews from '../components/GoogleReviews';
 
+const headlineLetterVariants = {
+  hidden: { opacity: 0, x: 70 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.5, ease: 'easeOut' as const },
+  },
+};
+
 const HomePage = () => {
   return (
     <div className="pt-24 bg-[#FAFAFA] min-h-screen font-sans">
@@ -45,14 +54,31 @@ const HomePage = () => {
 
             {/* Headline with Gold Accents */}
             <motion.h1
-              initial={{ opacity: 0, x: -80 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.9, delay: 0.15, ease: "easeOut" }}
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: {},
+                visible: {
+                  transition: { delayChildren: 0.2, staggerChildren: 0.09 },
+                },
+              }}
               className="text-3xl sm:text-5xl lg:text-7xl font-semibold tracking-tight mb-6 leading-[1.15]"
+              aria-label="Elegance in Motion, Tradition at Heart"
             >
-              Elegance in Motion,<br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#F3E8E0] to-[#C9A991]">
-                Tradition at Heart
+              <span aria-hidden="true">
+                {Array.from('Elegance in Motion,').map((letter, index) => (
+                  <motion.span key={`first-line-${index}`} variants={headlineLetterVariants} className="inline-block">
+                    {letter === ' ' ? '\u00A0' : letter}
+                  </motion.span>
+                ))}
+                <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#F3E8E0] to-[#C9A991]">
+                  {Array.from('Tradition at Heart').map((letter, index) => (
+                    <motion.span key={`second-line-${index}`} variants={headlineLetterVariants} className="inline-block">
+                      {letter === ' ' ? '\u00A0' : letter}
+                    </motion.span>
+                  ))}
+                </span>
               </span>
             </motion.h1>
 
