@@ -8,7 +8,7 @@ const headlineLetterVariants = {
   visible: {
     opacity: 1,
     x: 0,
-    transition: { duration: 0.5, ease: 'easeOut' as const },
+    transition: { duration: 0.7, ease: 'easeOut' as const },
   },
 };
 
@@ -59,18 +59,20 @@ const HomePage = () => {
               variants={{
                 hidden: {},
                 visible: {
-                  transition: { delayChildren: 0.2, staggerChildren: 0.09 },
+                  transition: { delayChildren: 0.2, staggerChildren: 0.13 },
                 },
               }}
-              className="text-3xl sm:text-5xl lg:text-7xl font-semibold tracking-tight mb-6 leading-[1.15]"
+              className="text-3xl sm:text-5xl lg:text-6xl font-semibold tracking-tight mb-6 leading-[1.15]"
               aria-label="Elegance in Motion, Tradition at Heart"
             >
               <span aria-hidden="true">
+                <span className="whitespace-nowrap">
                 {Array.from('Elegance in Motion,').map((letter, index) => (
                   <motion.span key={`first-line-${index}`} variants={headlineLetterVariants} className="inline-block">
                     {letter === ' ' ? '\u00A0' : letter}
                   </motion.span>
                 ))}
+                </span>
                 <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#F3E8E0] to-[#C9A991]">
                   {Array.from('Tradition at Heart').map((letter, index) => (
