@@ -62,11 +62,11 @@ const HomePage = () => {
                   transition: { delayChildren: 0.2, staggerChildren: 0.13 },
                 },
               }}
-              className="text-3xl sm:text-5xl lg:text-6xl font-semibold tracking-tight mb-6 leading-[1.15]"
+              className="text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-semibold tracking-tight mb-6 leading-[1.15]"
               aria-label="Elegance in Motion, Tradition at Heart"
             >
               <span aria-hidden="true">
-                <span className="whitespace-nowrap">
+                <span className="inline-block whitespace-nowrap">
                 {Array.from('Elegance in Motion,').map((letter, index) => (
                   <motion.span key={`first-line-${index}`} variants={headlineLetterVariants} className="inline-block">
                     {letter === ' ' ? '\u00A0' : letter}
