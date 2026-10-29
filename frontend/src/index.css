@@ -12,6 +12,45 @@
 html {
   scroll-behavior: smooth;
   font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  overflow-x: hidden;
+  background: #f8fafc;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 640px) {
+  .font-serif {
+    font-size: clamp(2.25rem, 11vw, 3.5rem);
+  }
+
+  .text-6xl {
+    font-size: clamp(3rem, 16vw, 4rem);
+  }
+
+  .text-7xl {
+    font-size: clamp(2.75rem, 14vw, 4rem);
+  }
+
+  .text-8xl {
+    font-size: clamp(3.75rem, 20vw, 5rem);
+  }
+
+  p {
+    overflow-wrap: anywhere;
+  }
 }
 
 /* Custom Selection styling */

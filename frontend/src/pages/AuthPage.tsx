@@ -160,7 +160,7 @@ const AuthPage = () => {
                     )}
 
                     {/* Form Area */}
-                    <div className="p-8">
+                    <div className="p-5 sm:p-8">
                         <div className="text-center mb-8">
                             <h2 className="text-2xl font-black mb-2">
                                 {isForgotPassword ? 'Reset Password' : (isLogin ? 'Welcome Back!' : 'Start Your Journey')}

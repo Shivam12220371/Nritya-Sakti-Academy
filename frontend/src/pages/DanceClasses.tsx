@@ -16,33 +16,35 @@ const DanceClasses = () => {
   };
 
   return (
-    <div ref={containerRef} className="relative min-h-screen bg-[#FAFAFA] overflow-hidden">
+    <div ref={containerRef} className="relative min-h-screen overflow-hidden bg-[#fbf8f5]">
       
       {/* Cinematic Parallax Background - Kept soft and light */}
       <motion.div 
         style={{ y: backgroundY }}
         className="absolute inset-0 z-0 h-[130vh] w-full"
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-[#FAFAFA]/20 via-[#FAFAFA]/80 to-[#FAFAFA] z-10" />
+        <div className="absolute inset-0 z-10 bg-gradient-to-b from-[#fbf8f5]/30 via-[#fbf8f5]/85 to-[#fbf8f5]" />
         <img 
           src="/ghungroo_feet.png" 
           alt="Classical Dancer Feet Shadow" 
-          className="w-full h-full object-cover opacity-20 mix-blend-multiply"
+          className="h-full w-full object-cover opacity-[0.14] mix-blend-multiply"
         />
       </motion.div>
 
       <div className="relative z-20 pt-32 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header Section */}
-        <div className="text-left mb-24 md:pl-20 border-l-4 border-[#C9A991] pl-6">
+        <div className="relative mb-24 overflow-hidden rounded-[2.5rem] border border-[#eaded5] bg-gradient-to-br from-[#fffdfb] via-[#fffaf6] to-[#f6ece8] px-6 py-10 shadow-[0_24px_70px_-45px_rgba(75,36,74,0.5)] md:pl-20">
+          <div className="absolute -right-20 -top-32 h-72 w-72 rounded-full bg-[#c99a5a]/10 blur-3xl" />
+          <div className="absolute bottom-0 right-12 h-1 w-24 bg-[#c99a5a]" />
           <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, ease: "easeOut" }}>
-            <span className="text-[#C9A991] font-bold tracking-[0.3em] uppercase text-xs mb-4 block drop-shadow-sm">
+            <span className="mb-4 block text-xs font-bold uppercase tracking-[0.3em] text-[#9b5b67]">
               Our Curriculum
             </span>
-            <h1 className="text-5xl md:text-7xl font-serif mb-6 text-[#463F3A] leading-tight">
-              Find Your <br/> <span className="italic text-[#C9A991] font-light">&nbsp;Rhythm.</span>
+            <h1 className="mb-6 font-serif text-5xl leading-tight text-[#2c1f2f] md:text-7xl">
+              Find Your <br/> <span className="font-light italic text-[#9b5b67]">&nbsp;Rhythm.</span>
             </h1>
-            <p className="text-lg md:text-xl text-gray-500 max-w-2xl font-light leading-relaxed">
+            <p className="max-w-2xl text-lg font-light leading-relaxed text-[#756b73] md:text-xl">
               Experience the profound depth of classical art in an environment tailored for your ambitions. Join us in the evening, when the shadows stretch and the spirit dances.
             </p>
           </motion.div>
@@ -50,7 +52,7 @@ const DanceClasses = () => {
 
         {/* Schedule Timeline - Asymmetric Layout */}
         <div className="mb-32 relative">
-          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-[#F3E8E0]/0 via-[#C9A991]/50 to-[#F3E8E0]/0"></div>
+          <div className="absolute bottom-0 left-1/2 top-0 hidden w-px bg-gradient-to-b from-[#eaded5]/0 via-[#c99a5a]/50 to-[#eaded5]/0 md:block"></div>
           
           <div className="flex flex-col gap-24">
             
@@ -64,22 +66,22 @@ const DanceClasses = () => {
             >
               <div className="md:w-1/2 flex justify-end">
                 <div className="text-right">
-                  <h2 className="text-6xl md:text-8xl font-serif text-[#C9A991] mb-2">5<span className="text-4xl text-[#C9A991]/80 font-sans font-light">PM</span></h2>
-                  <p className="text-[#463F3A] uppercase tracking-widest text-sm font-bold">Evening Initiation</p>
+                  <h2 className="mb-2 font-serif text-6xl text-[#9b5b67] md:text-8xl">5<span className="font-sans text-4xl font-light text-[#9b5b67]/75">PM</span></h2>
+                  <p className="text-sm font-bold uppercase tracking-widest text-[#2c1f2f]">Evening Initiation</p>
                 </div>
               </div>
               <motion.div animate={floatAnim} className="md:w-1/2">
-                <div className="bg-white rounded-[2rem] p-8 border border-[#F3E8E0] hover:border-[#C9A991] transition-colors shadow-sm hover:shadow-xl relative overflow-hidden group">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-[#FCF4F4] rounded-full blur-2xl group-hover:scale-150 transition-all duration-700"></div>
-                  <h3 className="text-[#463F3A] font-serif text-2xl mb-6 font-bold">Foundation & Form</h3>
+                <div className="group relative overflow-hidden rounded-[2rem] border border-[#eaded5] bg-[#fffdfb] p-8 shadow-[0_12px_35px_-24px_rgba(75,36,74,0.7)] transition-all hover:-translate-y-1 hover:border-[#c99a5a] hover:shadow-xl">
+                  <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-[#f0d9d7]/60 blur-2xl transition-all duration-700 group-hover:scale-150"></div>
+                  <h3 className="relative mb-6 font-serif text-2xl font-bold text-[#2c1f2f]">Foundation & Form</h3>
                   <ul className="space-y-4 relative z-10">
-                    <li className="flex items-center gap-4 text-gray-600">
-                      <span className="w-2 h-2 rounded-full bg-[#C9A991] block"></span>
-                      <span className="font-medium tracking-wide text-lg">Bharatanatyam (Batch A)</span>
+                    <li className="flex items-center gap-4 text-[#756b73]">
+                      <span className="block h-2 w-2 rounded-full bg-[#c99a5a]"></span>
+                      <span className="text-lg font-medium tracking-wide">Bharatanatyam (Batch A)</span>
                     </li>
-                    <li className="flex items-center gap-4 text-gray-600">
-                      <span className="w-2 h-2 rounded-full bg-[#C9A991] block"></span>
-                      <span className="font-medium tracking-wide text-lg">Bollywood Style (Batch B)</span>
+                    <li className="flex items-center gap-4 text-[#756b73]">
+                      <span className="block h-2 w-2 rounded-full bg-[#c99a5a]"></span>
+                      <span className="text-lg font-medium tracking-wide">Bollywood Style (Batch B)</span>
                     </li>
                   </ul>
                 </div>
@@ -96,22 +98,22 @@ const DanceClasses = () => {
             >
               <div className="md:w-1/2 flex justify-start">
                 <div className="text-left">
-                  <h2 className="text-6xl md:text-8xl font-serif text-[#463F3A] mb-2">6<span className="text-4xl text-[#463F3A]/70 font-sans font-light">PM</span></h2>
-                  <p className="text-[#C9A991] uppercase tracking-widest text-sm font-bold">Peak Expression</p>
+                  <h2 className="mb-2 font-serif text-6xl text-[#2c1f2f] md:text-8xl">6<span className="font-sans text-4xl font-light text-[#2c1f2f]/70">PM</span></h2>
+                  <p className="text-sm font-bold uppercase tracking-widest text-[#9b5b67]">Peak Expression</p>
                 </div>
               </div>
               <motion.div animate={{ ...floatAnim, transition: { ...floatAnim.transition, delay: 1 } }} className="md:w-1/2 flex justify-end">
-                <div className="bg-white rounded-[2rem] p-8 border border-[#F3E8E0] hover:border-[#463F3A] transition-colors shadow-sm hover:shadow-xl relative overflow-hidden group w-full text-left">
-                  <div className="absolute top-0 left-0 w-32 h-32 bg-[#FCF4F4] rounded-full blur-2xl group-hover:scale-150 transition-all duration-700"></div>
-                  <h3 className="text-[#463F3A] font-serif text-2xl mb-6 font-bold">Movement & Flow</h3>
+                <div className="group relative w-full overflow-hidden rounded-[2rem] border border-[#eaded5] bg-[#fffdfb] p-8 text-left shadow-[0_12px_35px_-24px_rgba(75,36,74,0.7)] transition-all hover:-translate-y-1 hover:border-[#9b5b67] hover:shadow-xl">
+                  <div className="absolute left-0 top-0 h-32 w-32 rounded-full bg-[#f0d9d7]/60 blur-2xl transition-all duration-700 group-hover:scale-150"></div>
+                  <h3 className="relative mb-6 font-serif text-2xl font-bold text-[#2c1f2f]">Movement & Flow</h3>
                   <ul className="space-y-4 relative z-10">
-                    <li className="flex items-center justify-end gap-4 text-gray-600 flex-row-reverse">
-                      <span className="w-2 h-2 rounded-full bg-[#463F3A] block"></span>
-                      <span className="font-medium tracking-wide text-lg text-right">Free Style Dance (Mixed)</span>
+                    <li className="flex flex-row-reverse items-center justify-end gap-4 text-[#756b73]">
+                      <span className="block h-2 w-2 rounded-full bg-[#9b5b67]"></span>
+                      <span className="text-right text-lg font-medium tracking-wide">Free Style Dance (Mixed)</span>
                     </li>
-                    <li className="flex items-center justify-end gap-4 text-gray-600 flex-row-reverse">
-                      <span className="w-2 h-2 rounded-full bg-[#463F3A] block"></span>
-                      <span className="font-medium tracking-wide text-lg text-right">Bharatanatyam (Batch B)</span>
+                    <li className="flex flex-row-reverse items-center justify-end gap-4 text-[#756b73]">
+                      <span className="block h-2 w-2 rounded-full bg-[#9b5b67]"></span>
+                      <span className="text-right text-lg font-medium tracking-wide">Bharatanatyam (Batch B)</span>
                     </li>
                   </ul>
                 </div>
@@ -128,22 +130,22 @@ const DanceClasses = () => {
             >
               <div className="md:w-1/2 flex justify-end">
                 <div className="text-right">
-                  <h2 className="text-6xl md:text-8xl font-serif text-[#C9A991] mb-2">7<span className="text-4xl text-[#C9A991]/80 font-sans font-light">PM</span></h2>
-                  <p className="text-[#463F3A] uppercase tracking-widest text-sm font-bold">Advanced Rhythm</p>
+                  <h2 className="mb-2 font-serif text-6xl text-[#9b5b67] md:text-8xl">7<span className="font-sans text-4xl font-light text-[#9b5b67]/75">PM</span></h2>
+                  <p className="text-sm font-bold uppercase tracking-widest text-[#2c1f2f]">Advanced Rhythm</p>
                 </div>
               </div>
               <motion.div animate={{ ...floatAnim, transition: { ...floatAnim.transition, delay: 2 } }} className="md:w-1/2">
-                <div className="bg-white rounded-[2rem] p-8 border border-[#F3E8E0] hover:border-[#C9A991] transition-colors shadow-sm hover:shadow-xl relative overflow-hidden group">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-[#FCF4F4] rounded-full blur-2xl group-hover:scale-150 transition-all duration-700"></div>
-                  <h3 className="text-[#463F3A] font-serif text-2xl mb-6 font-bold">Mastery & Drill</h3>
+                <div className="group relative overflow-hidden rounded-[2rem] border border-[#eaded5] bg-[#fffdfb] p-8 shadow-[0_12px_35px_-24px_rgba(75,36,74,0.7)] transition-all hover:-translate-y-1 hover:border-[#c99a5a] hover:shadow-xl">
+                  <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-[#f0d9d7]/60 blur-2xl transition-all duration-700 group-hover:scale-150"></div>
+                  <h3 className="relative mb-6 font-serif text-2xl font-bold text-[#2c1f2f]">Mastery & Drill</h3>
                   <ul className="space-y-4 relative z-10">
-                    <li className="flex items-center gap-4 text-gray-600">
-                      <span className="w-2 h-2 rounded-full bg-[#C9A991] block"></span>
-                      <span className="font-medium tracking-wide text-lg">Bollywood Style (Batch A)</span>
+                    <li className="flex items-center gap-4 text-[#756b73]">
+                      <span className="block h-2 w-2 rounded-full bg-[#c99a5a]"></span>
+                      <span className="text-lg font-medium tracking-wide">Bollywood Style (Batch A)</span>
                     </li>
-                    <li className="flex items-center gap-4 text-gray-600">
-                      <span className="w-2 h-2 rounded-full bg-[#C9A991] block"></span>
-                      <span className="font-medium tracking-wide text-lg">Masterclass / Performance Drill</span>
+                    <li className="flex items-center gap-4 text-[#756b73]">
+                      <span className="block h-2 w-2 rounded-full bg-[#c99a5a]"></span>
+                      <span className="text-lg font-medium tracking-wide">Masterclass / Performance Drill</span>
                     </li>
                   </ul>
                 </div>
@@ -160,30 +162,30 @@ const DanceClasses = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+            className="grid grid-cols-1 gap-8 md:grid-cols-2"
           >
             {/* All-Rounder Track */}
-            <div className="bg-white p-10 border border-[#F3E8E0] rounded-[2rem] hover:border-[#C9A991] transition-colors shadow-sm flex flex-col items-start bg-gradient-to-br from-white to-[#FCF4F4]/50">
-              <Sparkle className="w-10 h-10 text-[#C9A991] mb-6" />
-              <h4 className="text-3xl font-serif text-[#463F3A] mb-3 font-bold">All-Rounder Track</h4>
-              <p className="text-gray-500 font-light mb-8">For students who wish to experience and master every style of dance we teach.</p>
+            <div className="flex flex-col items-start rounded-[2rem] border border-[#eaded5] bg-gradient-to-br from-[#fffdfb] to-[#f8eeeb] p-10 shadow-[0_12px_35px_-24px_rgba(75,36,74,0.7)] transition-all hover:-translate-y-1 hover:border-[#c99a5a] hover:shadow-xl">
+              <Sparkle className="mb-6 h-10 w-10 text-[#c99a5a]" />
+              <h4 className="mb-3 font-serif text-3xl font-bold text-[#2c1f2f]">All-Rounder Track</h4>
+              <p className="mb-8 font-light text-[#756b73]">For students who wish to experience and master every style of dance we teach.</p>
               
-              <ul className="space-y-4 text-[#463F3A] font-medium tracking-wide">
-                <li className="flex items-center gap-4"><span className="w-2 h-2 bg-[#C9A991] rounded-full"></span> 2 Days: Bharatanatyam Form</li>
-                <li className="flex items-center gap-4"><span className="w-2 h-2 bg-[#C9A991] rounded-full"></span> 2 Days: Bollywood Style Choreography</li>
-                <li className="flex items-center gap-4"><span className="w-2 h-2 bg-[#C9A991] rounded-full"></span> 1 Day: Free Style Expression</li>
+              <ul className="space-y-4 font-medium tracking-wide text-[#2c1f2f]">
+                <li className="flex items-center gap-4"><span className="h-2 w-2 rounded-full bg-[#c99a5a]"></span> 2 Days: Bharatanatyam Form</li>
+                <li className="flex items-center gap-4"><span className="h-2 w-2 rounded-full bg-[#c99a5a]"></span> 2 Days: Bollywood Style Choreography</li>
+                <li className="flex items-center gap-4"><span className="h-2 w-2 rounded-full bg-[#c99a5a]"></span> 1 Day: Free Style Expression</li>
               </ul>
             </div>
 
             {/* Specialist Track */}
-            <div className="bg-white p-10 border border-[#F3E8E0] rounded-[2rem] hover:border-[#463F3A] transition-colors shadow-sm flex flex-col items-start bg-gradient-to-br from-white to-[#FCF4F4]/50">
-              <ShieldCheck className="w-10 h-10 text-[#463F3A] mb-6" />
-              <h4 className="text-3xl font-serif text-[#463F3A] mb-3 font-bold">Specialist Track</h4>
-              <p className="text-gray-500 font-light mb-8">For students who have a singular passion and dedicate themselves strictly to one art form.</p>
+            <div className="flex flex-col items-start rounded-[2rem] border border-[#eaded5] bg-gradient-to-br from-[#fffdfb] to-[#f8eeeb] p-10 shadow-[0_12px_35px_-24px_rgba(75,36,74,0.7)] transition-all hover:-translate-y-1 hover:border-[#9b5b67] hover:shadow-xl">
+              <ShieldCheck className="mb-6 h-10 w-10 text-[#9b5b67]" />
+              <h4 className="mb-3 font-serif text-3xl font-bold text-[#2c1f2f]">Specialist Track</h4>
+              <p className="mb-8 font-light text-[#756b73]">For students who have a singular passion and dedicate themselves strictly to one art form.</p>
               
-              <div className="bg-[#FAFAFA] border border-[#F3E8E0] p-6 rounded-[1.5rem] flex gap-4 items-start w-full">
-                <Info className="w-6 h-6 text-[#463F3A] shrink-0 mt-1" />
-                <p className="text-[#463F3A] font-medium leading-relaxed">
+              <div className="flex w-full items-start gap-4 rounded-[1.5rem] border border-[#eaded5] bg-[#fbf8f5] p-6">
+                <Info className="mt-1 h-6 w-6 shrink-0 text-[#9b5b67]" />
+                <p className="font-medium leading-relaxed text-[#2c1f2f]">
                   Choose your specific core style (such as exclusive Bharatanatyam) and continue gracefully with that focused schedule throughout your entire journey.
                 </p>
               </div>

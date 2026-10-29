@@ -211,32 +211,32 @@ const GalleryPage = () => {
   }, [selectedImageIndex, filteredItems.length]);
 
   return (
-    <div className="pt-28 pb-24 min-h-screen bg-[#FDFBF9] relative overflow-hidden">
+    <div className="relative min-h-screen overflow-hidden bg-[#fbf8f5] pb-24 pt-28">
       {/* Ambient background glow */}
-      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#C9A991]/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-1/3 left-10 w-[600px] h-[600px] bg-[#FCF4F4]/70 rounded-full blur-[160px] pointer-events-none" />
+      <div className="pointer-events-none absolute right-1/4 top-0 h-[500px] w-[500px] rounded-full bg-[#c99a5a]/10 blur-[140px]" />
+      <div className="pointer-events-none absolute bottom-1/3 left-10 h-[600px] w-[600px] rounded-full bg-[#f0d9d7]/70 blur-[160px]" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header Title */}
         <div className="text-center mb-12">
           <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: "easeOut" }}>
-            <span className="text-[#C9A991] font-bold tracking-[0.3em] uppercase text-xs mb-3 block drop-shadow-sm flex items-center justify-center gap-2">
+            <span className="mb-3 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-[0.3em] text-[#9b5b67]">
               <Sparkles className="w-3.5 h-3.5" />
               Our Visual Story
               <Sparkles className="w-3.5 h-3.5" />
             </span>
-            <h1 className="text-5xl md:text-7xl font-serif mb-5 tracking-tight text-[#463F3A] leading-tight">
-              Academy <span className="italic font-light text-[#C9A991]">Gallery</span>
+            <h1 className="mb-5 font-serif text-4xl leading-tight tracking-tight text-[#2c1f2f] sm:text-5xl md:text-7xl">
+              Academy <span className="font-light italic text-[#9b5b67]">Gallery</span>
             </h1>
-            <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto font-light leading-relaxed">
+            <p className="mx-auto max-w-2xl text-lg font-light leading-relaxed text-[#756b73] md:text-xl">
               Explore the grace, expressions, and radiant milestones of our dancers and revered Guru Ayushi Dubey.
             </p>
           </motion.div>
         </div>
 
         {/* Category Filters */}
-        <div className="flex flex-wrap items-center justify-center gap-2.5 mb-14">
+        <div className="mb-14 flex flex-wrap items-center justify-center gap-2.5">
           {categories.map((cat) => {
             const isActive = activeCategory === cat;
             return (
@@ -246,10 +246,10 @@ const GalleryPage = () => {
                   setActiveCategory(cat);
                   setSelectedImageIndex(null);
                 }}
-                className={`px-5 py-2.5 rounded-full text-sm font-medium tracking-wide transition-all duration-300 ${
+                className={`rounded-full px-4 py-2.5 text-sm font-medium tracking-wide transition-all duration-300 sm:px-5 ${
                   isActive
-                    ? 'bg-[#463F3A] text-white shadow-md scale-105'
-                    : 'bg-white border border-[#F3E8E0] text-[#463F3A]/80 hover:bg-[#FCF4F4] hover:text-[#463F3A]'
+                    ? 'scale-105 bg-[#2c1f2f] text-white shadow-md'
+                    : 'border border-[#eaded5] bg-[#fffdfb] text-[#2c1f2f]/80 hover:bg-[#f0d9d7] hover:text-[#2c1f2f]'
                 }`}
               >
                 {cat}
@@ -273,10 +273,10 @@ const GalleryPage = () => {
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.4 }}
                 onClick={() => openLightbox(index)}
-                className="group relative bg-white rounded-3xl overflow-hidden border border-[#F3E8E0]/70 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer flex flex-col"
+                className="group relative flex cursor-pointer flex-col overflow-hidden rounded-3xl border border-[#eaded5]/70 bg-[#fffdfb] shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl"
               >
                 {/* Image Container */}
-                <div className="relative aspect-[4/5] overflow-hidden bg-gray-100">
+                <div className="relative aspect-[4/5] overflow-hidden bg-[#f1ebe6]">
                   <img
                     src={item.src}
                     alt={item.title}
@@ -288,8 +288,8 @@ const GalleryPage = () => {
                   
                   {/* Category Pill Tag */}
                   <div className="absolute top-3 left-3">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-white/90 backdrop-blur-md text-[#463F3A] shadow-sm">
-                      {item.featured && <Award className="w-3 h-3 text-[#C9A991]" />}
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-[#fffdfb]/90 px-3 py-1 text-[11px] font-semibold text-[#2c1f2f] shadow-sm backdrop-blur-md">
+                      {item.featured && <Award className="h-3 w-3 text-[#c99a5a]" />}
                       {Array.isArray(item.category)
                         ? (activeCategory !== 'All' && item.category.includes(activeCategory as CategoryType) ? activeCategory : item.category[0])
                         : item.category}
@@ -298,7 +298,7 @@ const GalleryPage = () => {
 
                   {/* Zoom Icon Button on Hover */}
                   <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="w-9 h-9 rounded-full bg-white/90 backdrop-blur-md text-[#463F3A] flex items-center justify-center shadow-md">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#fffdfb]/90 text-[#2c1f2f] shadow-md backdrop-blur-md">
                       <ZoomIn className="w-4 h-4" />
                     </div>
                   </div>
@@ -319,20 +319,20 @@ const GalleryPage = () => {
         </motion.div>
 
         {/* Bottom Banner - Celebration & Join Class CTA */}
-        <div className="mt-20 p-8 md:p-12 rounded-[2.5rem] bg-gradient-to-r from-[#FCF4F4] via-[#FDFBF9] to-[#F3E8E0] border border-[#F3E8E0] text-center relative overflow-hidden shadow-sm">
+        <div className="relative mt-20 overflow-hidden rounded-[2.5rem] border border-[#eaded5] bg-gradient-to-r from-[#f0d9d7] via-[#fbf8f5] to-[#eaded5] p-8 text-center shadow-sm md:p-12">
           <div className="max-w-2xl mx-auto relative z-10">
-            <span className="text-[#C9A991] font-bold tracking-[0.25em] uppercase text-xs mb-2 block">
+            <span className="mb-2 block text-xs font-bold uppercase tracking-[0.25em] text-[#9b5b67]">
               Join Our Dance Family
             </span>
-            <h2 className="text-3xl md:text-4xl font-serif text-[#463F3A] mb-4">
+            <h2 className="mb-4 font-serif text-3xl text-[#2c1f2f] md:text-4xl">
               Be Part of Our Next Showcase
             </h2>
-            <p className="text-gray-600 font-light leading-relaxed mb-6">
+            <p className="mb-6 font-light leading-relaxed text-[#756b73]">
               From foundational postures to breathtaking stage recitals, experience true classical and contemporary dance learning under expert guidance.
             </p>
             <a
               href="/classes"
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#463F3A] text-white hover:bg-[#C9A991] transition-colors duration-300 font-medium text-sm tracking-wide shadow-md"
+              className="inline-flex items-center gap-2 rounded-full bg-[#2c1f2f] px-8 py-3.5 text-sm font-medium tracking-wide text-white shadow-md transition-colors duration-300 hover:bg-[#9b5b67]"
             >
               Explore Dance Classes
             </a>
@@ -396,7 +396,7 @@ const GalleryPage = () => {
 
               {/* Caption & Category */}
               <div className="mt-4 text-white max-w-xl">
-                <span className="text-[#C9A991] text-xs font-semibold uppercase tracking-widest block mb-1">
+                <span className="mb-1 block text-xs font-semibold uppercase tracking-widest text-[#c99a5a]">
                   {Array.isArray(filteredItems[selectedImageIndex].category)
                     ? filteredItems[selectedImageIndex].category.join(' • ')
                     : filteredItems[selectedImageIndex].category}
@@ -420,4 +420,3 @@ const GalleryPage = () => {
 };
 
 export default GalleryPage;
-

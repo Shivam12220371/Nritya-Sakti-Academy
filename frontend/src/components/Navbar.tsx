@@ -36,7 +36,7 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-stone-200/80 shadow-sm transition-all duration-200">
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           
           {/* Logo & Brand - Always 100% visible under any condition */}
@@ -46,7 +46,7 @@ const Navbar = () => {
               alt="Natya Shakti Academy"
               className="w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 rounded-full object-cover border-2 border-[#EADCCF] shadow-sm transition-transform duration-200 group-hover:scale-105"
             />
-            <span className="text-sm sm:text-lg md:text-xl lg:text-2xl font-extrabold tracking-tight text-[#463F3A] whitespace-nowrap">
+            <span className="whitespace-nowrap text-xs font-extrabold tracking-tight text-[#463F3A] sm:text-lg md:text-xl lg:text-2xl">
               NATYA <span className="text-[#C9A991]">SHAKTI</span> ACADEMY
             </span>
           </Link>

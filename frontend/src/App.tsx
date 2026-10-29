@@ -110,7 +110,7 @@ function App() {
     <>
       <Router>
         <Toaster position="top-center" />
-        <div className="min-h-screen overflow-x-hidden bg-slate-50 dark:bg-slate-950 font-sans selection:bg-indigo-500/30">
+        <div className="site-shell min-h-screen overflow-x-hidden bg-slate-50 font-sans selection:bg-indigo-500/30 dark:bg-slate-950">
           <ScrollToTop />
           <Navbar />
           <SocialSidebar />

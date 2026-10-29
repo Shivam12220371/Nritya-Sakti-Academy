@@ -155,7 +155,7 @@ const ProgramDetails = () => {
             animate={{ opacity: 1, x: 0 }} 
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-5xl md:text-7xl font-light text-slate-900 dark:text-white tracking-tight mb-4 font-serif mt-4">
+            <h1 className="mt-4 mb-4 font-serif text-4xl font-light tracking-tight text-slate-900 sm:text-5xl md:text-7xl dark:text-white">
               {program.title}
             </h1>
             <h2 className="text-2xl md:text-3xl font-normal text-indigo-500 dark:text-indigo-400 mb-8 italic font-serif leading-10">
