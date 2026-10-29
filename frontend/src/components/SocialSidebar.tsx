@@ -11,7 +11,7 @@ const SocialSidebar = () => {
     {
       name: 'YouTube',
       icon: <FaYoutube className="w-5 h-5 sm:w-6 sm:h-6" />,
-      link: 'https://youtube.com/@nrityashakti316?si=u9tTFUfTfSmmnt4_',
+      link: 'https://youtube.com/@natyashaktiofficial?si=T1JMbiidt5im4rjS_',
       color: 'bg-red-600',
     }
   ];

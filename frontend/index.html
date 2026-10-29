@@ -18,9 +18,28 @@
   <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
   <!-- ───────────────────────────────────────────────────────────────────── -->
 
-  <!-- Use a desktop-style layout viewport on phones so the full desktop
-       composition is scaled into the device instead of reflowing. -->
-  <meta name="viewport" content="width=1024, initial-scale=1.0" />
+  <!-- Keep the desktop-width composition on phones, while calculating the
+       scale needed to fit each device without pinch-zooming. -->
+  <meta id="viewport-meta" name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    (() => {
+      const desktopWidth = 1024;
+      const viewportMeta = document.getElementById('viewport-meta');
+
+      if (!viewportMeta || window.screen.width > 768) return;
+
+      const setPhoneViewport = () => {
+        const scale = Math.min(1, window.screen.width / desktopWidth);
+        viewportMeta.setAttribute(
+          'content',
+          `width=${desktopWidth}, initial-scale=${scale}, minimum-scale=${scale}, maximum-scale=${scale}, user-scalable=no, viewport-fit=cover`,
+        );
+      };
+
+      setPhoneViewport();
+      window.addEventListener('orientationchange', setPhoneViewport);
+    })();
+  </script>
   <title>Natya Shakti Academy | Dance Classes & Training Near Me</title>
   <meta name="description"
     content="Join Natya Shakti Academy for Bharatanatyam, Kathak, and Bollywood dance classes from beginner to advanced levels. Best local dance academy near you.">
