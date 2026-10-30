@@ -173,9 +173,9 @@ const InstructorDashboard = () => {
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col md:flex-row pt-20">
+        <div className="dashboard-shell dashboard-instructor min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col md:flex-row pt-20">
             {/* Sidebar */}
-            <aside className="w-full md:w-64 bg-slate-900 text-slate-300 p-6 flex flex-col h-[calc(100vh-5rem)] md:sticky top-20 shadow-xl z-10">
+            <aside className="dashboard-sidebar w-full md:w-64 bg-slate-900 text-slate-300 p-6 flex flex-col h-[calc(100vh-5rem)] md:sticky top-20 shadow-xl z-10">
                 <div className="mb-6 text-white font-bold text-xl tracking-tight flex flex-col">
                     <span>Instructor</span>
                     <span className="text-indigo-400 text-sm font-normal">Dashboard</span>
@@ -243,7 +243,7 @@ const InstructorDashboard = () => {
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 p-6 md:p-10 overflow-auto">
+            <main className="dashboard-content flex-1 p-6 md:p-10 overflow-auto">
                 <div className="max-w-5xl mx-auto space-y-8">
                     
                     {activeTab === 'classes' && (

@@ -96,3 +96,376 @@ textarea {
 .dark ::-webkit-scrollbar-thumb:hover {
   background-color: #ea580c;
 }
+
+/* Shared dashboard visual system */
+.dashboard-shell {
+  background:
+    radial-gradient(circle at 8% 0%, rgba(126, 158, 141, 0.16), transparent 28rem),
+    radial-gradient(circle at 95% 12%, rgba(214, 169, 135, 0.11), transparent 24rem),
+    #f8fafc;
+}
+
+.dark .dashboard-shell {
+  background:
+    radial-gradient(circle at 8% 0%, rgba(126, 158, 141, 0.16), transparent 28rem),
+    radial-gradient(circle at 95% 12%, rgba(214, 169, 135, 0.1), transparent 24rem),
+    #020617;
+}
+
+.dashboard-sidebar {
+  background: linear-gradient(165deg, #26352f 0%, #18231f 100%) !important;
+  border-color: rgba(148, 163, 184, 0.16) !important;
+  box-shadow: 12px 0 35px rgba(15, 23, 42, 0.12) !important;
+}
+
+.dashboard-student .dashboard-sidebar {
+  background: linear-gradient(165deg, #ffffff 0%, #f8f7ff 100%) !important;
+  box-shadow: 12px 0 35px rgba(79, 70, 229, 0.07) !important;
+}
+
+.dark .dashboard-student .dashboard-sidebar {
+  background: linear-gradient(165deg, #26352f 0%, #18231f 100%) !important;
+}
+
+.dashboard-sidebar nav button,
+.dashboard-sidebar nav a,
+.dashboard-sidebar > div:last-child button,
+.dashboard-sidebar > div:last-child a {
+  transition: transform 180ms ease, background-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+}
+
+.dashboard-sidebar nav button:hover,
+.dashboard-sidebar nav a:hover,
+.dashboard-sidebar > div:last-child button:hover,
+.dashboard-sidebar > div:last-child a:hover {
+  transform: translateX(3px);
+}
+
+.dashboard-sidebar nav button[class*="bg-indigo-600"],
+.dashboard-sidebar nav button[class*="dark:bg-white"] {
+  background: #dce9e1 !important;
+  color: #26352f !important;
+  box-shadow: 0 10px 24px rgba(126, 158, 141, 0.24);
+}
+
+.dashboard-sidebar nav button[class*="bg-indigo-600"] svg,
+.dashboard-sidebar nav button[class*="dark:bg-white"] svg {
+  color: #496b5a !important;
+}
+
+.dashboard-student .dashboard-sidebar nav button[class*="bg-slate-900"] {
+  background: #dce9e1 !important;
+  color: #26352f !important;
+  box-shadow: 0 10px 24px rgba(126, 158, 141, 0.24);
+}
+
+.dashboard-content {
+  min-width: 0;
+}
+
+.dashboard-content h1 {
+  letter-spacing: -0.035em;
+}
+
+.dashboard-content .shadow-sm {
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06) !important;
+}
+
+.dashboard-content .bg-white.rounded-2xl,
+.dashboard-content .bg-white.rounded-3xl,
+.dashboard-content .dark\:bg-slate-900.rounded-2xl,
+.dashboard-content .dark\:bg-slate-900.rounded-3xl {
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+}
+
+.dashboard-content .bg-white.rounded-2xl:hover,
+.dashboard-content .bg-white.rounded-3xl:hover,
+.dashboard-content .dark\:bg-slate-900.rounded-2xl:hover,
+.dashboard-content .dark\:bg-slate-900.rounded-3xl:hover {
+  border-color: rgba(99, 102, 241, 0.28);
+  box-shadow: 0 18px 38px rgba(79, 70, 229, 0.1) !important;
+}
+
+/* Color-rich surfaces keep information dense areas from feeling flat. */
+.dashboard-content .bg-white.rounded-2xl,
+.dashboard-content .bg-white.rounded-3xl {
+  background: #ffffff !important;
+}
+
+.dashboard-content .dark\:bg-slate-900.rounded-2xl,
+.dashboard-content .dark\:bg-slate-900.rounded-3xl {
+  background: #ffffff !important;
+}
+
+.dashboard-admin .dashboard-content .bg-white.rounded-2xl,
+.dashboard-admin .dashboard-content .bg-white.rounded-3xl {
+  border-top: 3px solid rgba(245, 158, 11, 0.62);
+  box-shadow: 0 14px 34px rgba(245, 158, 11, 0.08) !important;
+}
+
+.dashboard-instructor .dashboard-content .bg-white.rounded-2xl,
+.dashboard-instructor .dashboard-content .bg-white.rounded-3xl {
+  border-top: 3px solid rgba(99, 102, 241, 0.62);
+  box-shadow: 0 14px 34px rgba(79, 70, 229, 0.08) !important;
+}
+
+.dashboard-student .dashboard-content .bg-white.rounded-2xl,
+.dashboard-student .dashboard-content .bg-white.rounded-3xl {
+  border-top: 3px solid rgba(236, 72, 153, 0.52);
+  box-shadow: 0 14px 34px rgba(168, 85, 247, 0.08) !important;
+}
+
+.dashboard-admin .dashboard-content .bg-indigo-600,
+.dashboard-content .bg-indigo-700,
+.dashboard-content .bg-blue-600 {
+  background: linear-gradient(135deg, #dce9e1, #edf3ee) !important;
+  color: #26352f !important;
+  border: 1px solid rgba(73, 107, 90, 0.22);
+}
+
+.dashboard-content .bg-indigo-600:hover,
+.dashboard-content .bg-indigo-700:hover,
+.dashboard-content .bg-blue-600:hover {
+  background: linear-gradient(135deg, #cbded1, #e4eee7) !important;
+  box-shadow: 0 10px 22px rgba(73, 107, 90, 0.18) !important;
+}
+
+.dashboard-content .bg-indigo-600 .text-white,
+.dashboard-content .bg-indigo-700 .text-white,
+.dashboard-content .bg-blue-600 .text-white,
+.dashboard-content .bg-indigo-600.text-white,
+.dashboard-content .bg-indigo-700.text-white,
+.dashboard-content .bg-blue-600.text-white {
+  color: #26352f !important;
+}
+
+.dashboard-content .bg-indigo-600 svg,
+.dashboard-content .bg-indigo-700 svg,
+.dashboard-content .bg-blue-600 svg {
+  color: #496b5a !important;
+}
+
+/* Replace legacy blue utility classes in dashboard markup with the sage palette. */
+.dashboard-shell [class*="bg-indigo-"],
+.dashboard-shell [class*="bg-blue-"] {
+  background-color: #e6efe8 !important;
+  color: #30483a !important;
+}
+
+.dashboard-shell [class*="bg-indigo-500\/"],
+.dashboard-shell [class*="bg-blue-500\/"] {
+  background-color: rgba(126, 158, 141, 0.12) !important;
+}
+
+.dashboard-shell [class*="text-indigo-"],
+.dashboard-shell [class*="text-blue-"] {
+  color: #496b5a !important;
+}
+
+.dashboard-shell [class*="border-indigo-"],
+.dashboard-shell [class*="border-blue-"] {
+  border-color: rgba(126, 158, 141, 0.35) !important;
+}
+
+.dashboard-shell [class*="border-l-indigo-"],
+.dashboard-shell [class*="border-l-blue-"] {
+  border-left-color: #7e9e8d !important;
+}
+
+.dashboard-shell [class*="from-indigo-"],
+.dashboard-shell [class*="from-blue-"],
+.dashboard-shell [class*="to-indigo-"],
+.dashboard-shell [class*="to-blue-"] {
+  --tw-gradient-from: #dce9e1 !important;
+  --tw-gradient-to: #f2e7dc !important;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+}
+
+.dashboard-shell [class*="bg-gradient-to"] {
+  background-image: linear-gradient(135deg, #dce9e1, #f2e7dc) !important;
+}
+
+.dashboard-shell [class*="ring-indigo-"],
+.dashboard-shell [class*="ring-blue-"] {
+  --tw-ring-color: rgba(126, 158, 141, 0.35) !important;
+}
+
+.dashboard-shell [class*="hover\:bg-indigo-"]:hover,
+.dashboard-shell [class*="hover\:bg-blue-"]:hover {
+  background-color: #d3e3d8 !important;
+}
+
+/* Keep dashboard content cards light in dark mode too; only the navigation rail stays dark. */
+.dashboard-content .dark\:bg-slate-900,
+.dashboard-content .dark\:bg-slate-950,
+.dashboard-content .bg-slate-900,
+.dashboard-content .bg-slate-950 {
+  background: #ffffff !important;
+  color: #30483a !important;
+}
+
+.dashboard-content .dark\:bg-slate-900 *,
+.dashboard-content .dark\:bg-slate-950 *,
+.dashboard-content .bg-slate-900 *,
+.dashboard-content .bg-slate-950 * {
+  color: inherit;
+}
+
+.dashboard-content .dark\:text-white,
+.dashboard-content .dark\:text-slate-100,
+.dashboard-content .dark\:text-slate-200,
+.dashboard-content .dark\:text-slate-300,
+.dashboard-content .dark\:text-slate-400 {
+  color: #496052 !important;
+}
+
+.dashboard-content .dark\:border-slate-800,
+.dashboard-content .dark\:border-slate-700,
+.dashboard-content .dark\:border-indigo-800,
+.dashboard-content .dark\:border-indigo-900\/50 {
+  border-color: rgba(126, 158, 141, 0.3) !important;
+}
+
+/* Use neutral editorial typography for dashboard content; reserve color for meaning. */
+.dashboard-content,
+.dashboard-content p,
+.dashboard-content span,
+.dashboard-content label,
+.dashboard-content li,
+.dashboard-content td,
+.dashboard-content th {
+  color: #475569;
+}
+
+.dashboard-content h1,
+.dashboard-content h2,
+.dashboard-content h3,
+.dashboard-content h4,
+.dashboard-content h5,
+.dashboard-content h6 {
+  color: #292524;
+}
+
+.dashboard-content .text-slate-400,
+.dashboard-content .text-slate-500,
+.dashboard-content .text-slate-600,
+.dashboard-content .text-slate-700,
+.dashboard-content .text-slate-800,
+.dashboard-content .text-slate-900,
+.dashboard-content .dark\:text-slate-100,
+.dashboard-content .dark\:text-slate-200,
+.dashboard-content .dark\:text-slate-300,
+.dashboard-content .dark\:text-slate-400 {
+  color: #475569 !important;
+}
+
+.dashboard-content h1 .text-indigo-600,
+.dashboard-content h1 .text-indigo-400,
+.dashboard-content h2 .text-indigo-600,
+.dashboard-content h2 .text-indigo-400,
+.dashboard-content h3 .text-indigo-600,
+.dashboard-content h3 .text-indigo-400 {
+  color: #a16207 !important;
+}
+
+.dashboard-content .text-indigo-600,
+.dashboard-content .text-indigo-700,
+.dashboard-content .text-indigo-500,
+.dashboard-content .text-blue-600,
+.dashboard-content .text-blue-700 {
+  color: #a16207 !important;
+}
+
+.dashboard-content .bg-indigo-50,
+.dashboard-content .bg-indigo-100,
+.dashboard-content .bg-blue-50,
+.dashboard-content .bg-blue-100 {
+  background-color: #fffbeb !important;
+}
+
+.dashboard-content .text-green-500,
+.dashboard-content .text-green-600,
+.dashboard-content .text-emerald-500,
+.dashboard-content .text-emerald-600 {
+  color: #0f766e !important;
+}
+
+.dashboard-content .text-red-500,
+.dashboard-content .text-red-600,
+.dashboard-content .text-rose-500,
+.dashboard-content .text-rose-600 {
+  color: #be123c !important;
+}
+
+.dashboard-content .bg-slate-50.rounded-xl,
+.dashboard-content .bg-slate-50.rounded-2xl,
+.dashboard-content .dark\:bg-slate-800.rounded-xl,
+.dashboard-content .dark\:bg-slate-800.rounded-2xl {
+  background: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
+.dark .dashboard-content .bg-slate-50.rounded-xl,
+.dark .dashboard-content .bg-slate-50.rounded-2xl,
+.dark .dashboard-content .dark\:bg-slate-800.rounded-xl,
+.dark .dashboard-content .dark\:bg-slate-800.rounded-2xl {
+  background: #ffffff !important;
+  border-color: #e2e8f0 !important;
+}
+
+.dashboard-content .text-slate-500 {
+  color: #64748b;
+}
+
+.dark .dashboard-content .text-slate-500 {
+  color: #a5b4fc;
+}
+
+
+.dashboard-content input,
+.dashboard-content select,
+.dashboard-content textarea {
+  transition: border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+}
+
+.dashboard-content input:focus,
+.dashboard-content select:focus,
+.dashboard-content textarea:focus {
+  border-color: #7e9e8d !important;
+  box-shadow: 0 0 0 4px rgba(126, 158, 141, 0.18);
+}
+
+.dashboard-content button,
+.dashboard-content a {
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+}
+
+.dashboard-content button[class*="bg-indigo-600"]:hover,
+.dashboard-content button[class*="bg-blue-600"]:hover,
+.dashboard-content a[class*="bg-indigo-600"]:hover {
+  box-shadow: 0 10px 22px rgba(79, 70, 229, 0.24);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 767px) {
+  .dashboard-shell {
+    padding-top: 4.5rem;
+  }
+
+  .dashboard-sidebar {
+    position: relative;
+    top: auto;
+    height: auto;
+    min-height: auto;
+    border-right: 0 !important;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+  }
+
+  .dashboard-sidebar nav {
+    max-height: 16rem;
+  }
+
+  .dashboard-content {
+    padding: 1.25rem !important;
+  }
+}

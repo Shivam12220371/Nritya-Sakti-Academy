@@ -436,7 +436,7 @@ const AdminDashboard = () => {
     }
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col md:flex-row pt-20">
+        <div className="dashboard-shell dashboard-admin min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col md:flex-row pt-20">
             
             {showClassModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
@@ -601,7 +601,7 @@ const AdminDashboard = () => {
                 </div>
             )}
 
-            <aside className="w-full md:w-64 bg-slate-900 text-slate-300 p-6 flex flex-col h-[calc(100vh-5rem)] md:sticky top-20 shadow-xl z-10">
+            <aside className="dashboard-sidebar w-full md:w-64 bg-slate-900 text-slate-300 p-6 flex flex-col h-[calc(100vh-5rem)] md:sticky top-20 shadow-xl z-10">
                 <div className="mb-6 text-white font-bold text-xl tracking-tight">Admin<span className="text-indigo-400">Hub</span></div>
                 
                 {/* Profile Section */}
@@ -659,7 +659,7 @@ const AdminDashboard = () => {
                 </div>
             </aside>
 
-            <main className="flex-1 p-6 md:p-10 overflow-auto">
+            <main className="dashboard-content flex-1 p-6 md:p-10 overflow-auto">
                 <div className="max-w-6xl mx-auto space-y-8">
                     {activeTab === 'overview' && (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

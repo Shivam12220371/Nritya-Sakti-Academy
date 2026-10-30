@@ -15,6 +15,18 @@ const getYouTubeThumbnail = (url: string) => {
       : null;
 };
 
+const getProgressLevel = (name: string, score: number) => {
+    const palettes: Record<string, { bar: string; text: string; track: string }> = {
+        Technique: { bar: '#c2413b', text: '#9f2f2a', track: '#fee2e2' },
+        Flexibility: { bar: '#0f766e', text: '#0f5f59', track: '#ccfbf1' },
+        Rhythm: { bar: '#d97706', text: '#b45309', track: '#fef3c7' },
+        Expression: { bar: '#9333a3', text: '#7e228d', track: '#f5d0fe' },
+    };
+
+    const level = score >= 75 ? 'Strong' : score >= 50 ? 'Growing' : 'Needs focus';
+    return { ...palettes[name], label: level };
+};
+
 const StudentDashboard = () => {
    const [activeTab, setActiveTab] = useState('profile');
    const [studentData, setStudentData] = useState<any>(null);
@@ -178,18 +190,18 @@ const StudentDashboard = () => {
 
    // Setup structural data safely 
    const skills = [
-       { name: "Technique", score: studentData.progress?.technique || 0, color: "bg-blue-500" },
-       { name: "Flexibility", score: studentData.progress?.flexibility || 0, color: "bg-emerald-500" },
-       { name: "Rhythm", score: studentData.progress?.rhythm || 0, color: "bg-orange-500" },
-       { name: "Expression", score: studentData.progress?.expression || 0, color: "bg-purple-500" },
+       { name: "Technique", score: studentData.progress?.technique || 0 },
+       { name: "Flexibility", score: studentData.progress?.flexibility || 0 },
+       { name: "Rhythm", score: studentData.progress?.rhythm || 0 },
+       { name: "Expression", score: studentData.progress?.expression || 0 },
    ];
    const overallProgress = studentData.progress?.overall || 0;
 
    return (
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col md:flex-row pt-20 relative">
+      <div className="dashboard-shell dashboard-student min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col md:flex-row pt-20 relative">
          
          {/* Sidebar Navigation */}
-         <aside className="w-full md:w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 p-6 flex flex-col h-[calc(100vh-5rem)] md:sticky top-20 z-10">
+         <aside className="dashboard-sidebar w-full md:w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 p-6 flex flex-col h-[calc(100vh-5rem)] md:sticky top-20 z-10">
             <div className="flex items-center gap-4 mb-10">
                <div 
                    onClick={handleImageClick}
@@ -254,7 +266,7 @@ const StudentDashboard = () => {
          </aside>
 
          {/* Main Content Area */}
-         <main className="flex-1 p-6 md:p-10 overflow-auto relative">
+         <main className="dashboard-content flex-1 p-6 md:p-10 overflow-auto relative">
             
             {/* Live Meeting High-Priority Banner */}
             {liveMeetings.length > 0 && liveMeetings.map(meeting => (
@@ -345,8 +357,11 @@ const StudentDashboard = () => {
                   <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 shadow-sm">
                      <h3 className="text-xl font-bold mb-8 flex items-center justify-between">
                         Skill Progression Matrix
-                        <span className="text-indigo-600 font-bold bg-indigo-50 dark:bg-indigo-900/30 px-4 py-1.5 rounded-full text-sm border border-indigo-100 dark:border-indigo-800 shadow-sm flex items-center gap-2">
-                            <span className="relative flex h-3 w-3"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span><span className="relative inline-flex rounded-full h-3 w-3 bg-indigo-500"></span></span>
+                        <span className="text-amber-700 font-bold bg-amber-50 px-4 py-1.5 rounded-full text-sm border border-amber-200 shadow-sm flex items-center gap-2">
+                            <span className="relative flex h-3 w-3" aria-label="Overall target active">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-500 shadow-[0_0_0_3px_rgba(245,158,11,0.2)]"></span>
+                            </span>
                             Overall Target: {overallProgress}%
                         </span>
                      </h3>
@@ -354,18 +369,28 @@ const StudentDashboard = () => {
                      <div className="grid md:grid-cols-2 gap-x-12 gap-y-8">
                         {skills.map((skill, index) => (
                            <div key={index}>
+                              {(() => {
+                                 const progressLevel = getProgressLevel(skill.name, skill.score);
+                                 return (
+                                    <>
                               <div className="flex justify-between mb-2">
-                                 <span className="font-bold text-slate-700 dark:text-slate-200">{skill.name}</span>
-                                 <span className="font-black text-slate-900 dark:text-slate-100">{skill.score}%</span>
+                                 <span className="font-bold text-slate-700">{skill.name}</span>
+                                 <span className="font-black" style={{ color: progressLevel.text }}>
+                                    {skill.score}% <span className="text-xs uppercase tracking-wide">{progressLevel.label}</span>
+                                 </span>
                               </div>
-                              <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-full h-4 shadow-inner overflow-hidden">
+                              <div className="w-full rounded-full h-4 shadow-inner overflow-hidden" style={{ backgroundColor: progressLevel.track }}>
                                  <motion.div 
                                     initial={{ width: 0 }}
                                     animate={{ width: `${skill.score}%` }}
                                     transition={{ duration: 1.2, delay: 0.1 + (index * 0.1), ease: "easeOut" }}
-                                    className={`${skill.color} h-4 rounded-full relative`}
+                                    className="h-4 rounded-full relative"
+                                    style={{ backgroundColor: progressLevel.bar }}
                                  />
                               </div>
+                                    </>
+                                 );
+                              })()}
                            </div>
                         ))}
                      </div>
