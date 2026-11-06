@@ -2,6 +2,15 @@ const express = require('express');
 const router = express.Router();
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 
+const stripMarkdown = (text) => text
+  .replace(/```[\s\S]*?```/g, (match) => match.replace(/```/g, ''))
+  .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+  .replace(/^\s{0,3}#{1,6}\s*/gm, '')
+  .replace(/^\s*[-+*]\s+/gm, '')
+  .replace(/[*_`]/g, '')
+  .replace(/\n{3,}/g, '\n\n')
+  .trim();
+
 router.post('/', async (req, res) => {
   try {
     const { message } = req.body;
@@ -31,6 +40,7 @@ router.post('/', async (req, res) => {
     2. If a user asks about fees, state that fee structures vary and they should call +91 6203053876 or visit the academy in person for exact details.
     3. Keep your answers concise, warm, and professional.
     4. Do not hallucinate or make up rules/policies.
+    5. Return plain text only. Do not use Markdown, asterisks, bold text, headings, bullet points, backticks, or links.
     `;
 
     const model = genAI.getGenerativeModel({ 
@@ -62,7 +72,7 @@ router.post('/', async (req, res) => {
       }
     }
 
-    return res.status(200).json({ reply: text });
+    return res.status(200).json({ reply: stripMarkdown(text) });
 
   } catch (error) {
     console.error('Chat error:', error);

@@ -1,4 +1,4 @@
-import { FaInstagram, FaYoutube } from 'react-icons/fa';
+import { FaInstagram, FaWhatsapp, FaYoutube } from 'react-icons/fa';
 
 const SocialSidebar = () => {
   const socials = [
@@ -13,7 +13,13 @@ const SocialSidebar = () => {
       icon: <FaYoutube className="w-5 h-5 sm:w-6 sm:h-6" />,
       link: 'https://youtube.com/@natyashaktiofficial?si=T1JMbiidt5im4rjS_',
       color: 'bg-red-600',
-    }
+    },
+    {
+      name: 'WhatsApp',
+      icon: <FaWhatsapp className="w-5 h-5 sm:w-6 sm:h-6" />,
+      link: 'https://wa.me/916203053876',
+      color: 'bg-[#25D366]',
+    },
   ];
 
   const handleOpen = (url: string) => {

@@ -8,6 +8,15 @@ type Message = {
   text: string;
 };
 
+const stripMarkdown = (text: string): string => text
+  .replace(/```[\s\S]*?```/g, (match) => match.replace(/```/g, ''))
+  .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+  .replace(/^\s{0,3}#{1,6}\s*/gm, '')
+  .replace(/^\s*[-+*]\s+/gm, '')
+  .replace(/[*_`]/g, '')
+  .replace(/\n{3,}/g, '\n\n')
+  .trim();
+
 const AIChatBot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
@@ -112,7 +121,7 @@ const AIChatBot: React.FC = () => {
 
     try {
       const response = await axios.post('/api/chat', { message: userMsg });
-      const replyText = response.data.reply;
+      const replyText = stripMarkdown(String(response.data.reply ?? ''));
       setMessages((prev) => [...prev, { role: 'model', text: replyText }]);
       speakText(replyText);
     } catch (error: any) {
